@@ -1,0 +1,15 @@
+"";"geneset";"up";"dn";"tot";"rank";"highup";"highdown";"lowup";"lowdown"
+"1";"actin cortical patch";3;6;9;"7";0;1;3;5
+"2";"chromosome, centromeric region";2;5;7;"14";0;0;2;5
+"3";"cytosolic small ribosomal subunit";6;10;16;"2";0;0;6;10
+"4";"endoplasmic reticulum";25;30;55;"21";1;0;24;30
+"5";"endoplasmic reticulum membrane";19;19;38;"10";1;0;18;19
+"6";"intracellular organelle";7;11;18;"10";0;0;7;11
+"7";"mediator complex";4;5;9;"24";0;0;4;5
+"8";"nuclear envelope";5;7;12;"25";0;0;5;7
+"9";"peroxisomal membrane";3;3;6;"4";0;0;3;3
+"10";"phagophore assembly site membrane";4;3;7;"25";0;0;4;3
+"11";"post-mRNA release spliceosomal complex";2;8;10;"10";0;0;2;8
+"12";"prospore membrane";3;4;7;"3";0;0;3;4
+"13";"site of double-strand break";0;5;5;"22";0;0;0;5
+"14";"All";1520;1557;3077;"";8;6;1512;1551

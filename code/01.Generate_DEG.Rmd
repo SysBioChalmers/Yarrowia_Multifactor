@@ -1,0 +1,318 @@
+---
+title: "Generate DE lists for the comparisons"
+author: "Simone Zaghen"
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output: 
+  html_document: 
+    toc: true
+    number_section: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: true
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = "../results/Reports") })
+---
+
+# Load required packages
+
+```{r, results='hide', message=FALSE}
+library(limma)
+library(edgeR)
+library(tidyverse)
+library(RColorBrewer)
+
+if (!dir.exists("../results/")){dir.create("../results/")}
+if (!dir.exists("../results/")){dir.create("../results/Reports/")}
+
+```
+
+# Preprocessing
+## Load and restructure data
+
+```{r}
+gene_counts <- read.delim("../data/merged_gene_counts.txt", skip =0 ) #file with gene counts
+metadata <- read.delim('../data/metadata_samples.txt', skip =0) #file with metadata and proper group names
+cols <- c("Strain","NitrogenSource","CN_Ratio","DR","group","Overexpression","Deletion") #columns to convert to factor
+metadata[cols] <- lapply(metadata[cols], factor) #column as factor with levels
+rownames(gene_counts) <- gene_counts$Geneid #gene names as row names
+gene_counts <- gene_counts[,-1:-2] #remove column without count data
+colnames(gene_counts) <- gsub('P20604_|_S.*', '', colnames(gene_counts)) #rename columns
+gene_counts <- gene_counts[,order(names(gene_counts))] #placing samples in order
+colnames(gene_counts) <- as.character(metadata$ID) #rename rows so that they have our ID (not NGI_ID)
+
+#Create DGEList and add the metadata of the samples
+x <- DGEList(counts = gene_counts, genes = rownames(gene_counts), samples = metadata) #create DGEList
+x$samples <- dplyr::select(x$samples, -c("NGISampleID")) #remove non-necessary columns
+rm("metadata", "cols") #remove dataframe used to add the metadata
+
+```
+
+## Filter low reads
+
+```{r, warning=FALSE,fig.width=10, fig.height=5}
+#Normalize for library size, by taking the log count-per-million. It's not a satisfactory normalization, but we just use it to plot raw reads
+cpm <- cpm(x)
+lcpm <- cpm(x, log = T)
+
+#Plot raw logCPM reads before filtering
+nsamples <- ncol(x)
+col <- brewer.pal(nsamples, "Paired") # Ignore warning, some samples will have identical color.
+par(mfrow = c(1, 3))
+plot(density(lcpm[, 1]),col = col[1],ylim = c(0, 0.6), las = 2, 
+     main = "A. Raw data",
+     xlab = "Log-cpm")
+abline(v = 0, lty = 3)
+for (i in 2:nsamples) {
+  den <- density(lcpm[, i])
+  lines(den$x, den$y, col = col[i])
+}
+
+#Filter: for each gene at least 50% of the samples should have a CPM value higher than 1.
+keep.exprs1 <- rowSums(cpm > 1) >= 45*0.5
+x_Filtered_1 <- x[keep.exprs1, keep.lib.sizes = FALSE]
+
+lcpm <- cpm(x_Filtered_1, log = T)
+plot(
+  density(lcpm[, 1]),
+  col = col[1],
+  ylim = c(0, 0.6),
+  las = 2,
+  main = "B. Filtered 50% CPM>1",
+  xlab = "Log-cpm")
+abline(v = 0, lty = 3)
+for (i in 2:nsamples) {
+  den <- density(lcpm[, i])
+  lines(den$x, den$y, col = col[i])
+}
+
+#Filter with filterByExpr function
+keep.exprs2 <- filterByExpr(x, group = x$samples$group,
+                            lib.size = x$samples$lib.size,
+                            #min.count = 5,
+                            #min.total.count = 5,
+                            #large.n = 5,
+                            #min.prop = 0.01)
+                           )
+x_Filtered_2 <- x[keep.exprs2, keep.lib.sizes = FALSE]
+
+lcpm <- cpm(x_Filtered_2, log = T)
+
+plot(density(lcpm[, 1]),col = col[1],ylim = c(0, 0.6), las = 2,
+     main = "C.filterByExpr",
+     xlab = "Log-cpm")
+abline(v = 0, lty = 3)
+for (i in 2:nsamples) {
+  den <- density(lcpm[, i])
+  lines(den$x, den$y, col = col[i])
+}
+
+```
+
+Dimension before filtering (genes, samples): `r dim(x)` \
+Dimension after filtering (50% CPM >1) (genes, samples): `r dim(x_Filtered_1)` \
+Dimension after filterByExpr (genes, samples): `r dim(x_Filtered_2)` \
+\
+Decided to continue working with data filtered with filterByExpr ("x_Filtered_2).  
+  
+## Normalize gene counts
+
+```{r, fig.width=15, fig.height=16}
+#Decided to continue working with data filtered with filterByExpr ("x_Filtered_2)
+rm(list=ls()[!(ls() %in% c("gene_counts", "x_Filtered_2"))]) #clean the working environment
+
+x_Filtered_2_TMM <- calcNormFactors(x_Filtered_2, method = "TMM") #TMM normalization (trimmed mean of M-values)
+lcpm_x_Filtered_2 <- cpm(x_Filtered_2, log = TRUE) #calculate lcpm of non-normalized data
+lcpm_x_Filtered_2_TMM <- cpm(x_Filtered_2_TMM, log = TRUE) #calculate lcpm normalized data
+
+#boxplot to check effect normalization (without outliers)
+par(mfrow=c(2,2))
+boxplot(lcpm_x_Filtered_2, las= 3, outline = FALSE, main = "Not normalized - No outliers", ylab = "Log-CPM")
+boxplot(lcpm_x_Filtered_2_TMM, las = 3, outline = FALSE, main = "Normalized - No outliers", ylab = "Log-CPM")
+
+#boxplot to check effect normalization (with outliers)
+boxplot(lcpm_x_Filtered_2, las= 3, outline = TRUE, main = "Not normalized - Outliers", ylab = "Log-CPM")
+boxplot(lcpm_x_Filtered_2_TMM, las = 3, outline = TRUE, main = "Normalized - Outliers", ylab = "Log-CPM")
+```
+
+## Export normalized gene counts
+
+```{r}
+#Create a normalized gene count list and export it
+if (!dir.exists("../results")){dir.create("../results/")}
+
+tmm <- cpm(x_Filtered_2_TMM)
+saveRDS(tmm, file = "../results/TMM_Normalized_GeneCounts.rds")
+
+```
+
+# Unsupervised clustering
+
+Unsupervised clustering keeping all the samples. Samples are labelled differently to see which condition separates them better.
+
+```{r, warning=FALSE, fig.width=10, fig.height=10}
+rm(list=ls()[!(ls() %in% c("gene_counts", "x_Filtered_2_TMM", "lcpm_x_Filtered_2_TMM"))]) #clean the working environment
+
+#Generate MDS plots: good to see if there are any outliers in the data and to see what's clustering
+#MDS plot for all the samples, colored by different conditions
+par(mfrow = c(2, 2))
+
+col.group <- x_Filtered_2_TMM$samples$Strain
+levels(col.group) <- brewer.pal(nlevels(col.group), "Set1")
+col.group <- as.character(col.group)
+plotMDS(lcpm_x_Filtered_2_TMM, labels = x_Filtered_2_TMM$samples$Strain,col = col.group, gene.selection = "common")
+title(main = "A. All Samples by Strain")
+
+col.group <- x_Filtered_2_TMM$samples$NitrogenSource
+levels(col.group) <- brewer.pal(nlevels(col.group), "Set1")
+col.group <- as.character(col.group)
+plotMDS(lcpm_x_Filtered_2_TMM, labels = x_Filtered_2_TMM$samples$NitrogenSource,col = col.group, gene.selection = "common")
+title(main = "B. All Samples by Nitrogen Source")
+
+col.group <- x_Filtered_2_TMM$samples$CN_Ratio
+levels(col.group) <- brewer.pal(nlevels(col.group), "Set1")
+col.group <- as.character(col.group)
+plotMDS(lcpm_x_Filtered_2_TMM, labels = x_Filtered_2_TMM$samples$CN_Ratio,col = col.group, gene.selection = "common")
+title(main = "C. All Samples by CN Ratio")
+
+col.group <- x_Filtered_2_TMM$samples$DR
+levels(col.group) <- brewer.pal(nlevels(col.group), "Set1")
+col.group <- as.character(col.group)
+plotMDS(lcpm_x_Filtered_2_TMM, labels = x_Filtered_2_TMM$samples$DR, col = col.group, gene.selection = "common")
+title(main = "D. All Samples by DR")
+
+```
+
+In this branch of the project, we decided to investigate the influence of the nitrogen source on OKYL029, OKYL049, and JFYL007. The PCA shows little separation based on nitrogen source, and we think this is an interesting results since urea is a viable nitrogen source that is used in many studies. From an industrial point of view, urea is also cheaper than ammonium sulphate. 
+
+# Ammonium sulphate vs Urea
+
+## Subset data
+Subset data to include samples to be analysed
+
+```{r}
+rm(list=ls()[!(ls() %in% c("gene_counts", "x_Filtered_2_TMM"))]) #clean the working environment
+
+Subset <- x_Filtered_2_TMM[,which(x_Filtered_2_TMM$samples$DR == "0.1")]
+
+```
+
+## Check for outliers
+Examine samples for outliers and to check if they cluster together.  
+The samples are not well separated by the nitrogen source. 
+
+```{r warning=FALSE, fig.keep='last'}
+mds <- plotMDS(Subset, gene.selection = "common")
+toplot <- data.frame(Dim1 = mds$x, Dim2 = mds$y, Strain = factor(Subset$samples$Strain), Nitrogen_Source = factor(Subset$samples$NitrogenSource))
+mds$var.explained <- round(mds$var.explained*100, 0)
+ggplot(toplot, aes(Dim1, Dim2, colour = Strain)) + geom_point() +
+   xlab(paste0("PC1: ",mds$var.explained[1],"% variance")) +
+   ylab(paste0("PC2: ",mds$var.explained[2],"% variance")) +
+   geom_text(aes(label = Nitrogen_Source), position = position_nudge(x = 0.2), show.legend = FALSE) + 
+   theme_bw()
+
+```
+
+## Create design matrix
+Create a variable called group in which I combine the different strains, nitrogen sources, and C/N ratios. I also decided to use a means model (~ 0 + group) since it makes analysis more clear later on. As documented in the limma guide (DOI: 10.12688/f1000research.27893.1) the two design are equivalent for categorical variables.
+
+```{r}
+Subset$samples$group <- factor(paste(Subset$samples$Strain, substring(Subset$samples$NitrogenSource,1,1),
+                                     Subset$samples$CN_Ratio,sep="_")) #Define the levels for the model matrix
+group <- Subset$samples$group
+  
+#Design model matrix
+design <- model.matrix(~ 0 + group, data = Subset) #define design matrix
+rownames(design) <- rownames(Subset$samples)
+colnames(design) <- gsub("group", "", colnames(design))
+design #check the design matrix
+
+```
+
+## Create contrast matrix
+Create the contrast matrix and set the contrasts that will be analysed by the model
+
+```{r}
+contr.matrix <- makeContrasts(
+    OKYL029_U_116_0.1vsOKYL029_AS_116_0.1 = OKYL029_U_116-OKYL029_A_116,
+    OKYL049_U_116_0.1vsOKYL049_AS_116_0.1 = OKYL049_U_116-OKYL049_A_116,
+    JFYL007_U_116_0.1vsJFYL007_AS_116_0.1 = JFYL007_U_116-JFYL007_A_116,
+    OKYL029_U_3_0.1vsOKYL029_AS_3_0.1 = OKYL029_U_3-OKYL029_A_3,
+    OKYL049_U_3_0.1vsOKYL049_AS_3_0.1 = OKYL049_U_3-OKYL049_A_3,
+    JFYL007_U_3_0.1vsJFYL007_AS_3_0.1 = JFYL007_U_3-JFYL007_A_3,
+   levels = colnames(design))
+contr.matrix
+
+```
+
+## Voom transform
+Limma works with voom transformed data, so perform a voom transformation and then fit the model.  
+Mean-variance relationship of log-CPM values: typically, the “voom-plot” shows a decreasing trend between the means and variances resulting from a combination of technical variation in the sequencing experiment and biological variation among the replicate samples from different cell populations. Experiments with high biological variation usually result in flatter trends, where variance values plateau at high expression values. Experiments with low biological variation tend to result in sharp decreasing trends.  
+Moreover, the voom-plot provides a visual check on the level of filtering performed upstream. If filtering of lowly- expressed genes is insufficient, a drop in variance levels can be observed at the low end of the expression scale due to very small counts. If this is observed, one should return to the earlier filtering step and increase the expression threshold applied to the dataset.  
+
+```{r}
+v <- voom(Subset, design, plot = TRUE) #voom transform
+
+```
+
+## Fit the model
+Linear modelling in limma is carried out using the lmFit and contrasts.fit functions originally written for application to microarrays. The functions can be used for both microarray and RNA-seq data and fit a separate model to the expression values for each gene. Next, empirical Bayes moderation is carried out by borrowing information across all genes to obtain more precise estimates of gene-wise variability. The model’s residual variances are plotted against average expression values. It can be seen from this plot that the variance is no longer dependent on the mean expression level.
+
+```{r}
+#Linear modelling and empirical Bayes moderation
+vfit <- lmFit(v, design)
+vfit <- contrasts.fit(vfit, contrasts=contr.matrix) 
+efit <- eBayes(vfit)
+plotSA(efit)
+
+```
+
+For a quick look at differential expression levels, the number of significantly up- and down-regulated genes can be summarized in a table. Significance is defined using an adjusted p-value cutoff that is set at 5% by default.
+
+```{r fig.height=10,fig.width=10}
+summary(decideTests(efit))
+
+par(mfrow = c((ncol(contr.matrix)/2),2))
+for (i in 1:ncol(contr.matrix)) {
+   plotMD(efit, column = i)
+}
+
+```
+
+## Check p value distribution
+
+Check the pvalue distributions. Read more here: http://varianceexplained.org/statistics/interpreting-pvalue-histogram/
+
+```{r fig.height=10,fig.width=10}
+
+#move the results of the comparisons in a list
+comp_list <- list()
+for (i in 1:ncol(contr.matrix)) {
+   name = colnames(contr.matrix)[i]
+   tmp = topTreat(efit, coef = i, n = Inf) 
+   comp_list[[name]] <- tmp
+}
+
+#plot the p value distribution
+par(mfrow = c((length(comp_list)/2),2))
+for (i in 1:length(comp_list)) {
+   name = names(comp_list[i])
+   hist(as.vector(comp_list[[i]][[5]]), main = name, xlab = "P-Value")
+}
+
+```
+
+## Export the results
+Export the output of the comparisons in excel files. 
+
+```{r}
+if (!dir.exists("../results/Comparison_Output")){dir.create("../results/Comparison_Output/")}
+setwd("../results/Comparison_Output")
+
+save(comp_list, file = "Comparison_Output.RData")
+
+for (i in 1:length(comp_list)){
+   filename = paste0(names(comp_list[i]), ".csv")
+   tmp_data = comp_list[[i]]
+  write.csv2(tmp_data, filename)
+}
+```

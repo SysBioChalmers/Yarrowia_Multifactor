@@ -1,0 +1,14 @@
+"";"geneset";"up";"dn";"tot";"rank";"highup";"highdown";"lowup";"lowdown"
+"1";"cell wall";10;3;13;"24";0;0;10;3
+"2";"extracellular region";18;11;29;"3";0;0;18;11
+"3";"hyphal cell wall";9;5;14;"7";0;0;9;5
+"4";"integral component of plasma membrane";27;13;40;"21";0;0;27;13
+"5";"intrinsic component of membrane";10;4;14;"4";1;0;9;4
+"6";"large ribosomal subunit";1;4;5;"5";0;0;1;4
+"7";"mitochondrial large ribosomal subunit";0;7;7;"6";0;0;0;7
+"8";"mitotic spindle midzone";4;2;6;"13";0;0;4;2
+"9";"mitotic spindle pole body";1;6;7;"16";0;0;1;6
+"10";"nuclear periphery";8;8;16;"13";0;1;8;7
+"11";"proteasome complex";3;6;9;"4";0;0;3;6
+"12";"yeast-form cell wall";7;3;10;"12";0;0;7;3
+"13";"All";1550;1527;3077;"";23;23;1527;1504

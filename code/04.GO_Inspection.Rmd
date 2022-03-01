@@ -1,0 +1,187 @@
+---
+title: "GO Inspection"
+author: "Simone Zaghen"
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output: 
+  html_document: 
+    toc: true
+    number_section: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: true
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = "../results/Reports") })
+
+---
+
+# Load packages
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+```
+
+# Load stuff 
+
+```{r, warning=FALSE}
+# Load list
+setwd("../results/Gene_Set_Analysis/OutputGSA/")  
+pattern <- list.files(pattern = "*.csv", full.names = FALSE) #file names of excel files (comparison outputs) to be imported
+GSA_List <- sapply(pattern, read.csv2, simplify = FALSE) #import comparison outputs
+names(GSA_List) <- gsub(".csv", "", names(GSA_List)) #remove .csv from the comparison list
+
+# Set group order
+Group_Order <- c("OKYL029_U_116_0.1vsOKYL029_AS_116_0.1",
+                 "OKYL049_U_116_0.1vsOKYL049_AS_116_0.1",
+                 "JFYL007_U_116_0.1vsJFYL007_AS_116_0.1",
+                 "OKYL029_U_3_0.1vsOKYL029_AS_3_0.1",
+                 "OKYL049_U_3_0.1vsOKYL049_AS_3_0.1",
+                 "JFYL007_U_3_0.1vsJFYL007_AS_3_0.1")
+
+```
+
+```{r}
+load("../results/Gene_Set_Analysis/Heatmaps/GO_term_heat_list.RData")
+
+```
+
+
+```{r, warning=FALSE}
+# Import gene counts and metadata for gene count plots
+##Gene counts and metadata 
+tmm_counts <- readRDS(file = "../results/TMM_Normalized_GeneCounts.rds") #file with TMM normalized gene counts
+metadata <- read.delim('../data/metadata_samples.txt', skip =0) #file with metadata
+
+#get data in tidy format
+tbl_rna <- 
+  tmm_counts %>% 
+  as_tibble(rownames = "Gene") %>%
+  pivot_longer(cols = -Gene,names_to = "ID",values_to = "Counts")
+
+# Fix metadata classes
+metadata <- 
+  metadata %>% 
+  mutate(ID = as.character(ID)) %>% 
+  mutate(DR = as.character(DR))
+
+# Merge with metadata
+tbl_rna <- 
+  tbl_rna %>% 
+  full_join(metadata,by = "ID") %>% 
+  mutate(CN_Ratio = as.character(CN_Ratio)) %>% 
+  mutate(CN_Ratio = factor(CN_Ratio,levels = c("3","116"),ordered = T)) %>% 
+  mutate(Strain = factor(Strain,levels = c("OKYL029","OKYL049","JFYL007"))) %>% 
+  mutate(DR = factor(DR,levels = c("0.06","0.1"),ordered = T)) %>% 
+  mutate(NitrogenSource = factor(NitrogenSource,levels = c("Urea","Ammonium Sulphate")))
+
+#Create logTMM
+tbl_rna <- 
+  tbl_rna %>% 
+  mutate(logCounts = log2(Counts+1))
+
+# loading gene_set
+Gene_Sets <- read.csv2("../data/Gene_Set.csv") %>%
+  rename(Gene = genes)
+
+rm(metadata, tmm_counts)
+
+```
+
+# Set up chunk 
+
+```{r}
+
+#GO_term <- "extracellular vesicle" #set name of GO term to extract
+Pcutoff <- 0.01
+GO_term_list <- c(GO_term_heat_list$Biological_Process,
+                  GO_term_heat_list$Cellular_Component,
+                  GO_term_heat_list$Molecular_Function)
+
+```
+
+# Execute
+
+```{r, warning=FALSE}
+if (!dir.exists("../results/Gene_Set_Analysis/GO_OneByOne/")){dir.create("../results/Gene_Set_Analysis/GO_OneByOne/")}
+setwd("../results/Gene_Set_Analysis/GO_OneByOne/")
+
+for (i in 1:length(GO_term_list)){
+  GO_term <- GO_term_list[i]
+# Filter for a specific GO term
+df <- map(GSA_List, ~ filter(.x, geneset %in% GO_term)) #filter list to only keep GO term to extract
+df <- df[sapply(df, nrow)>0] #remove all lists with 0 elements
+df <- as.data.frame(lapply(df, unlist)) #convert list to dataframe
+df <- data.frame(t(df)) #transpose dataframe 
+df$comparison <- row.names(df) #create column in which to store the condition
+df$comparison <- substring(df$comparison, 4) #remove first letters of condition name
+#df <- filter(df, comparison %in% Group)
+row.names(df) <- NULL #remove row names
+df <- df[-1] #remove column X that is useless
+
+df <- reshape2::melt(df, id.vars = c("comparison", "geneset"), variable.name = "direction")
+df$value <- as.numeric(df$value)
+
+df$comparison <- as.factor(df$comparison)
+df$comparison <- factor(df$comparison, levels = Group_Order)
+
+# Plot of selected GO term as bars for each comparison
+## Plotting gene counts
+plot_GO_term <- filter(Gene_Sets, Term %in% GO_term) #enter the GO term here that ought to be plotted
+plot_GO_term <- plot_GO_term$Gene 
+
+if (dim(filter(tbl_rna, Gene %in% plot_GO_term))[1] !=0) {
+plot_gene_counts <- 
+  filter(tbl_rna, Gene %in% plot_GO_term) %>%
+  filter(DR == "0.1") %>%
+  ggplot(aes(x=Strain, y = logCounts, group = NitrogenSource, color = NitrogenSource)) +
+  stat_summary(fun = median, geom = "point", size = 4) +
+  stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.3) +
+  geom_point() + 
+  theme(legend.position = "top",
+        axis.text.x = element_text(angle = 45, vjust = 0.5)) +
+  scale_colour_manual(values = c("#FC766AFF", "#5B84B1FF")) +
+  facet_grid(CN_Ratio ~ Gene, scale="free") #plots all 6 points (3 triplicates x (1 AS + 1 urea))
+}
+
+plot_GSA_res <- 
+  df %>% 
+  filter(direction %in% c("highup", "highdown", "lowup", "lowdown")) %>%
+  droplevels() %>%
+  mutate(direction = fct_relevel(direction, c("highdown", "lowdown", "lowup", "highup"))) %>%
+  ggplot(aes(x = comparison, y = value, fill = direction)) +
+      geom_bar(position = "fill", stat = "identity") + coord_flip() +
+      scale_y_continuous(labels = scales::percent_format(), breaks = c(0,
+                                                               0.25, 0.5, 0.75, 1)) +
+      scale_fill_manual(
+        values = c("#4682b4", "#abbdd2", "#b57372", "#963836"),
+        name = "Direction",
+        labels = c(
+          paste0("Down (p<", Pcutoff, ")"),
+          paste0("Down (p>", Pcutoff, ")"),
+          paste0("Up (p>", Pcutoff, ")"),
+          paste0("Up (p<", Pcutoff, ")")
+        )
+      ) + labs(x = "", y = "% of Genes") +
+      theme_set(theme_bw()) + theme(
+        text = element_text(size = 11),
+        legend.position = "right",
+        #legend.key.size = unit(7, "points"),
+        axis.text = element_text(colour = "black"),
+        panel.grid = element_blank(),
+        line = element_line(size = 0.25),
+        plot.margin = unit(c(1,1, 1, 1), "points"),
+        legend.key=element_blank(),
+        panel.border=element_blank(),
+        axis.ticks.y=element_blank()
+      ) +
+      ggtitle(GO_term, subtitle=paste0(" (", length(plot_GO_term)," genes)"))
+
+pdf(paste0(GO_term, ".pdf")) # some names have : which is crashing the PDF
+print(plot_GSA_res)
+if (dim(filter(tbl_rna, Gene %in% plot_GO_term))[1] !=0) {
+print(plot_gene_counts)
+  }
+dev.off()
+}
+
+```

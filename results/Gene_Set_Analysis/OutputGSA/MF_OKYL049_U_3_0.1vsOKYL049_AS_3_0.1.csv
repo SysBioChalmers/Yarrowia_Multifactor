@@ -1,0 +1,10 @@
+"";"geneset";"up";"dn";"tot";"rank";"highup";"highdown";"lowup";"lowdown"
+"1";"aminoacyl-tRNA ligase activity";3;6;9;"8";0;0;3;6
+"2";"calcium ion binding";3;8;11;"13";0;0;3;8
+"3";"copper ion binding";2;7;9;"13";0;0;2;7
+"4";"exonuclease activity";4;1;5;"17";0;0;4;1
+"5";"monooxygenase activity";3;3;6;"3";1;1;2;2
+"6";"protein dimerization activity";5;2;7;"19";0;0;5;2
+"7";"protein tyrosine phosphatase activity";3;2;5;"10";0;0;3;2
+"8";"protein-macromolecule adaptor activity";4;5;9;"6";0;0;4;5
+"9";"All";1550;1527;3077;"";23;23;1527;1504

@@ -1,0 +1,16 @@
+"";"geneset";"up";"dn";"tot";"rank";"highup";"highdown";"lowup";"lowdown"
+"1";"cell septum";3;2;5;"7";0;0;3;2
+"2";"cellular bud";5;1;6;"3";0;0;5;1
+"3";"cellular bud neck";10;6;16;"9";0;0;10;6
+"4";"cellular bud tip";6;1;7;"21";0;0;6;1
+"5";"extracellular vesicle";7;7;14;"6";0;0;7;7
+"6";"integral component of mitochondrial inner membrane";7;0;7;"23";0;0;7;0
+"7";"mating projection tip";5;2;7;"8";0;0;5;2
+"8";"mitotic spindle pole body";4;3;7;"23";0;0;4;3
+"9";"perinuclear region of cytoplasm";2;3;5;"7";0;0;2;3
+"10";"peroxisomal membrane";6;0;6;"12";0;0;6;0
+"11";"peroxisome";14;15;29;"17";0;1;14;14
+"12";"proteasome complex";3;6;9;"15";0;0;3;6
+"13";"site of polarized growth";5;3;8;"4";0;0;5;3
+"14";"yeast-form cell wall";6;4;10;"17";0;0;6;4
+"15";"All";1627;1450;3077;"";15;28;1612;1422

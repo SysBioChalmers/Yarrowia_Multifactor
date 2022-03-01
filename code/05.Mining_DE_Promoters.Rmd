@@ -1,0 +1,100 @@
+---
+title: "Extract DEG for Network plot"
+author: "Simone Zaghen"
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output: 
+  html_document: 
+    toc: true
+    number_section: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: true
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = "../results/Reports") })
+---
+
+# Load packages and functions
+
+```{r, message=FALSE}
+library(tidyverse)
+library(eulerr)
+library(gridExtra)
+
+source("../code/Functions/mining.R")
+
+select = dplyr::select
+
+```
+
+# Import files
+
+## P value and fold changes
+
+```{r}
+load("../results/Comparison_Output/Comparison_Output.RData")
+
+```
+
+## Set the groups 
+
+```{r}
+
+N_Source_116 <- c("OKYL029_U_116_0.1vsOKYL029_AS_116_0.1",
+                 "OKYL049_U_116_0.1vsOKYL049_AS_116_0.1",
+                 "JFYL007_U_116_0.1vsJFYL007_AS_116_0.1")
+
+N_Source_3 <- c("OKYL029_U_3_0.1vsOKYL029_AS_3_0.1",
+                 "OKYL049_U_3_0.1vsOKYL049_AS_3_0.1",
+                 "JFYL007_U_3_0.1vsJFYL007_AS_3_0.1")
+
+```
+
+# AS vs U on C/N 116
+
+```{r, fig.width=8}
+NS_116 <- mining(df.list = comp_list,
+             Group = N_Source_116,
+             pval_cutoff = 0.01,
+             neg_FC = -1,
+             pos_FC = 1)
+
+grid.arrange(NS_116$plot_up, NS_116$plot_dn, ncol = 2)
+
+```
+
+# AS vs U on C/N 3
+
+```{r, fig.width=8}
+NS_3 <- mining(df.list = comp_list,
+             Group = N_Source_3,
+             pval_cutoff = 0.01,
+             neg_FC = -1,
+             pos_FC = 1)
+
+grid.arrange(NS_3$plot_up, NS_3$plot_dn, ncol = 2)
+
+```
+
+# Save plots
+```{r, results='hide'}
+if (!dir.exists("../results/Euler_Plot")){dir.create("../results/Euler_Plot")}
+
+png("../results/Euler_Plot/CN_116.png", units = "in", width = 8, height = 4, res = 300)
+grid.arrange(NS_116$plot_up, NS_116$plot_dn, ncol = 2)
+dev.off()
+
+png("../results/Euler_Plot/CN_3.png", units = "in", width = 8, height = 4, res = 300)
+grid.arrange(NS_3$plot_up, NS_3$plot_dn, ncol = 2)
+dev.off()
+
+```
+
+# Export output
+
+```{r}
+
+save(NS_116, file = "../results/Euler_Plot/NS_116.RData")
+save(NS_3, file = "../results/Euler_Plot/NS_3.RData")
+
+```
+

@@ -1,0 +1,9 @@
+"";"geneset";"up";"dn";"tot";"rank";"highup";"highdown";"lowup";"lowdown"
+"1";"cell adhesion";7;2;9;"24";0;0;7;2
+"2";"cellular amino acid metabolic process";7;2;9;"7";0;0;7;2
+"3";"lipid catabolic process";12;5;17;"24";0;0;12;5
+"4";"maturation of LSU-rRNA";1;4;5;"19";0;0;1;4
+"5";"ribonucleoprotein complex biogenesis";1;4;5;"4";0;0;1;4
+"6";"tRNA modification";1;4;5;"15";0;0;1;4
+"7";"vacuolar transport";1;4;5;"6";0;0;1;4
+"8";"All";1550;1527;3077;"";23;23;1527;1504

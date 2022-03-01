@@ -1,0 +1,242 @@
+---
+title: "Heatmap of GO terms"
+author: "Simone Zaghen"
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output: 
+  html_document: 
+    toc: true
+    number_section: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: true
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = "../results/Reports") })
+---
+
+# Load packages
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(gplots)
+
+```
+
+# Preparing matrices for heatmaps 
+## Import data
+We first import only the Biological Process (BP) data. Later the same code will run for the other two levels of the GO term analysis (cellular component (CC) and molecular function (MF)).
+
+```{r, warning=FALSE}
+setwd("../results/Gene_Set_Analysis/OutputGSA/")  
+comparison.list.BP <- list.files(pattern = "BP_*", full.names = FALSE) #file names of excel files (comparison outputs) to be imported
+comparison.list.CC <- list.files(pattern = "CC_*", full.names = FALSE) #file names of excel files (comparison outputs) to be imported
+comparison.list.MF <- list.files(pattern = "MF_*", full.names = FALSE) #file names of excel files (comparison outputs) to be imported
+
+BP.list <- sapply(comparison.list.BP, read.csv2, simplify = FALSE) #import comparison outputs
+CC.list <- sapply(comparison.list.CC, read.csv2, simplify = FALSE) #import comparison outputs
+MF.list <- sapply(comparison.list.MF, read.csv2, simplify = FALSE) #import comparison outputs
+
+comparison.list.BP <- gsub("*BP_", "", comparison.list.BP)
+comparison.list.BP <- gsub(".csv", "", comparison.list.BP)
+names(BP.list) <- comparison.list.BP
+BP.list = map(BP.list, ~ filter(.x, !(geneset %in% "All"))) #select only relevant columns
+
+comparison.list.CC <- gsub("*CC_", "", comparison.list.CC)
+comparison.list.CC <- gsub(".csv", "", comparison.list.CC)
+names(CC.list) <- comparison.list.CC
+CC.list = map(CC.list, ~ filter(.x, !(geneset %in% "All"))) #select only relevant columns
+
+comparison.list.MF <- gsub("*MF_", "", comparison.list.MF)
+comparison.list.MF <- gsub(".csv", "", comparison.list.MF)
+names(MF.list) <- comparison.list.MF
+MF.list = map(MF.list, ~ filter(.x, !(geneset %in% "All"))) #select only relevant columns
+
+```
+
+## Create matrices for biological process (BP)
+We first create an empty matrix with the GO terms as rownames and the samples as column names. Then the matrix is filled with 1 if the GO term is present in the sample, or it is filled with a zero if it is not. 
+
+```{r}
+GO_terms_BP = '' #create an empty vector
+
+# go through the elements of the list and extract the GO terms from "geneset"
+for (i in 1:length(comparison.list.BP)) {
+      GO_terms_BP <- append(GO_terms_BP, BP.list[[comparison.list.BP[i]]][["geneset"]])
+}
+
+GO_terms_BP <- unique(GO_terms_BP) #only keep unique GO terms
+GO_terms_BP <- GO_terms_BP[2:length(GO_terms_BP)] #remove the first empty entry of the vector
+
+#create empty matrix to fill and assign row and column names
+Biological_Process <- matrix(nrow = length(GO_terms_BP), ncol = length(comparison.list.BP))
+rownames(Biological_Process) <- GO_terms_BP
+colnames(Biological_Process) <- comparison.list.BP
+
+for (i in 1:length(GO_terms_BP)) {
+  for (j in 1: length(comparison.list.BP)) {
+    if (GO_terms_BP[i] %in% BP.list[[comparison.list.BP[j]]][["geneset"]]) {
+      position = which(BP.list[[comparison.list.BP[j]]][[2]]==GO_terms_BP[i])
+      Biological_Process[i,j] = BP.list[[comparison.list.BP[j]]][["rank"]][position]
+      } 
+    else{Biological_Process[i,j] = 0
+    }
+  }
+}
+
+```
+
+## Create matrices for cellular component (CC)
+The previous steps are repeated for CC.
+```{r, warning=FALSE}
+
+GO_terms_CC = '' #create an empty vector
+
+# go through the elements of the list and extract the GO terms from "geneset"
+for (i in 1:length(comparison.list.CC)) {
+      GO_terms_CC <- append(GO_terms_CC, CC.list[[comparison.list.CC[i]]][["geneset"]])
+}
+
+GO_terms_CC <- unique(GO_terms_CC) #only keep unique GO terms
+GO_terms_CC <- GO_terms_CC[2:length(GO_terms_CC)] #remove the first empty entry of the vector
+
+#create empty matrix to fill and assign row and column names
+Cellular_Component <- matrix(nrow = length(GO_terms_CC), ncol = length(comparison.list.CC))
+rownames(Cellular_Component) <- GO_terms_CC
+colnames(Cellular_Component) <- comparison.list.CC
+
+#fill the matrix: goes through the lists and puts a 1 if it can find the GO term, else a 0. 
+for (i in 1:length(GO_terms_CC)) {
+  for (j in 1: length(comparison.list.CC)) {
+    if (GO_terms_CC[i] %in% CC.list[[comparison.list.CC[j]]][["geneset"]]) {
+      position = which(CC.list[[comparison.list.CC[j]]][[2]]==GO_terms_CC[i])
+      Cellular_Component[i,j] = CC.list[[comparison.list.CC[j]]][["rank"]][position]
+      } 
+    else{Cellular_Component[i,j] = 0
+    }
+  }
+}
+
+```
+
+## Create matrices for molecular function (MF)
+The previous steps are repeated for MF. 
+```{r, warning=FALSE}
+
+GO_terms_MF = '' #create an empty vector
+
+# go through the elements of the list and extract the GO terms from "geneset"
+for (i in 1:length(comparison.list.MF)) {
+      GO_terms_MF <- append(GO_terms_MF, MF.list[[comparison.list.MF[i]]][["geneset"]])
+}
+
+GO_terms_MF <- unique(GO_terms_MF) #only keep unique GO terms
+GO_terms_MF <- GO_terms_MF[2:length(GO_terms_MF)] #remove the first empty entry of the vector
+
+#create empty matrix to fill and assign row and column names
+
+Molecular_Function <- matrix(nrow = length(GO_terms_MF), ncol = length(comparison.list.MF))
+rownames(Molecular_Function) <- GO_terms_MF
+colnames(Molecular_Function) <- comparison.list.MF
+
+#fill the matrix: goes through the lists and puts a 1 if it can find the GO term, else a 0. 
+for (i in 1:length(GO_terms_MF)) {
+  for (j in 1: length(comparison.list.MF)) {
+    if (GO_terms_MF[i] %in% MF.list[[comparison.list.MF[j]]][["geneset"]]) {
+      position = which(MF.list[[comparison.list.MF[j]]][[2]]==GO_terms_MF[i])
+      Molecular_Function[i,j] = MF.list[[comparison.list.MF[j]]][["rank"]][position]
+      } 
+    else{Molecular_Function[i,j] = 0
+    }
+  }
+}
+
+```
+
+# Subset based on groups
+
+## Assign samples to the subsets
+
+```{r, warning=FALSE}
+#set a rank cutoff: exclude gene sets for which no samples is below the threshold
+rank_cutoff_high <- 25 
+rank_cutoff_low <- 1
+
+#List of GO levels
+GO_levels <- list(Biological_Process = Biological_Process, 
+                 Cellular_Component = Cellular_Component, 
+                 Molecular_Function = Molecular_Function)
+
+matrix_list <- list() #generate list in which to save output of the loop.
+
+for (i in 1:length(GO_levels)){
+    filename = paste0(names(GO_levels[i])) #generate the filename
+    x = GO_levels[[i]] #select the matrix to filter
+    tmp = x[rowSums(x > rank_cutoff_low & x < rank_cutoff_high) > 1,] #filter the matrix 
+    matrix_list[[filename]] <- tmp #saves the filtered matrix in the matrix_list file
+  }
+
+#set order of comparisons in heatmap
+col.order <- c("OKYL029_U_116_0.1vsOKYL029_AS_116_0.1",
+               "OKYL049_U_116_0.1vsOKYL049_AS_116_0.1",
+               "JFYL007_U_116_0.1vsJFYL007_AS_116_0.1",
+               "OKYL029_U_3_0.1vsOKYL029_AS_3_0.1",
+               "OKYL049_U_3_0.1vsOKYL049_AS_3_0.1",
+               "JFYL007_U_3_0.1vsJFYL007_AS_3_0.1")
+
+#order the columns in matrixes for deciding plotting order in heatmaps
+for (i in 1:length(matrix_list)) {
+  matrix_list[[i]] <- matrix_list[[i]][,col.order]
+}
+
+
+```
+
+# Plotting
+## Heatmap with RankScore as Key
+
+The following section exports the heatmaps in a PDF files.
+
+```{r, warning=FALSE}
+if (!dir.exists("../results/Gene_Set_Analysis/Heatmaps")){dir.create("../results/Gene_Set_Analysis/Heatmaps")}
+setwd("../results/Gene_Set_Analysis/Heatmaps/") 
+color.palette <- c("grey90", colorRampPalette(c("red", "yellow", "white"))(n=599))
+
+for (i in 1:length(matrix_list)) {
+  filename = names(matrix_list[i]) #generate the filename of the heatmap
+  pdf(paste(filename, ".pdf"), width = 10, height = 20) #open the saving device
+  heatmap.2(matrix_list[[i]], #heatmap function and its setting
+          Colv = FALSE,
+          dendrogram = "row",
+          margins = c(32, 24),
+          col = color.palette, 
+          main = paste(names(matrix_list[i])), 
+          density.info = "none", 
+          trace = "none", 
+          colsep=1:nrow(matrix_list[[i]]), 
+          rowsep=1:nrow(matrix_list[[i]]), 
+          sepcolor = "grey20",
+          sepwidth = c(0.01,0.01), 
+          key=FALSE, 
+          keysize = 0.2)
+  dev.off() #close the saving device
+}
+
+```
+
+# Export GO terms of each heatmap
+Export all the GO terms that are used inside each heatmap.
+
+```{r}
+GO_term_heat_list <- list()
+
+for (i in 1:length(matrix_list)) {
+  v <- rownames(matrix_list[[i]]) #extract the GO term names
+  GO_term_heat_list[[i]] = v #move names to list
+  names(GO_term_heat_list)[i] = names(matrix_list)[i] #extract name of group comparison
+}
+
+save(GO_term_heat_list, file = "../results/Gene_Set_Analysis/Heatmaps/GO_term_heat_list.RData")
+
+```
+
+
+

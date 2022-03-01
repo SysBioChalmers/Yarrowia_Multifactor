@@ -1,0 +1,18 @@
+"";"geneset";"up";"dn";"tot";"rank";"highup";"highdown";"lowup";"lowdown"
+"1";"base-excision repair";1;4;5;"20";0;0;1;4
+"2";"cell redox homeostasis";2;7;9;"25";0;0;2;7
+"3";"DNA replication, removal of RNA primer";2;7;9;"25";0;0;2;7
+"4";"fatty acid metabolic process";13;2;15;"21";0;0;13;2
+"5";"lipid transport";5;0;5;"9";0;0;5;0
+"6";"MAPK cascade";4;1;5;"11";0;0;4;1
+"7";"maturation of LSU-rRNA";1;4;5;"22";0;0;1;4
+"8";"metabolic process";11;8;19;"19";0;0;11;8
+"9";"microtubule-based process";5;0;5;"23";0;0;5;0
+"10";"nitrogen compound transport";6;1;7;"9";0;0;6;1
+"11";"phosphatidylinositol dephosphorylation";4;2;6;"9";1;0;3;2
+"12";"protein catabolic process";5;1;6;"7";0;0;5;1
+"13";"regulation of cell cycle";5;7;12;"14";0;0;5;7
+"14";"regulation of gene expression";5;2;7;"2";0;0;5;2
+"15";"small molecule metabolic process";8;1;9;"4";0;0;8;1
+"16";"transcription initiation from RNA polymerase II promoter";5;2;7;"16";0;0;5;2
+"17";"All";1656;1421;3077;"";10;13;1646;1408

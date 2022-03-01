@@ -1,0 +1,12 @@
+"";"geneset";"up";"dn";"tot";"rank";"highup";"highdown";"lowup";"lowdown"
+"1";"autophagy";2;12;14;"10";0;1;2;11
+"2";"autophagy of peroxisome";1;5;6;"4";0;0;1;5
+"3";"glutamine metabolic process";2;3;5;"24";0;0;2;3
+"4";"intra-Golgi vesicle-mediated transport";1;5;6;"20";0;0;1;5
+"5";"ion transport";12;13;25;"17";0;1;12;12
+"6";"mitochondrial fission";4;1;5;"23";0;0;4;1
+"7";"one-carbon metabolic process";2;4;6;"4";0;0;2;4
+"8";"protein N-linked glycosylation";0;8;8;"7";0;0;0;8
+"9";"pseudohyphal growth";1;4;5;"9";0;0;1;4
+"10";"retrograde vesicle-mediated transport, Golgi to endoplasmic reticulum";5;2;7;"16";0;0;5;2
+"11";"All";1420;1657;3077;"";17;11;1403;1646

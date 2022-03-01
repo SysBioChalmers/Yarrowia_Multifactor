@@ -1,0 +1,7 @@
+"";"geneset";"up";"dn";"tot";"rank";"highup";"highdown";"lowup";"lowdown"
+"1";"autophagosome assembly";5;3;8;"21";0;0;5;3
+"2";"chromosome segregation";1;9;10;"22";0;0;1;9
+"3";"protein modification by small protein conjugation or removal";2;3;5;"25";0;0;2;3
+"4";"protein N-linked glycosylation";1;7;8;"17";0;0;1;7
+"5";"response to oxidative stress";3;3;6;"9";0;0;3;3
+"6";"All";1520;1557;3077;"";8;6;1512;1551

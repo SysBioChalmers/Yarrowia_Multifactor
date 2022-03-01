@@ -1,0 +1,9 @@
+"";"geneset";"up";"dn";"tot";"rank";"highup";"highdown";"lowup";"lowdown"
+"1";"base-excision repair";5;0;5;"14";0;0;5;0
+"2";"cellular localization";1;4;5;"17";0;0;1;4
+"3";"cellular metabolic process";15;4;19;"5";1;0;14;4
+"4";"endonucleolytic cleavage to generate mature 5'-end of SSU-rRNA from (SSU-rRNA, 5.8S rRNA, LSU-rRNA)";13;10;23;"10";0;0;13;10
+"5";"phospholipid catabolic process";4;4;8;"4";0;0;4;4
+"6";"protein folding";7;13;20;"2";0;2;7;11
+"7";"regulation of catalytic activity";22;10;32;"23";0;0;22;10
+"8";"All";1627;1450;3077;"";15;28;1612;1422
