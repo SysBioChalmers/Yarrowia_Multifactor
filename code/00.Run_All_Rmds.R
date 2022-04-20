@@ -1,7 +1,10 @@
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) #set wd
+#This script runs all the R markdown files in the folder, generating 
+#the folder structure, the files, and the plots used for analysis
+
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) #set working directory
 files <- list.files(pattern = "[.]Rmd$") #get Rmd file names
 
-#render the Rmd file names
+#render the Rmd files and perform the analysis
 for (f in files) 
   rmarkdown::render(f, 
                     encoding = encoding, 

@@ -1,0 +1,79 @@
+---
+title: "UniProt_Gene"
+author: "Simone Zaghen"
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output: 
+  html_document: 
+    toc: true
+    number_section: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: true
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = "../results/Reports") })
+---
+
+This script is used to extract the log fold change and the p value of the genes that are in the urea pathways. The script also includes the annotation that those genes have in uniprot.
+
+# Load packages
+
+```{r}
+library(readxl)
+library(tidyverse)
+```
+
+# Import data and filter
+
+In this chunk we extract the urea gene names from the excel file input and then we filter the uniprot file to only keep those gene with their annotations (output is in the urea_genes dataframe)
+
+```{r}
+uniprot_table <- read.delim("../data/Uniprot_Yali.txt") #import uniprot table for yali genes
+excel_input <- read_excel("../data/Urea_genes.xlsx") #import file containing urea pathway genes
+
+genes_to_extract <- as.character(as.vector(excel_input$YALI1)) #genes that we want to extract
+
+urea_genes <- 
+  uniprot_table %>%
+  filter(Gene.names %in% unique(grep(paste(genes_to_extract,collapse="|"), #generate strings to be found- | used as separator between gene names to specify any that any of those occurrences should be kept
+                                     uniprot_table$Gene.names, #where to look for strings
+                                     value=TRUE))) 
+urea_genes$Gene.names <- str_extract(urea_genes$Gene.names, ".{0,0}YALI1_.{0,7}") #only keep YALI1_ gene names
+```
+
+# Import FC and P val 
+
+Import the p values and fold changes for each comparison of interest
+
+```{r, warning=FALSE}
+setwd("../results/Comparison_Output/")
+
+comparison.list <- c("OKYL029_U_116_0.1vsOKYL029_AS_116_0.1",
+                     "OKYL049_U_116_0.1vsOKYL049_AS_116_0.1",
+                     "JFYL007_U_116_0.1vsJFYL007_AS_116_0.1",
+                     "OKYL029_U_3_0.1vsOKYL029_AS_3_0.1",
+                     "OKYL049_U_3_0.1vsOKYL049_AS_3_0.1",
+                     "JFYL007_U_3_0.1vsJFYL007_AS_3_0.1")
+comparison.list <- paste0(comparison.list, ".csv")
+
+df.list <- sapply(comparison.list, read.csv2, simplify = FALSE) #import comparison outputs
+names(df.list) <- gsub(".csv", "", names(df.list)) #remove .csv from the comparison list
+
+```
+
+# Merge all the information
+
+Merge uniprot information with the p value, fold change, and comparison type
+
+```{r}
+df.list <- 
+  df.list %>%
+  map(~filter(.x, genes %in% genes_to_extract)) %>% #only keep genes to extract for each list element
+  map(~select(.x, c("genes", "P.Value", "logFC"))) #only select columns of interest
+df.list <- mapply(cbind, df.list, "ComparisonID"= names(df.list), SIMPLIFY=F) #insert a ComparisonID column in each list
+
+df <- bind_rows(df.list) #generate a dataframe binding all the rows in the df.list
+
+df <- merge(x = df, y = urea_genes, by.x = "genes", by.y = "Gene.names") #add the uniprot information to the dataframe
+
+```
+

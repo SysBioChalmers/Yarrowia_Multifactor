@@ -13,6 +13,8 @@ knit: (function(inputFile, encoding) {
   rmarkdown::render(inputFile, encoding = encoding, output_dir = "../results/Reports") })
 ---
 
+This script generates eulerr plots and extracts the genes that are differentially expressed among comparisons for the network plot. 
+
 # Load packages and functions
 
 ```{r, message=FALSE}
@@ -76,6 +78,7 @@ grid.arrange(NS_3$plot_up, NS_3$plot_dn, ncol = 2)
 ```
 
 # Save plots
+
 ```{r, results='hide'}
 if (!dir.exists("../results/Euler_Plot")){dir.create("../results/Euler_Plot")}
 

@@ -13,6 +13,9 @@ knit: (function(inputFile, encoding) {
   rmarkdown::render(inputFile, encoding = encoding, output_dir = "../results/Reports") })
 
 ---
+
+This script takes as input a list of comparisons (that needs to contain at least gene name, log fold change, and p value) and performs the gene set analysis using the package piano. 
+
 # Load packages and functions
 ```{r, message=FALSE}
 library(piano)
@@ -35,18 +38,18 @@ load("../results/Comparison_Output/Comparison_Output.RData")
 # Gene set analysis
 
 ## Create gene set collection
-Create gene set collection and subset the analysis only to different levels of the GSC. 
+Create gene set collection and subset the analysis only for different levels of the gene set collection. 
 
 ```{r}
 amigo <- read.csv2("../data/Gene_Set.csv") #load the GO Term table 
 
-#Run the GSA based on different levels 
-#Only look at certain level of functionality, first indicate what rows to keep
+#Run the GSA based on different levels (biological process/molecular function/cellular component)
+#First indicate which rows to keep
     keep_bio_pro <- amigo$Level == 'biological_process'
     keep_mol_fun <- amigo$Level == 'molecular_function'
     keep_cell_com <- amigo$Level == "cellular_component"
 
-#Then subset res_all to only keep those rows
+#Then subset to only keep those rows
     geneSetBP <- amigo[keep_bio_pro, ]
     geneSetMF <- amigo[keep_mol_fun,]
     geneSetCC <- amigo[keep_cell_com,]
@@ -56,7 +59,7 @@ amigo <- read.csv2("../data/Gene_Set.csv") #load the GO Term table
     geneSetMF<- subset(geneSetMF, select = c("genes","Term"))
     geneSetCC<- subset(geneSetCC, select = c("genes","Term"))
 
-#load the gene set collection
+#load the gene set collection for each level
     myGsc_BP <- loadGSC(geneSetBP, type = "data.frame")
     myGsc_MF <- loadGSC(geneSetMF, type = "data.frame")
     myGsc_CC <- loadGSC(geneSetCC, type = "data.frame")
@@ -64,27 +67,28 @@ amigo <- read.csv2("../data/Gene_Set.csv") #load the GO Term table
 ```
 
 ## Perform GSA
-Loop the consensus gene set analysis through all the comparisons we have. 
+Loop the consensus gene set analysis through all the comparisons we have. For each comparison three consensus gene set analysis will be performed (one for each level (biological process, molecular function, cellular component)). For each comparison a graph containing the GSA results for biological process, molecular function, and cellular component will be created. 
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
+#create directories where to save output of GSA
 if (!dir.exists("../results/Gene_Set_Analysis")){dir.create("../results/Gene_Set_Analysis")}
 if (!dir.exists("../results/Gene_Set_Analysis/Plots")){dir.create("../results/Gene_Set_Analysis/Plots")}
 
 res_list <- list() # Create empty list in which to store results of the consensus gene set analysis
 
 for (i in 1:length(comp_list)) {
-    TopTable <- as.data.frame(comp_list[i], col.names = "", row.names = 1) #create TopTable for analysis
+    TopTable <- as.data.frame(comp_list[i], col.names = "", row.names = 1) #create TopTable that is input for analysis
     res_Bars_BP<-consGSA(TopTable,myGsc_BP) #run consensus gene set analysis for biological process
     res_Bars_MF<-consGSA(TopTable,myGsc_MF) #run consensus gene set analysis for molecular function
     res_Bars_CC<-consGSA(TopTable,myGsc_CC) #run consensus gene set analysis for cellular component
 
     #Create the consensusGSA plots: A for Biological process, B for molecular function, C for cellular component
     A <- consGSAplot(resList=res_Bars_BP, rankScore=25, Pcutoff=0.01, distinct='distinct', 
-                     savePlot=FALSE, title='Biological Process - rankScore 50, p<0.01')
+                     savePlot=FALSE, title='Biological Process - rankScore 25, p<0.01')
     B <- consGSAplot(resList=res_Bars_MF, rankScore=25, Pcutoff=0.01, distinct='distinct', 
-                     savePlot=FALSE, title='Molecular Function - rankScore 50, p<0.01')
+                     savePlot=FALSE, title='Molecular Function - rankScore 25, p<0.01')
     C <- consGSAplot(resList=res_Bars_CC, rankScore=25, Pcutoff=0.01, distinct='distinct', 
-                     savePlot=FALSE, title='Cellular Component - rankScore 50, p<0.01')
+                     savePlot=FALSE, title='Cellular Component - rankScore 25, p<0.01')
     
     #Arrange the plots from the consGSA, annotate them, and export them
     Figure <- ggarrange(A,B,C, ncol=1, nrow=3, common.legend = TRUE, legend = "bottom") 
@@ -104,7 +108,7 @@ for (i in 1:length(comp_list)) {
 
 ```
 
-Export the results
+Export the results both in RData file and csv files
 
 ```{r, warning = FALSE}
 if (!dir.exists("../results/Gene_Set_Analysis/OutputGSA")){dir.create("../results/Gene_Set_Analysis/OutputGSA")}

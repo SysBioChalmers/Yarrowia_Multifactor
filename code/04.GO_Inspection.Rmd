@@ -14,6 +14,8 @@ knit: (function(inputFile, encoding) {
 
 ---
 
+This Rmd file takes each GO term and generates a graph in which the GO term for each comparison is reported. The rmd also plots the gene counts for each gene that is present in the GO term. 
+
 # Load packages
 
 ```{r, message=FALSE, warning=FALSE}
@@ -24,7 +26,7 @@ library(tidyverse)
 # Load stuff 
 
 ```{r, warning=FALSE}
-# Load list
+# Load GSA output
 setwd("../results/Gene_Set_Analysis/OutputGSA/")  
 pattern <- list.files(pattern = "*.csv", full.names = FALSE) #file names of excel files (comparison outputs) to be imported
 GSA_List <- sapply(pattern, read.csv2, simplify = FALSE) #import comparison outputs
@@ -37,11 +39,11 @@ Group_Order <- c("OKYL029_U_116_0.1vsOKYL029_AS_116_0.1",
                  "OKYL029_U_3_0.1vsOKYL029_AS_3_0.1",
                  "OKYL049_U_3_0.1vsOKYL049_AS_3_0.1",
                  "JFYL007_U_3_0.1vsJFYL007_AS_3_0.1")
-
 ```
 
-```{r}
-load("../results/Gene_Set_Analysis/Heatmaps/GO_term_heat_list.RData")
+
+```{r, warning=FALSE}
+load("../results/Gene_Set_Analysis/Heatmaps/GO_term_heat_list.RData") #load the GO terms that are present in the comparisons
 
 ```
 
@@ -91,9 +93,10 @@ rm(metadata, tmm_counts)
 
 ```{r}
 
-#GO_term <- "extracellular vesicle" #set name of GO term to extract
-Pcutoff <- 0.01
-GO_term_list <- c(GO_term_heat_list$Biological_Process,
+Pcutoff <- 0.01 #cutoff for considering genes differentially expressed or not
+
+#extract all the GO terms that needs to be plotted in a vector
+GO_term_list <- c(GO_term_heat_list$Biological_Process, 
                   GO_term_heat_list$Cellular_Component,
                   GO_term_heat_list$Molecular_Function)
 
@@ -102,35 +105,33 @@ GO_term_list <- c(GO_term_heat_list$Biological_Process,
 # Execute
 
 ```{r, warning=FALSE}
+#create directory where to save output
 if (!dir.exists("../results/Gene_Set_Analysis/GO_OneByOne/")){dir.create("../results/Gene_Set_Analysis/GO_OneByOne/")}
 setwd("../results/Gene_Set_Analysis/GO_OneByOne/")
 
-for (i in 1:length(GO_term_list)){
-  GO_term <- GO_term_list[i]
-# Filter for a specific GO term
-df <- map(GSA_List, ~ filter(.x, geneset %in% GO_term)) #filter list to only keep GO term to extract
-df <- df[sapply(df, nrow)>0] #remove all lists with 0 elements
-df <- as.data.frame(lapply(df, unlist)) #convert list to dataframe
-df <- data.frame(t(df)) #transpose dataframe 
-df$comparison <- row.names(df) #create column in which to store the condition
-df$comparison <- substring(df$comparison, 4) #remove first letters of condition name
-#df <- filter(df, comparison %in% Group)
-row.names(df) <- NULL #remove row names
-df <- df[-1] #remove column X that is useless
+for (i in 1:length(GO_term_list)){ #for each GO term in the vector
+  GO_term <- GO_term_list[i] #extract name of the GO term
+      # Filter for a specific GO term and fix the dataframe
+      df <- map(GSA_List, ~ filter(.x, geneset %in% GO_term)) #filter list to only keep extracted GO term 
+      df <- df[sapply(df, nrow)>0] #remove all lists with 0 elements
+      df <- as.data.frame(lapply(df, unlist)) #convert list to dataframe
+      df <- data.frame(t(df)) #transpose dataframe 
+      df$comparison <- row.names(df) #create column in which to store the condition
+      df$comparison <- substring(df$comparison, 4) #remove first letters of condition name
+      row.names(df) <- NULL #remove row names
+      df <- df[-1] #remove column X that is useless
+      df <- reshape2::melt(df, id.vars = c("comparison", "geneset"), variable.name = "direction") #melt dataframe for ggplot
+      df$value <- as.numeric(df$value) #have value columnn as number
+      df$comparison <- as.factor(df$comparison) #convert comparison column to levels
+      df$comparison <- factor(df$comparison, levels = Group_Order) #order the comparison levels
+      
+      # Plot of selected GO term as bars for each comparison
+      ## Plotting gene counts
+      plot_GO_term <- filter(Gene_Sets, Term %in% GO_term)
+      plot_GO_term <- plot_GO_term$Gene 
 
-df <- reshape2::melt(df, id.vars = c("comparison", "geneset"), variable.name = "direction")
-df$value <- as.numeric(df$value)
-
-df$comparison <- as.factor(df$comparison)
-df$comparison <- factor(df$comparison, levels = Group_Order)
-
-# Plot of selected GO term as bars for each comparison
-## Plotting gene counts
-plot_GO_term <- filter(Gene_Sets, Term %in% GO_term) #enter the GO term here that ought to be plotted
-plot_GO_term <- plot_GO_term$Gene 
-
-if (dim(filter(tbl_rna, Gene %in% plot_GO_term))[1] !=0) {
-plot_gene_counts <- 
+if (dim(filter(tbl_rna, Gene %in% plot_GO_term))[1] !=0) { #only generate plot gene counts if there are genes in the dataset
+plot_gene_counts <- #plot the gene counts
   filter(tbl_rna, Gene %in% plot_GO_term) %>%
   filter(DR == "0.1") %>%
   ggplot(aes(x=Strain, y = logCounts, group = NitrogenSource, color = NitrogenSource)) +
@@ -143,7 +144,7 @@ plot_gene_counts <-
   facet_grid(CN_Ratio ~ Gene, scale="free") #plots all 6 points (3 triplicates x (1 AS + 1 urea))
 }
 
-plot_GSA_res <- 
+plot_GSA_res <- #plots the GSA bar plot
   df %>% 
   filter(direction %in% c("highup", "highdown", "lowup", "lowdown")) %>%
   droplevels() %>%
@@ -176,12 +177,12 @@ plot_GSA_res <-
       ) +
       ggtitle(GO_term, subtitle=paste0(" (", length(plot_GO_term)," genes)"))
 
-pdf(paste0(GO_term, ".pdf")) # some names have : which is crashing the PDF
-print(plot_GSA_res)
-if (dim(filter(tbl_rna, Gene %in% plot_GO_term))[1] !=0) {
-print(plot_gene_counts)
+pdf(paste0(GO_term, ".pdf")) #open the saving device: will generate a pdf document with two pages, one for each graph
+print(plot_GSA_res) #save the GSA barplot as first page of pdf
+if (dim(filter(tbl_rna, Gene %in% plot_GO_term))[1] !=0) { #only save gene counts if there are genes in the dataset
+print(plot_gene_counts) #gene count plot saved in the second page of the document
   }
-dev.off()
+dev.off() #turn off the saving device 
 }
 
 ```

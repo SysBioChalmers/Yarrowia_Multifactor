@@ -13,7 +13,11 @@ knit: (function(inputFile, encoding) {
   rmarkdown::render(inputFile, encoding = encoding, output_dir = "../results/Reports") })
 ---
 
+This R markdown file generates a list of genes with p values and fold changes for each comparison. 
+
 # Load required packages
+
+This chunk of code will install the packages required for the analysis and will create the folder structure where the output of the analysis will be saved.
 
 ```{r, results='hide', message=FALSE}
 library(limma)
@@ -27,15 +31,18 @@ if (!dir.exists("../results/")){dir.create("../results/Reports/")}
 ```
 
 # Preprocessing
+
 ## Load and restructure data
 
+The following chunk of code will load the data required for the analysis,  will adjust the data structure to add the metadata of the samples. 
+
 ```{r}
-gene_counts <- read.delim("../data/merged_gene_counts.txt", skip =0 ) #file with gene counts
-metadata <- read.delim('../data/metadata_samples.txt', skip =0) #file with metadata and proper group names
+gene_counts <- read.delim("../data/merged_gene_counts.txt", skip =0 ) #import file with gene counts
+metadata <- read.delim('../data/metadata_samples.txt', skip =0) #import file with metadata and proper group names
 cols <- c("Strain","NitrogenSource","CN_Ratio","DR","group","Overexpression","Deletion") #columns to convert to factor
-metadata[cols] <- lapply(metadata[cols], factor) #column as factor with levels
-rownames(gene_counts) <- gene_counts$Geneid #gene names as row names
-gene_counts <- gene_counts[,-1:-2] #remove column without count data
+metadata[cols] <- lapply(metadata[cols], factor) #convert column to factors
+rownames(gene_counts) <- gene_counts$Geneid #use gene names as row names
+gene_counts <- gene_counts[,-1:-2] #remove columns that do not contain count data
 colnames(gene_counts) <- gsub('P20604_|_S.*', '', colnames(gene_counts)) #rename columns
 gene_counts <- gene_counts[,order(names(gene_counts))] #placing samples in order
 colnames(gene_counts) <- as.character(metadata$ID) #rename rows so that they have our ID (not NGI_ID)
@@ -48,6 +55,7 @@ rm("metadata", "cols") #remove dataframe used to add the metadata
 ```
 
 ## Filter low reads
+As a first step in RNA-seq analysis, gene that have low read will be removed since it will not be possible to compute any gene-level statistics if the gene counts are too low. 
 
 ```{r, warning=FALSE,fig.width=10, fig.height=5}
 #Normalize for library size, by taking the log count-per-million. It's not a satisfactory normalization, but we just use it to plot raw reads
@@ -55,9 +63,10 @@ cpm <- cpm(x)
 lcpm <- cpm(x, log = T)
 
 #Plot raw logCPM reads before filtering
+par(mfrow = c(1, 3)) #set graph panel layout aesthetics 
+
 nsamples <- ncol(x)
 col <- brewer.pal(nsamples, "Paired") # Ignore warning, some samples will have identical color.
-par(mfrow = c(1, 3))
 plot(density(lcpm[, 1]),col = col[1],ylim = c(0, 0.6), las = 2, 
      main = "A. Raw data",
      xlab = "Log-cpm")
@@ -87,12 +96,7 @@ for (i in 2:nsamples) {
 
 #Filter with filterByExpr function
 keep.exprs2 <- filterByExpr(x, group = x$samples$group,
-                            lib.size = x$samples$lib.size,
-                            #min.count = 5,
-                            #min.total.count = 5,
-                            #large.n = 5,
-                            #min.prop = 0.01)
-                           )
+                            lib.size = x$samples$lib.size)
 x_Filtered_2 <- x[keep.exprs2, keep.lib.sizes = FALSE]
 
 lcpm <- cpm(x_Filtered_2, log = T)
@@ -112,17 +116,19 @@ Dimension before filtering (genes, samples): `r dim(x)` \
 Dimension after filtering (50% CPM >1) (genes, samples): `r dim(x_Filtered_1)` \
 Dimension after filterByExpr (genes, samples): `r dim(x_Filtered_2)` \
 \
-Decided to continue working with data filtered with filterByExpr ("x_Filtered_2).  
+Based on the count distribution, decided to continue working with data filtered with the filterByExpr function ("x_Filtered_2).  
   
 ## Normalize gene counts
+
+Perform normalization of gene counts using the TMM method. 
 
 ```{r, fig.width=15, fig.height=16}
 #Decided to continue working with data filtered with filterByExpr ("x_Filtered_2)
 rm(list=ls()[!(ls() %in% c("gene_counts", "x_Filtered_2"))]) #clean the working environment
 
-x_Filtered_2_TMM <- calcNormFactors(x_Filtered_2, method = "TMM") #TMM normalization (trimmed mean of M-values)
+x_Filtered_2_TMM <- calcNormFactors(x_Filtered_2, method = "TMM") #perform TMM normalization
 lcpm_x_Filtered_2 <- cpm(x_Filtered_2, log = TRUE) #calculate lcpm of non-normalized data
-lcpm_x_Filtered_2_TMM <- cpm(x_Filtered_2_TMM, log = TRUE) #calculate lcpm normalized data
+lcpm_x_Filtered_2_TMM <- cpm(x_Filtered_2_TMM, log = TRUE) #calculate lcpm of normalized data
 
 #boxplot to check effect normalization (without outliers)
 par(mfrow=c(2,2))
@@ -138,8 +144,6 @@ boxplot(lcpm_x_Filtered_2_TMM, las = 3, outline = TRUE, main = "Normalized - Out
 
 ```{r}
 #Create a normalized gene count list and export it
-if (!dir.exists("../results")){dir.create("../results/")}
-
 tmm <- cpm(x_Filtered_2_TMM)
 saveRDS(tmm, file = "../results/TMM_Normalized_GeneCounts.rds")
 
@@ -186,6 +190,8 @@ In this branch of the project, we decided to investigate the influence of the ni
 
 # Ammonium sulphate vs Urea
 
+Perform differential gene expression analysis on a subset of samples.
+
 ## Subset data
 Subset data to include samples to be analysed
 
@@ -213,7 +219,7 @@ ggplot(toplot, aes(Dim1, Dim2, colour = Strain)) + geom_point() +
 ```
 
 ## Create design matrix
-Create a variable called group in which I combine the different strains, nitrogen sources, and C/N ratios. I also decided to use a means model (~ 0 + group) since it makes analysis more clear later on. As documented in the limma guide (DOI: 10.12688/f1000research.27893.1) the two design are equivalent for categorical variables.
+Create a variable called group in which I combine the strain, nitrogen source, and C/N ratio information. I decided to use a means model (~ 0 + group) since it makes analysis more clear later on. As documented in the limma guide (DOI: 10.12688/f1000research.27893.1) the two design are equivalent for categorical variables.
 
 ```{r}
 Subset$samples$group <- factor(paste(Subset$samples$Strain, substring(Subset$samples$NitrogenSource,1,1),
@@ -222,14 +228,13 @@ group <- Subset$samples$group
   
 #Design model matrix
 design <- model.matrix(~ 0 + group, data = Subset) #define design matrix
-rownames(design) <- rownames(Subset$samples)
-colnames(design) <- gsub("group", "", colnames(design))
-design #check the design matrix
+rownames(design) <- rownames(Subset$samples) #assign rownmaes to design matrix
+colnames(design) <- gsub("group", "", colnames(design)) #assign colnames to design matrix
 
 ```
 
 ## Create contrast matrix
-Create the contrast matrix and set the contrasts that will be analysed by the model
+Create the contrast matrix and set the contrasts that will be analysed by the model. In this chuck the comparisons for which to extract p values and fold changes are defined. 
 
 ```{r}
 contr.matrix <- makeContrasts(
@@ -240,7 +245,6 @@ contr.matrix <- makeContrasts(
     OKYL049_U_3_0.1vsOKYL049_AS_3_0.1 = OKYL049_U_3-OKYL049_A_3,
     JFYL007_U_3_0.1vsJFYL007_AS_3_0.1 = JFYL007_U_3-JFYL007_A_3,
    levels = colnames(design))
-contr.matrix
 
 ```
 
@@ -269,18 +273,18 @@ plotSA(efit)
 For a quick look at differential expression levels, the number of significantly up- and down-regulated genes can be summarized in a table. Significance is defined using an adjusted p-value cutoff that is set at 5% by default.
 
 ```{r fig.height=10,fig.width=10}
-summary(decideTests(efit))
+summary(decideTests(efit)) #summary table of how many genes are up/down/unchanged
 
-par(mfrow = c((ncol(contr.matrix)/2),2))
+par(mfrow = c((ncol(contr.matrix)/2),2)) #set graph panel layout
 for (i in 1:ncol(contr.matrix)) {
-   plotMD(efit, column = i)
+   plotMD(efit, column = i) #do plot for all the comparisons in the list
 }
 
 ```
 
 ## Check p value distribution
 
-Check the pvalue distributions. Read more here: http://varianceexplained.org/statistics/interpreting-pvalue-histogram/
+Check the pvalue distributions. You can read more here: http://varianceexplained.org/statistics/interpreting-pvalue-histogram/
 
 ```{r fig.height=10,fig.width=10}
 
@@ -302,7 +306,7 @@ for (i in 1:length(comp_list)) {
 ```
 
 ## Export the results
-Export the output of the comparisons in excel files. 
+Export the output of the comparisons in both RData file and comma separated values files. 
 
 ```{r}
 if (!dir.exists("../results/Comparison_Output")){dir.create("../results/Comparison_Output/")}
