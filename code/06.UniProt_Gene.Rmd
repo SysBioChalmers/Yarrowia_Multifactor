@@ -18,8 +18,8 @@ This script is used to extract the log fold change and the p value of the genes 
 # Load packages
 
 ```{r}
-library(readxl)
 library(tidyverse)
+
 ```
 
 # Import data and filter
@@ -28,7 +28,7 @@ In this chunk we extract the urea gene names from the excel file input and then 
 
 ```{r}
 uniprot_table <- read.delim("../data/Uniprot_Yali.txt") #import uniprot table for yali genes
-excel_input <- read_excel("../data/Urea_genes.xlsx") #import file containing urea pathway genes
+excel_input <- read.csv2("../data/Urea_genes.csv") #import file containing urea pathway genes
 
 genes_to_extract <- as.character(as.vector(excel_input$YALI1)) #genes that we want to extract
 
@@ -75,5 +75,6 @@ df <- bind_rows(df.list) #generate a dataframe binding all the rows in the df.li
 
 df <- merge(x = df, y = urea_genes, by.x = "genes", by.y = "Gene.names") #add the uniprot information to the dataframe
 
-```
+write.csv2(df, "../results/UniProt_Urea_Genes_Annotation.csv", row.names = F)
 
+```

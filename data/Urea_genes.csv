@@ -1,0 +1,38 @@
+﻿YALI1;Name;Info;Function;
+YALI1_B19217g;DUR1_2;;Urea to Ammonia;
+YALI1_E08620g;DUR1_2;;Urea to Ammonia;
+YALI1_E41754g;DUR1_2;;Urea to Ammonia;
+YALI1_E33888g ;DUR3;filtered out;Urea transporter;least similarity to S.cer DUR3 
+YALI1_B05609g ;DUR3;;Urea transporter;
+YALI1_C22751g ;DUR3;filtered out;Urea transporter;
+YALI1_E39848g ;DUR3;not in GEM;Urea transporter;least similarity to S.cer DUR3 
+YALI1_E08937g;CAR1;filtered out;L-Arginine to urea ;
+YALI1_E30496g;GUD1;;Guanine deaminase;
+YALI1_A06640g;XDH1;;xanthine oxidase;
+YALI1_F12895g;URO1;;Urate oxidase;
+YALI1_F29836g;URO2;check identify;;
+YALI1_A01577g;URO3;check identify;;
+YALI1_F30479g;DAL1;;Allantoinase;
+YALI1_D22906g;DAL2;;Allantoicase;
+YALI1_F09856g;DAL3;;Ureidoglycolate lyase;
+YALI1_A02653g;MEP2;;ammonium permease;similar to S pompe but only around 35% identity with s.cer MEP1-3
+YALI1_A20201g;;;ammonium transporter;similar to S pompe but only around 35% identity with s.cer MEP1-3
+YALI1_B18292g;;;ammonium transporter;
+YALI1_E32180g;MEP2;;ammonium permease;
+YALI1_F17337g;MEP2;;ammonium permease;
+YALI1_F22568g;MEP1 or MEP3;;ammonium permease;
+YALI1_F00821g;GLN1;;;
+YALI1_B26112g;GLT1;;;
+YALI1_F23664g;GDH1;1.72 fold change for 029 in CN3and very close to be significant for049 as well;;
+YALI1_E11943g;GDH2;;;
+YALI1_D26006g;GZF1;;Regulation of Nitrogen Metabolism by GATA Zinc Finger Transcription Factors in Yarrowia lipolytica | mSphere (asm.org);
+YALI1_F23784g;GZF2;;Regulation of Nitrogen Metabolism by GATA Zinc Finger Transcription Factors in Yarrowia lipolytica | mSphere (asm.org);
+YALI1_C31243g;GZF3;;Regulation of Nitrogen Metabolism by GATA Zinc Finger Transcription Factors in Yarrowia lipolytica | mSphere (asm.org);
+YALI1_C31252g;GZF3;;;
+YALI1_E06484g;GZF4;;Regulation of Nitrogen Metabolism by GATA Zinc Finger Transcription Factors in Yarrowia lipolytica | mSphere (asm.org);
+YALI1_E19757g;GZF5;;Regulation of Nitrogen Metabolism by GATA Zinc Finger Transcription Factors in Yarrowia lipolytica | mSphere (asm.org);
+YALI1_D26006g;Gln3;;https://doi.org/10.1146/annurev.genet.41.110306.130206;
+YALI1_F23784g;Gat1;;https://doi.org/10.1146/annurev.genet.41.110306.130206;
+;Dal80;;https://doi.org/10.1146/annurev.genet.41.110306.130206;
+YALI1_C31243g;Gzf3;;https://doi.org/10.1146/annurev.genet.41.110306.130206;
+YALI1_C31252g;Gzf3;;https://doi.org/10.1146/annurev.genet.41.110306.130206;
