@@ -44,16 +44,16 @@ mining <- function (df.list,
     tmp = df.list[Group] #select only conditions specified in the Group vector
   }
   
-  tmp = map(tmp, ~ select(.x, c("genes", "logFC", "P.Value"))) #select only relevant columns
+  tmp = map(tmp, ~ select(.x, c("genes", "logFC", "P.Value", "adj.P.Val"))) #select only relevant columns
   
   #filtering step: filter up regulated in all conditions
   up = map(tmp, ~ filter(.x, 
-                         P.Value < pval_cutoff & 
+                         adj.P.Val < pval_cutoff & 
                            logFC > pos_FC)) 
   
   #filtering step: filter down regulated in all conditions
   dn = map(tmp, ~ filter(.x, 
-                         P.Value < pval_cutoff & 
+                         adj.P.Val < pval_cutoff & 
                            logFC < neg_FC))
   
   #extract genes that are up in all conditions

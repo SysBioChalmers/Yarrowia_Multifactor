@@ -56,7 +56,7 @@ N_Source_3 <- c("OKYL029_U_3_0.1vsOKYL029_AS_3_0.1",
 ```{r, fig.width=8}
 NS_116 <- mining(df.list = comp_list,
              Group = N_Source_116,
-             pval_cutoff = 0.01,
+             pval_cutoff = 0.05,
              neg_FC = -1,
              pos_FC = 1)
 
@@ -69,7 +69,7 @@ grid.arrange(NS_116$plot_up, NS_116$plot_dn, ncol = 2)
 ```{r, fig.width=8}
 NS_3 <- mining(df.list = comp_list,
              Group = N_Source_3,
-             pval_cutoff = 0.01,
+             pval_cutoff = 0.05,
              neg_FC = -1,
              pos_FC = 1)
 
@@ -92,12 +92,53 @@ dev.off()
 
 ```
 
+# Generate df with info for network plot
+
+```{r}
+#Set the up-regulated list
+up <- list(OKYL029_116 = NS_116$up$OKYL029_U_116_0.1vsOKYL029_AS_116_0.1$genes,
+           OKYL049_116 = NS_116$up$OKYL049_U_116_0.1vsOKYL049_AS_116_0.1$genes,
+           JFYL007_116 = NS_116$up$JFYL007_U_116_0.1vsJFYL007_AS_116_0.1$genes,
+           OKYL029_3 = NS_3$up$OKYL029_U_3_0.1vsOKYL029_AS_3_0.1$genes,
+           OKYL049_3 = NS_3$up$OKYL049_U_3_0.1vsOKYL049_AS_3_0.1$genes,
+           JFYL007_3 = NS_3$up$JFYL007_U_3_0.1vsJFYL007_AS_3_0.1$genes)
+
+#Set the downregulated list
+down <- list(OKYL029_116 = NS_116$dn$OKYL029_U_116_0.1vsOKYL029_AS_116_0.1$genes,
+             OKYL049_116 = NS_116$dn$OKYL049_U_116_0.1vsOKYL049_AS_116_0.1$genes,
+             JFYL007_116 = NS_116$dn$JFYL007_U_116_0.1vsJFYL007_AS_116_0.1$genes,
+             OKYL029_3 = NS_3$dn$OKYL029_U_3_0.1vsOKYL029_AS_3_0.1$genes,
+             OKYL049_3 = NS_3$dn$OKYL049_U_3_0.1vsOKYL049_AS_3_0.1$genes,
+             JFYL007_3 = NS_3$dn$JFYL007_U_3_0.1vsJFYL007_AS_3_0.1$genes)
+
+#code to export the data for the netwrok plot
+# (https://divenn.tch.harvard.edu)
+
+df_up <- data.frame(Comparison = rep(names(up), sapply(up, length)),
+                 Gene = unlist(up), Direction = 1)
+
+df_dn <- data.frame(Comparison = rep(names(down), sapply(down, length)),
+                    Gene = unlist(down), Direction = 2)
+
+df <- rbind(df_up, df_dn) #create df in which we have data for network plot
+df <- df[order(df$Comparison),] #create df in which we have data for network plot
+
+df2 <- df %>% pivot_wider(names_from = Comparison,values_from = Direction) #create a readable df to check comparison intersections
+
+```
+
 # Export output
 
 ```{r}
-
+#save the results and export the dfs in csv files
 save(NS_116, file = "../results/Euler_Plot/NS_116.RData")
 save(NS_3, file = "../results/Euler_Plot/NS_3.RData")
+
+#export the network plot data
+if (!dir.exists("../results/NetworkPlot")) {dir.create("../results/NetworkPlot")}
+write.csv2(df, file = "../results/NetworkPlot/data_network_plot.csv", row.names = F)
+write.csv2(df2, file = "../results/NetworkPlot/data_intersections.csv", row.names = F)
+
 
 ```
 
