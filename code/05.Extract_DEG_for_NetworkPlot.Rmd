@@ -120,10 +120,23 @@ df_up <- data.frame(Comparison = rep(names(up), sapply(up, length)),
 df_dn <- data.frame(Comparison = rep(names(down), sapply(down, length)),
                     Gene = unlist(down), Direction = 2)
 
-df <- rbind(df_up, df_dn) #create df in which we have data for network plot
-df <- df[order(df$Comparison),] #create df in which we have data for network plot
+data_network_plot <- rbind(df_up, df_dn) #create df in which we have data for network plot
+data_network_plot <- data_network_plot[order(data_network_plot$Comparison),] #create df in which we have data for network plot
 
-df2 <- df %>% pivot_wider(names_from = Comparison,values_from = Direction) #create a readable df to check comparison intersections
+```
+
+# Generate annotation table
+
+This snippet of code will take the intersections between different samples, it will extract the genes in the intersection and will merge them with the annotation in uniprot. 
+
+```{r}
+uniprot_table <- read.delim("../data/Uniprot_Yali.txt") %>% #import uniprot table for yali genes
+  select(c("Gene.names", "Protein.names"))
+uniprot_table$Gene.names <- str_extract(uniprot_table$Gene.names, ".{0,0}YALI1_.{0,7}") #only keep YALI1_ gene names
+
+table_gene_function <- data_network_plot %>% 
+  pivot_wider(names_from = Comparison,values_from = Direction) %>% #create a df to check intersections
+  merge(uniprot_table, by.x = "Gene", by.y = "Gene.names") #merge with uniprot information 
 
 ```
 
@@ -136,9 +149,8 @@ save(NS_3, file = "../results/Euler_Plot/NS_3.RData")
 
 #export the network plot data
 if (!dir.exists("../results/NetworkPlot")) {dir.create("../results/NetworkPlot")}
-write.csv2(df, file = "../results/NetworkPlot/data_network_plot.csv", row.names = F)
-write.csv2(df2, file = "../results/NetworkPlot/data_intersections.csv", row.names = F)
-
+write.csv2(data_network_plot, file = "../results/NetworkPlot/data_network_plot.csv", row.names = F)
+write.csv2(table_gene_function, file = "../results/NetworkPlot/table_gene_function.csv", row.names = F)
 
 ```
 
