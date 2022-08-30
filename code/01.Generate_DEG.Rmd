@@ -48,7 +48,9 @@ gene_counts <- gene_counts[,order(names(gene_counts))] #placing samples in order
 colnames(gene_counts) <- as.character(metadata$ID) #rename rows so that they have our ID (not NGI_ID)
 
 #Create DGEList and add the metadata of the samples
-x <- DGEList(counts = gene_counts, genes = rownames(gene_counts), samples = metadata) #create DGEList
+x <- DGEList(counts = gene_counts, 
+             genes = rownames(gene_counts), 
+             samples = metadata) #create DGEList
 x$samples <- dplyr::select(x$samples, -c("NGISampleID")) #remove non-necessary columns
 rm("metadata", "cols") #remove dataframe used to add the metadata
 
@@ -64,9 +66,9 @@ lcpm <- cpm(x, log = T)
 
 #Plot raw logCPM reads before filtering
 par(mfrow = c(1, 3)) #set graph panel layout aesthetics 
-
 nsamples <- ncol(x)
 col <- brewer.pal(nsamples, "Paired") # Ignore warning, some samples will have identical color.
+
 plot(density(lcpm[, 1]),col = col[1],ylim = c(0, 0.6), las = 2, 
      main = "A. Raw data",
      xlab = "Log-cpm")
@@ -157,32 +159,20 @@ Unsupervised clustering keeping all the samples. Samples are labelled differentl
 rm(list=ls()[!(ls() %in% c("gene_counts", "x_Filtered_2_TMM", "lcpm_x_Filtered_2_TMM"))]) #clean the working environment
 
 #Generate MDS plots: good to see if there are any outliers in the data and to see what's clustering
+
+par(mfrow = c(2, 2)) #set graphics of plot
+panels <- c("A. ", "B. ", "C. ", "D. ") #set the panel letters
+
 #MDS plot for all the samples, colored by different conditions
-par(mfrow = c(2, 2))
-
-col.group <- x_Filtered_2_TMM$samples$Strain
-levels(col.group) <- brewer.pal(nlevels(col.group), "Set1")
-col.group <- as.character(col.group)
-plotMDS(lcpm_x_Filtered_2_TMM, labels = x_Filtered_2_TMM$samples$Strain,col = col.group, gene.selection = "common")
-title(main = "A. All Samples by Strain")
-
-col.group <- x_Filtered_2_TMM$samples$NitrogenSource
-levels(col.group) <- brewer.pal(nlevels(col.group), "Set1")
-col.group <- as.character(col.group)
-plotMDS(lcpm_x_Filtered_2_TMM, labels = x_Filtered_2_TMM$samples$NitrogenSource,col = col.group, gene.selection = "common")
-title(main = "B. All Samples by Nitrogen Source")
-
-col.group <- x_Filtered_2_TMM$samples$CN_Ratio
-levels(col.group) <- brewer.pal(nlevels(col.group), "Set1")
-col.group <- as.character(col.group)
-plotMDS(lcpm_x_Filtered_2_TMM, labels = x_Filtered_2_TMM$samples$CN_Ratio,col = col.group, gene.selection = "common")
-title(main = "C. All Samples by CN Ratio")
-
-col.group <- x_Filtered_2_TMM$samples$DR
-levels(col.group) <- brewer.pal(nlevels(col.group), "Set1")
-col.group <- as.character(col.group)
-plotMDS(lcpm_x_Filtered_2_TMM, labels = x_Filtered_2_TMM$samples$DR, col = col.group, gene.selection = "common")
-title(main = "D. All Samples by DR")
+for (i in (5:8)) { #from 5 to 8 because or factors are in column 5 to 8
+    col.group <- x_Filtered_2_TMM$samples[[i]] #define levels of the factor
+    levels(col.group) <- brewer.pal(nlevels(col.group), "Set1") #assign a color to each factor level
+    col.group <- as.character(col.group) #assign color to each factor based on the level 
+    plotMDS(lcpm_x_Filtered_2_TMM, labels = x_Filtered_2_TMM$samples[[i]] ,col = col.group) #generate MDS plot
+    title(main = paste0(panels[i-4], #title of the plot. "i-4" to match i-th value with panel letter position
+                        "All Samples by ",
+                        colnames(x_Filtered_2_TMM$samples[i]))) #paste factor value name
+}
 
 ```
 
