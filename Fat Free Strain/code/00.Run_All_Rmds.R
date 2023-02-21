@@ -4,6 +4,9 @@
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) #set working directory
 files <- list.files(pattern = "[.]Rmd$") #get Rmd file names
 
+if (!dir.exists("../results/")){dir.create("../results/")}
+if (!dir.exists("../results/Reports")){dir.create("../results/Reports")}
+
 #render the Rmd files and perform the analysis
 for (f in files) 
   rmarkdown::render(f, 

@@ -1,0 +1,175 @@
+---
+title: "Preprocessing"
+author: "Simone Zaghen"
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output: 
+  html_document: 
+    toc: true
+    number_section: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: true
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = "../results/Reports") })
+---
+
+# Load required packages
+
+```{r, results='hide', message=FALSE}
+library(limma)
+library(edgeR)
+library(tidyverse)
+library(RColorBrewer)
+
+if (!dir.exists("../results/")){dir.create("../results/")}
+
+```
+
+# Preprocessing
+
+## Load and restructure data
+
+```{r}
+gene_counts <- read.delim("../data/merged_gene_counts.txt", skip =0 ) #file with gene counts
+metadata <- read.delim('../data/metadata_samples.txt', skip =0) #file with metadata and proper group names
+cols <- c("Strain","NitrogenSource","CN_Ratio","DR","group","Overexpression","Deletion") #columns to convert to factor
+metadata[cols] <- lapply(metadata[cols], factor) #column as factor with levels
+rownames(gene_counts) <- gene_counts$Geneid #gene names as row names
+gene_counts <- gene_counts[,-1:-2] #remove column without count data
+colnames(gene_counts) <- gsub('P20604_|_S.*', '', colnames(gene_counts)) #rename columns
+gene_counts <- gene_counts[,order(names(gene_counts))] #placing samples in order
+colnames(gene_counts) <- as.character(metadata$ID) #rename rows so that they have our ID (not NGI_ID)
+
+#Create DGEList and add the metadata of the samples
+x <- DGEList(counts = gene_counts, genes = rownames(gene_counts), samples = metadata) #create DGEList
+x$samples <- dplyr::select(x$samples, -c("NGISampleID")) #remove non-necessary columns
+rm("metadata", "cols") #remove dataframe used to add the metadata
+
+```
+
+## Filter low reads
+
+```{r, warning=FALSE,fig.width=10, fig.height=5}
+#Normalize for library size, by taking the log count-per-million. It's not a satisfactory normalization, but we just use it to plot raw reads
+cpm <- cpm(x)
+lcpm <- cpm(x, log = T)
+
+#Plot raw logCPM reads before filtering
+nsamples <- ncol(x)
+col <- brewer.pal(nsamples, "Paired") # Ignore warning, some samples will have identical color.
+par(mfrow = c(1, 3))
+plot(density(lcpm[, 1]),col = col[1],ylim = c(0, 0.6), las = 2, 
+     main = "A. Raw data",
+     xlab = "Log-cpm")
+abline(v = 0, lty = 3)
+for (i in 2:nsamples) {
+  den <- density(lcpm[, i])
+  lines(den$x, den$y, col = col[i])
+}
+
+#Filter: for each gene at least 50% of the samples should have a CPM value higher than 1.
+keep.exprs1 <- rowSums(cpm > 1) >= 45*0.5
+x_Filtered_1 <- x[keep.exprs1, keep.lib.sizes = FALSE]
+
+lcpm <- cpm(x_Filtered_1, log = T)
+plot(
+  density(lcpm[, 1]),
+  col = col[1],
+  ylim = c(0, 0.6),
+  las = 2,
+  main = "B. Filtered 50% CPM>1",
+  xlab = "Log-cpm")
+abline(v = 0, lty = 3)
+for (i in 2:nsamples) {
+  den <- density(lcpm[, i])
+  lines(den$x, den$y, col = col[i])
+}
+
+#Filter with filterByExpr function
+keep.exprs2 <- filterByExpr(x, group = x$samples$group,
+                            lib.size = x$samples$lib.size)
+x_Filtered_2 <- x[keep.exprs2, keep.lib.sizes = FALSE]
+
+lcpm <- cpm(x_Filtered_2, log = T)
+
+plot(density(lcpm[, 1]),col = col[1],ylim = c(0, 0.6), las = 2,
+     main = "C.filterByExpr",
+     xlab = "Log-cpm")
+abline(v = 0, lty = 3)
+for (i in 2:nsamples) {
+  den <- density(lcpm[, i])
+  lines(den$x, den$y, col = col[i])
+}
+
+```
+
+Dimension before filtering (genes, samples): `r dim(x)`
+Dimension after filtering (50% CPM >1) (genes, samples): `r dim(x_Filtered_1)`
+Dimension after filterByExpr (genes, samples): `r dim(x_Filtered_2)`
+
+Decided to continue working with data filtered with filterByExpr ("x_Filtered_2).  
+  
+## Normalize gene counts
+
+```{r, fig.width=15, fig.height=16}
+#Decided to continue working with data filtered with filterByExpr ("x_Filtered_2)
+rm(list=ls()[!(ls() %in% c("gene_counts", "x_Filtered_2"))]) #clean the working environment
+
+x_Filtered_2_TMM <- calcNormFactors(x_Filtered_2, method = "TMM") #TMM normalization (trimmed mean of M-values)
+lcpm_x_Filtered_2 <- cpm(x_Filtered_2, log = TRUE) #calculate lcpm of non-normalized data
+lcpm_x_Filtered_2_TMM <- cpm(x_Filtered_2_TMM, log = TRUE) #calculate lcpm normalized data
+
+#boxplot to check effect normalization (without outliers)
+par(mfrow=c(2,2))
+boxplot(lcpm_x_Filtered_2, las= 3, outline = FALSE, main = "Not normalized - No outliers", ylab = "Log-CPM")
+boxplot(lcpm_x_Filtered_2_TMM, las = 3, outline = FALSE, main = "Normalized - No outliers", ylab = "Log-CPM")
+
+#boxplot to check effect normalization (with outliers)
+boxplot(lcpm_x_Filtered_2, las= 3, outline = TRUE, main = "Not normalized - Outliers", ylab = "Log-CPM")
+boxplot(lcpm_x_Filtered_2_TMM, las = 3, outline = TRUE, main = "Normalized - Outliers", ylab = "Log-CPM")
+
+rm("lcpm_x_Filtered_2", "x_Filtered_2")
+
+```
+
+# Unsupervised clustering
+Unsupervised clustering keeping all the samples in. Samples are then then labelled differently to see which condition/parameter separates them better. So the graph is the same, but the labeling (based on C/N ratio, dilution rate or nitrogen source) is different and allows me to see if any of this conditions is separating the samples the most. 
+
+```{r, warning=FALSE, fig.width=10, fig.height=10}
+#Generate MDS plots: good to see if there are any outliers in the data and to see what's clustering
+
+par(mfrow = c(2, 2)) #set graphics of plot
+panels <- c("A. ", "B. ", "C. ", "D. ") #set the panel letters
+
+#MDS plot for all the samples, colored by different conditions
+for (i in (5:8)) { #from 5 to 8 because or factors are in column 5 to 8
+    col.group <- x_Filtered_2_TMM$samples[[i]] #define levels of the factor
+    levels(col.group) <- brewer.pal(nlevels(col.group), "Set1") #assign a color to each factor level
+    col.group <- as.character(col.group) #assign color to each factor based on the level 
+    plotMDS(lcpm_x_Filtered_2_TMM, labels = x_Filtered_2_TMM$samples[[i]] ,col = col.group) #generate MDS plot
+    title(main = paste0(panels[i-4], #title of the plot. "i-4" to match i-th value with panel letter position
+                        "All Samples by ",
+                        colnames(x_Filtered_2_TMM$samples[i]))) #paste factor value name
+}
+
+rm(list = c("col.group", "i", "panels"))
+
+```
+
+## Save stuff for future scripts
+
+```{r}
+if (!dir.exists("../results/Output_Preprocessing")){dir.create("../results/Output_Preprocessing")}
+
+#Export normalized gene counts
+tmm <- cpm(x_Filtered_2_TMM)
+saveRDS(tmm, file = "../results/Output_Preprocessing/TMM_Normalized_GeneCounts.rds")
+
+#Export important stuff for future scripts
+save(x_Filtered_2_TMM, file = "../results/Output_Preprocessing/x_Filtered_2_TMM.RData")
+save(gene_counts, file = "../results/Output_Preprocessing/gene_counts.RData")
+save(lcpm_x_Filtered_2_TMM, file = "../results/Output_Preprocessing/lcpm_x_Filtered_2_TMM.RData")
+
+rm("tmm")
+
+```

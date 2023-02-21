@@ -1,0 +1,272 @@
+---
+title: "Compare Q4 on C/N 116 DR 0.06"
+author: "Simone Zaghen"
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output: 
+  html_document: 
+    toc: true
+    number_section: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: true
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = "../results/Reports") })
+---
+
+# Load required packages
+
+```{r, results='hide', message=FALSE}
+library(limma)
+library(edgeR)
+library(tidyverse)
+library(RColorBrewer)
+library(piano)
+library(ggpubr)
+library(EnhancedVolcano)
+
+```
+
+# Load data
+
+```{r}
+load(file = "../results/Output_Preprocessing/x_Filtered_2_TMM.RData")
+load(file = "../results/Output_Preprocessing/gene_counts.RData")
+load(file = "../results/Output_Preprocessing/lcpm_x_Filtered_2_TMM.RData")
+
+```
+
+# DEG on interesting conditions
+
+```{r}
+Subset <- x_Filtered_2_TMM[,which(x_Filtered_2_TMM$samples$CN_Ratio == "116" &
+                                  x_Filtered_2_TMM$samples$NitrogenSource == "Ammonium Sulphate" &
+                                  x_Filtered_2_TMM$samples$DR == "0.06")]
+
+```
+
+## Check for outliers 
+
+```{r warning=FALSE, fig.keep='last'}
+mds <- plotMDS(Subset)
+
+toplot <- data.frame(Dim1 = mds$x, Dim2 = mds$y, Strain = factor(Subset$samples$Strain), DR = factor(Subset$samples$DR))
+mds$var.explained <- round(mds$var.explained*100, 0)
+ggplot(toplot, aes(Dim1, Dim2, colour = Strain)) + geom_point() +
+   xlab(paste0("PC1: ",mds$var.explained[1],"% variance")) +
+   ylab(paste0("PC2: ",mds$var.explained[2],"% variance")) +
+   geom_text(aes(label = Strain), position = position_nudge(x = 0.2), show.legend = FALSE) + 
+   theme_bw()
+
+```
+
+## Create design matrix
+
+```{r}
+#Define levels for design matrix
+group <- Subset$samples$Strain
+  
+#Design model matrix
+design <- model.matrix(~ 0 + group, data = Subset) #define design matrix
+rownames(design) <- rownames(Subset$samples)
+colnames(design) <- gsub("group", "", colnames(design))
+design #check the design matrix
+
+```
+
+## Create contrast matrix
+
+```{r}
+contr.matrix <- makeContrasts(
+   JFYL007vsOKYL029 = JFYL007 - OKYL029,
+   OKYL049vsOKYL029 = OKYL049 - OKYL029,
+   levels = colnames(design))
+contr.matrix
+
+```
+
+## Voom transformation
+
+```{r}
+v <- voom(Subset, design, plot = TRUE) #voom transform
+
+```
+
+## Fit the model
+
+```{r}
+#Linear modelling and empirical Bayes moderation
+vfit <- lmFit(v, design)
+vfit <- contrasts.fit(vfit, contrasts=contr.matrix) 
+efit <- eBayes(vfit)
+plotSA(efit)
+
+```
+
+
+```{r fig.height=4, fig.width=10}
+summary(decideTests(efit))
+
+par(mfrow = c(1,2))
+for (i in 1:ncol(contr.matrix)) {
+   plotMD(efit, column = i)
+}
+
+```
+
+## Check p value distribution
+
+```{r fig.height=4,fig.width=10}
+
+#move the results of the comparisons in a list
+comp_list <- list()
+for (i in 1:ncol(contr.matrix)) {
+   name = colnames(contr.matrix)[i]
+   tmp = topTreat(efit, coef = i, n = Inf) 
+   comp_list[[name]] <- tmp
+}
+
+#plot the p value distribution
+par(mfrow = c(1,2))
+for (i in 1:length(comp_list)) {
+   name = names(comp_list[i])
+   hist(as.vector(comp_list[[i]][[5]]), main = name, xlab = "P-Value")
+}
+
+if (!dir.exists("../results/Comparison_Output")){dir.create("../results/Comparison_Output")}
+save(comp_list, file = "../results/Comparison_Output/comp_list_DR006.RData")
+
+```
+
+## Volcano plot
+
+```{r, fig.width=8, fig.height=6, warning=FALSE}
+for (i in 1:length(comp_list)) {
+        plot <- EnhancedVolcano(comp_list[[i]],
+                        lab = NA,
+                        x = "logFC",
+                        y = "P.Value",
+                        pCutoff = 0.01,
+                        FCcutoff = 1,
+                        ylim = c(0,15),
+                        title = paste0(names(comp_list[i])),
+                        subtitle = NULL,
+                        xlim = c(-6,6),
+                        )
+  print(plot)
+}
+
+
+```
+
+
+# Gene set analysis
+
+## Tidy and import data
+
+```{r, warning=FALSE}
+
+rm(list=ls()[!(ls() %in% c("comp_list"))]) #clean the working environment
+
+source('../code/Functions/consGSA.R')
+source('../code/Functions/consGSAplot.R')
+
+```
+
+## Create gene set collection
+Create gene set collection and subset the analysis only to different levels of the GSC. 
+
+```{r}
+gene_sets <- read.csv2("../data/Gene_Set.csv") #import the gene set collection
+
+#We have three levels of analysis, and we want to perform a GSA for each
+#We need to split the GSA by level
+gene_sets <- list(geneSetBP = loadGSC(gene_sets %>%
+                                      filter(Level %in% "biological_process") %>%
+                                      select(c("genes", "Term")),
+                                      type = "data.frame"),
+                  geneSetMF = loadGSC(gene_sets %>%
+                                      filter(Level %in% "molecular_function") %>%
+                                      select(c("genes", "Term")),
+                                      type = "data.frame"),
+                  geneSetCC = loadGSC(gene_sets %>%
+                                      filter(Level %in% "cellular_component") %>%
+                                      select(c("genes", "Term")),
+                                      type = "data.frame"))
+```
+
+## Perform GSA
+Loop the consensus gene set analysis through all the comparisons. 
+
+```{r, message=FALSE, warning=FALSE, results='hide'}
+#create directories where to save output of GSA
+if (!dir.exists("../results/GSA/")){dir.create("../results/GSA/")}
+if (!dir.exists("../results/GSA/DR_006")){dir.create("../results/GSA/DR_006")}
+
+GSA_results <- list() #Create list to store results of the consGSA function
+
+for (i in 1:length(names(comp_list))) {
+   TopTable <- as.data.frame(comp_list[i], col.names = "", row.names = 1) #create df for GSA
+     GSA_results[[i]] <- list(
+       BP = consGSA(TopTable, gene_sets$geneSetBP), #run consensus GSA for biological process
+       MF = consGSA(TopTable, gene_sets$geneSetMF), #run consensus GSA for molecular function
+       CC = consGSA(TopTable, gene_sets$geneSetCC)) #run consensus GSA for cellular component
+   names(GSA_results)[i] <- names(comp_list)[i] #assign names to each element of the list
+}
+
+```
+
+
+## Plot results GSA
+
+```{r, warning=FALSE, results='hide', message=FALSE, fig.height=15, fig.width=10}
+path <- "../results/GSA/DR_006/" #where to save graphs
+Pcutoff <- 0.01 #set p value cutoff
+consGSA_plot_data <- list() #create list in which to save the graphs
+
+#generate the graphs and save them in the list, along with the data to generate them
+for (i in 1:length(GSA_results)) { #loop through all the GSAs we have
+  consGSA_plot_data[[i]] <- list( #the results will be saved in a list
+    BP = consGSAplot(resList = GSA_results[[i]][[1]], #create the consensous plot for BP
+                     rankScore = 25, 
+                     Pcutoff = Pcutoff, 
+                     distinct = 'distinct', 
+                     title = paste0("Biological Process - rankScore 25", " ,pval < ", Pcutoff)),
+    
+    MF = consGSAplot(resList =  GSA_results[[i]][[2]], #create the consensous plot for MF
+                     rankScore = 25, 
+                     Pcutoff = Pcutoff, 
+                     distinct = 'distinct', 
+                     title = paste0("Molecular Function - rankScore 25" , " ,pval < ", Pcutoff)),
+    CC = consGSAplot(resList = GSA_results[[i]][[3]], #create the consensous plot for CC
+                     rankScore = 25, 
+                     Pcutoff = Pcutoff, 
+                     distinct = 'distinct', 
+                     title = paste0("Cellular Component - rankScore 25", " ,pval < ", Pcutoff)))
+  
+  names(consGSA_plot_data)[i] <- names(GSA_results)[i] #assign the names to the list of graphs
+  
+    #For each comparison arrange the three (BP, MF,CC) graphs and print the final plot
+    print(ggarrange(consGSA_plot_data[[i]][["BP"]][["plot"]], 
+                        consGSA_plot_data[[i]][["MF"]][["plot"]], 
+                        consGSA_plot_data[[i]][["CC"]][["plot"]], 
+                        ncol=1, 
+                        nrow=3, 
+                        common.legend = TRUE, 
+                        legend = "bottom") %>%
+      annotate_figure(top = text_grob((names(comp_list)[i]), 
+                                       color = "red", face = "bold", size = 18))) %>%
+      ggsave(path = path, 
+           file=paste0("plot_", names(comp_list[i]), ".pdf"), width = 10, height = 16)
+}
+```
+
+Save GSA results as R environment and load them in case of further analysis - avoid re-running GSA every time.
+
+```{r}
+save(GSA_results, file = "../results/GSA/DR_006/gsaRes_3.RData")
+#load(file = "../results/GSA/DR_006/gsaRes_3.RData")
+
+save(consGSA_plot_data, file = "../results/GSA/DR_006/consGSA_plot_data_3.RData")
+#load(file = "../results/GSA/DR_006/consGSA_plot_data_3.RData")
+
+```

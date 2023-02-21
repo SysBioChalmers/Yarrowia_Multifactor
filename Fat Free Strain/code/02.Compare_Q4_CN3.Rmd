@@ -1,0 +1,327 @@
+---
+title: "Compare Q4 on C/N 3"
+author: "Simone Zaghen"
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output: 
+  html_document: 
+    toc: true
+    number_section: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: true
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = "../results/Reports") })
+---
+
+One of the hypothesis/clues we have, is looking into how the JFYL007/Q4 strain since it is quite different from the wild type. During previous exploratory analysis, a lot of GO terms related to stress/protein misfolding popped up. This might be an interesting direction to investigate. From the PCA done in the preprocessing script, we saw that the Q4 strain clusters differently from the O29 and O49, but only when C/N is 116, not 3. Therefore, here i will compare Q4 vs O29 on C/N 3, DR 0.1 and AS as N source. Afterwards I will compare on C/N 116.
+
+# Load required packages
+
+```{r, results='hide', message=FALSE}
+library(limma)
+library(edgeR)
+library(tidyverse)
+library(RColorBrewer)
+library(EnhancedVolcano)
+library(eulerr)
+library(piano)
+library(ggpubr)
+
+source('../code/Functions/consGSA.R')
+source('../code/Functions/consGSAplot.R')
+
+```
+
+# Load data
+
+```{r}
+load(file = "../results/Output_Preprocessing/x_Filtered_2_TMM.RData")
+load(file = "../results/Output_Preprocessing/gene_counts.RData")
+load(file = "../results/Output_Preprocessing/lcpm_x_Filtered_2_TMM.RData")
+
+```
+
+# DGE analysis 
+From the PCA, we see that the Q4 strain clusters differently from the O29 and O49, but only when C/N is 116, not 3. Therefore, here i will compare Q4 vs O29 on C/N 116, DR 0.1 and AS as N source. As sanity check, i will also compare O29 with O49 on the same condition. 
+
+```{r}
+Subset <- x_Filtered_2_TMM[,which(x_Filtered_2_TMM$samples$CN_Ratio == "3" &
+                                  x_Filtered_2_TMM$samples$NitrogenSource == "Ammonium Sulphate" &
+                                  x_Filtered_2_TMM$samples$DR == "0.1")]
+
+```
+
+## Check for outliers 
+Examine samples for outliers and to check if they cluster together
+
+```{r warning=FALSE, fig.keep='last'}
+mds <- plotMDS(Subset)
+
+toplot <- data.frame(Dim1 = mds$x, Dim2 = mds$y, Strain = factor(Subset$samples$Strain), DR = factor(Subset$samples$DR))
+mds$var.explained <- round(mds$var.explained*100, 0)
+ggplot(toplot, aes(Dim1, Dim2, colour = Strain)) + geom_point() +
+   xlab(paste0("PC1: ",mds$var.explained[1],"% variance")) +
+   ylab(paste0("PC2: ",mds$var.explained[2],"% variance")) +
+   geom_text(aes(label = Strain), position = position_nudge(x = 0.2), show.legend = FALSE) + 
+   theme_bw()
+
+rm(list = c("mds", "toplot"))
+
+```
+
+## Create design matrix
+I choose to create a variable called group in which i combined the different strains and dilution rates in order to make comparisons easier later on. I also decided to use a means model (~ 0 + group) since it makes analysis more clear later on. As documented in the limma guide (DOI: 10.12688/f1000research.27893.1) the two design are equivalent for categorical variables.
+
+```{r}
+#Define levels for design matrix
+group <- Subset$samples$Strain
+  
+#Design model matrix
+design <- model.matrix(~ 0 + group, data = Subset) #define design matrix
+rownames(design) <- rownames(Subset$samples)
+colnames(design) <- gsub("group", "", colnames(design))
+design #check the design matrix
+
+rm("group")
+
+```
+
+## Create contrast matrix
+Create the contrast matrix and set the contrasts that will be analysed by the model
+
+```{r}
+contr.matrix <- makeContrasts(
+   JFYL007vsOKYL029 = JFYL007 - OKYL029,
+   OKYL049vsOKYL029 = OKYL049 - OKYL029,
+   levels = colnames(design))
+contr.matrix
+
+```
+
+## Voom transformation
+Limma works with voom transformed data, so perform a voom transformation and then fit the model.  
+Mean-variance relationship of log-CPM values: typically, the “voom-plot” shows a decreasing trend between the means and variances resulting from a combination of technical variation in the sequencing experiment and biological variation among the replicate samples from different cell populations. Experiments with high biological variation usually result in flatter trends, where variance values plateau at high expression values. Experiments with low biological variation tend to result in sharp decreasing trends.  
+Moreover, the voom-plot provides a visual check on the level of filtering performed upstream. If filtering of lowly- expressed genes is insufficient, a drop in variance levels can be observed at the low end of the expression scale due to very small counts. If this is observed, one should return to the earlier filtering step and increase the expression threshold applied to the dataset.  
+
+```{r}
+v <- voom(Subset, design, plot = TRUE) #voom transform
+
+```
+
+## Fit the model
+Linear modelling in limma is carried out using the lmFit and contrasts.fit functions originally written for application to microarrays. The functions can be used for both microarray and RNA-seq data and fit a separate model to the expression values for each gene. Next, empirical Bayes moderation is carried out by borrowing information across all genes to obtain more precise estimates of gene-wise variability. The model’s residual variances are plotted against average expression values. It can be seen from this plot that the variance is no longer dependent on the mean expression level.
+
+```{r}
+#Linear modelling and empirical Bayes moderation
+vfit <- lmFit(v, design)
+vfit <- contrasts.fit(vfit, contrasts=contr.matrix) 
+efit <- eBayes(vfit)
+plotSA(efit)
+
+rm(list = c("design", "v", "vfit"))
+```
+
+For a quick look at differential expression levels, the number of significantly up- and down-regulated genes can be summarised in a table. Significance is defined using an adjusted p-value cutoff that is set at 5% by default.
+
+```{r fig.height=4, fig.width=10}
+summary(decideTests(efit, method = "separate", adjust.method = "BH", lfc = 0.5))
+
+par(mfrow = c(1,2))
+for (i in 1:ncol(contr.matrix)) {
+   plotMD(efit, column = i)
+}
+
+```
+
+## Check p value distribution
+Check the pvalue distributions. Read more here: http://varianceexplained.org/statistics/interpreting-pvalue-histogram/
+
+```{r fig.height=4,fig.width=10}
+
+#move the results of the comparisons in a list
+comp_list <- list()
+for (i in 1:ncol(contr.matrix)) {
+   name = colnames(contr.matrix)[i]
+   tmp = topTreat(efit, coef = i, n = Inf) 
+   comp_list[[name]] <- tmp
+}
+
+#plot the p value distribution
+par(mfrow = c(1,2))
+for (i in 1:length(comp_list)) {
+   name = names(comp_list[i])
+   hist(as.vector(comp_list[[i]][[5]]), main = name, xlab = "P-Value")
+}
+
+if (!dir.exists("../results/Comparison_Output")){dir.create("../results/Comparison_Output")}
+save(comp_list, file = "../results/Comparison_Output/comp_list_CN3.RData")
+
+rm(list= c("tmp", "contr.matrix"))
+
+```
+
+# Volcano plot 
+
+```{r, fig.width=8, fig.height=6, warning=FALSE}
+for (i in 1:length(comp_list)) {
+        plot <- EnhancedVolcano(comp_list[[i]],
+                        lab = NA,
+                        x = "logFC",
+                        y = "adj.P.Val",
+                        pCutoff = 0.05,
+                        FCcutoff = 0.5,
+                        #ylim = c(0,15),
+                        title = paste0(names(comp_list[i])),
+                        subtitle = NULL,
+                        #xlim = c(-6,6),
+                        )
+  print(plot)
+}
+
+rm("plot")
+
+```
+
+# Are there common genes between comparisons?
+
+Are there any up or downregulated genes in both comparisons?
+
+```{r}
+list_euler <- list(
+  JFYL007vsOKYL029_UP = rownames(comp_list$JFYL007vsOKYL029 %>% filter(adj.P.Val < 0.05 & logFC > 0) %>% select(genes)),
+  OKYL049vsOKYL029_UP = rownames(comp_list$OKYL049vsOKYL029 %>% filter(adj.P.Val < 0.05 & logFC > 0) %>% select(genes)),
+  JFYL007vsOKYL029_DN = rownames(comp_list$JFYL007vsOKYL029 %>% filter(adj.P.Val < 0.05 & logFC < 0) %>% select(genes)),
+  OKYL049vsOKYL029_DN = rownames(comp_list$OKYL049vsOKYL029 %>% filter(adj.P.Val < 0.05 & logFC < 0) %>% select(genes)))
+
+#do eulerr plot
+plot(euler(list_euler),
+     quantities = TRUE,
+     legend = "side")
+
+```
+
+## Check function of DEG for JFYL007 vs OKYL029 
+
+```{r}
+#import uniprot function and tidy it
+uniprot_yali <- read.delim2("../data/Uniprot_Yali.txt") #import all the yali entries from uniprot
+uniprot_yali$Gene.names <- str_extract(uniprot_yali$Gene.names, ".{0,0}YALI1_.{0,7}") 
+uniprot_yali <- uniprot_yali %>% 
+  drop_na(Gene.names) %>%
+  select(c("Protein.names", "Entry", "Gene.names"))
+
+#get gene function for all the DE genes (minus the ones with uncharacterized function)
+gene_function <- map(comp_list, ~ filter(.x, adj.P.Val < 0.05)) %>%
+    map(~ select(., c("genes", "logFC", "P.Value", "adj.P.Val"))) %>%
+    map_df(data.frame, .id = "comparison") %>% 
+    merge(uniprot_yali, by.x = "genes", by.y = "Gene.names") %>%
+    select(c("genes", "logFC", "P.Value", "adj.P.Val", "comparison", "Entry", "Protein.names")) %>%
+    filter(Protein.names != "Uncharacterized protein") %>%
+  filter(comparison %in% "JFYL007vsOKYL029")
+gene_function <- gene_function[, c("genes", "comparison", "Protein.names", "P.Value", "adj.P.Val", "logFC", "Entry")]
+
+rm("uniprot_yali")
+
+```
+
+
+# Gene set analysis
+## Create gene set collection
+Create gene set collection and subset the analysis only to different levels of the GSC. 
+
+```{r}
+gene_sets <- read.csv2("../data/Gene_Set.csv") #import the gene set collection
+
+#We have three levels of analysis, and we want to perform a GSA for each
+#We need to split the GSA by level
+gene_sets <- list(geneSetBP = loadGSC(gene_sets %>%
+                                      filter(Level %in% "biological_process") %>%
+                                      select(c("genes", "Term")),
+                                      type = "data.frame"),
+                  geneSetMF = loadGSC(gene_sets %>%
+                                      filter(Level %in% "molecular_function") %>%
+                                      select(c("genes", "Term")),
+                                      type = "data.frame"),
+                  geneSetCC = loadGSC(gene_sets %>%
+                                      filter(Level %in% "cellular_component") %>%
+                                      select(c("genes", "Term")),
+                                      type = "data.frame"))
+
+```
+
+## Perform GSA
+Loop the consensus gene set analysis through all the comparisons. 
+
+```{r, message=FALSE, warning=FALSE, results='hide'}
+#create directories where to save output of GSA
+if (!dir.exists("../results/GSA/")){dir.create("../results/GSA/")}
+if (!dir.exists("../results/GSA/CN_3")){dir.create("../results/GSA/CN_3")}
+
+GSA_results <- list() #Create list to store results of the consGSA function
+
+for (i in 1:length(names(comp_list))) {
+   TopTable <- as.data.frame(comp_list[i], col.names = "", row.names = 1) #create df for GSA
+     GSA_results[[i]] <- list(
+       BP = consGSA(TopTable, gene_sets$geneSetBP), #run consensus GSA for biological process
+       MF = consGSA(TopTable, gene_sets$geneSetMF), #run consensus GSA for molecular function
+       CC = consGSA(TopTable, gene_sets$geneSetCC)) #run consensus GSA for cellular component
+   names(GSA_results)[i] <- names(comp_list)[i] #assign names to each element of the list
+}
+
+```
+
+## Plot results GSA
+
+```{r, warning=FALSE, results='hide', message=FALSE, fig.height=15, fig.width=10}
+path <- "../results/GSA/CN_3/" #where to save graphs
+Pcutoff <- 0.01 #set p value cutoff
+consGSA_plot_data <- list() #create list in which to save the graphs
+
+#generate the graphs and save them in the list, along with the data to generate them
+for (i in 1:length(GSA_results)) { #loop through all the GSAs we have
+  consGSA_plot_data[[i]] <- list( #the results will be saved in a list
+    BP = consGSAplot(resList = GSA_results[[i]][[1]], #create the consensous plot for BP
+                     rankScore = 25, 
+                     Pcutoff = Pcutoff, 
+                     distinct = 'distinct', 
+                     title = paste0("Biological Process - rankScore 25", " ,pval < ", Pcutoff)),
+    
+    MF = consGSAplot(resList =  GSA_results[[i]][[2]], #create the consensous plot for MF
+                     rankScore = 25, 
+                     Pcutoff = Pcutoff, 
+                     distinct = 'distinct', 
+                     title = paste0("Molecular Function - rankScore 25" , " ,pval < ", Pcutoff)),
+    CC = consGSAplot(resList = GSA_results[[i]][[3]], #create the consensous plot for CC
+                     rankScore = 25, 
+                     Pcutoff = Pcutoff, 
+                     distinct = 'distinct', 
+                     title = paste0("Cellular Component - rankScore 25", " ,pval < ", Pcutoff)))
+  
+  names(consGSA_plot_data)[i] <- names(GSA_results)[i] #assign the names to the list of graphs
+  
+    #For each comparison arrange the three (BP, MF,CC) graphs and print the final plot
+    print(ggarrange(consGSA_plot_data[[i]][["BP"]][["plot"]], 
+                        consGSA_plot_data[[i]][["MF"]][["plot"]], 
+                        consGSA_plot_data[[i]][["CC"]][["plot"]], 
+                        ncol=1, 
+                        nrow=3, 
+                        common.legend = TRUE, 
+                        legend = "bottom") %>%
+      annotate_figure(top = text_grob((names(comp_list)[i]), 
+                                       color = "red", face = "bold", size = 18))) %>%
+      ggsave(path = path, 
+           file=paste0("plot_", names(comp_list[i]), ".pdf"), width = 10, height = 16)
+}
+```
+
+Save GSA results as R environment and load them in case of further analysis - avoid re-running GSA every time.
+
+```{r}
+save(GSA_results, file = "../results/GSA/CN_3/gsaRes_3.RData")
+#load(file = "../results/GSA/CN_3/gsaRes_3.RData")
+
+save(consGSA_plot_data, file = "../results/GSA/CN_3/consGSA_plot_data_3.RData")
+#load(file = "../results/GSA/CN_3/consGSA_plot_data_3.RData")
+
+```
+
