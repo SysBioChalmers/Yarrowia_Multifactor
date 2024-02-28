@@ -1,0 +1,25 @@
+---
+title: "ExploreGSAResults"
+author: "Simone Zaghen"
+date: "2023-05-30"
+output: 
+---
+
+# Load data and functions
+
+```{r, results='hide', message=FALSE, warning=FALSE}
+library(piano)
+
+load(file = "../results/GSA/gsa_mean.RData")
+load(file = "../results/GSA/cons_gsa.RData")
+
+```
+
+# Explore mean GSA in shiny app
+
+Here you can use the shiny app to explore the results of the GSA. To do that, simply select which comparison you want, and if you want biological process (BP) or molecular function (MF). For example, the snippet below will open the BP for the ST6512vsOKYL029 strain, and it will use the results of the mean method. You can change between "mean_GSA_results" and "cons_gsa_results" based on the GSA method you prefer. 
+
+```{r}
+exploreGSAres(mean_GSA_results$`ST6512-OKYL029`$BP, browser = TRUE)
+
+```

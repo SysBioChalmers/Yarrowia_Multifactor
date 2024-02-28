@@ -1,0 +1,370 @@
+---
+title: "Protemics Analysis"
+author: "Simone Zaghen"
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output: 
+  html_document: 
+    toc: true
+    number_section: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: true
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = "../results") })
+---
+
+# Load required packages
+
+```{r, results='hide', message=FALSE, warning=FALSE}
+library(tidyverse)
+library(RColorBrewer)
+library(readxl)
+library(DEqMS)
+library(EnhancedVolcano)
+library(piano)
+library(eulerr)
+library(ggpubr)
+
+if (!dir.exists("../results/")){dir.create("../results//")}
+
+```
+
+# Import and restructure data
+
+```{r, warning=FALSE}
+rawdata <- read_xlsx("../data/Proteomics_input.xlsx")
+
+protein_counts <- rawdata[c(9:23)] #extract columns with protein counts
+
+#fix column names
+colnames(protein_counts) <- colnames(protein_counts) %>%
+  str_remove_all(".*.P.") %>% #remove the pattern before strain name
+  str_remove_all(".D01.*$") %>% #remove the pattern after strain name
+  str_replace_all("JFYL07C3", "JFYL14") #fix strain name for JFYL07C3
+
+protein_counts_log = log2(protein_counts) #log transform data
+protein_counts_log$Accession <- rawdata$Accession #add column with protein accession number
+protein_counts_log = na.omit(protein_counts_log) #remove rows with NAs
+rownames = protein_counts_log$Accession #save protein accession number
+protein_counts_log <- protein_counts_log[1:15] #remove protein accession number
+rownames(protein_counts_log) <- rownames #set accession number as rownames
+
+colnames(protein_counts_log) <- c("JFYL014", "JFYL014", "JFYL014",
+                                  "JFYL018", "JFYL018", "JFYL018",
+                                  "OKYL029", "OKYL029", "OKYL029",
+                                  "JFYL007", "JFYL007", "JFYL007",
+                                  "ST6512", "ST6512", "ST6512")
+
+```
+
+# Check count distribution and do median centering
+
+```{r, warning = FALSE}
+par(mfrow = c(2, 2)) #set graphics 
+
+##before median centering
+#boxplot
+boxplot(protein_counts_log,
+        las=2,
+        main="No median center")
+#density plot
+nsamples <- ncol(protein_counts_log)
+col <- brewer.pal(nsamples, "Paired") # Ignore warning, some samples will have identical color.
+plot(density(as.numeric(unlist(protein_counts_log[,1]))),
+     col = col[1],
+     ylim = c(0, 0.25), las = 1, 
+     main = "No median center",
+     xlab = "Log-counts")
+abline(v = 0, lty = 3)
+for (i in 2:nsamples) {
+  den <- density(as.numeric(unlist(protein_counts_log[,i])))
+  lines(den$x, den$y, col = col[i])
+}
+
+##after median centering
+#median center
+protein_counts_log = equalMedianNormalization(protein_counts_log)
+
+#boxplot
+boxplot(protein_counts_log,
+        las=2,
+        main="Median center")
+
+#density plot
+nsamples <- ncol(protein_counts_log)
+col <- brewer.pal(nsamples, "Paired") # Ignore warning, some samples will have identical color.
+plot(density(as.numeric(unlist(protein_counts_log[,1]))),
+     col = col[1],ylim = c(0, 0.25), las = 1, 
+     main = "Median center",
+     xlab = "Log-counts")
+abline(v = 0, lty = 3)
+for (i in 2:nsamples) {
+  den <- density(protein_counts_log[, i])
+  lines(den$x, den$y, col = col[i])
+}
+
+
+```
+
+# Perform PCA
+
+```{r, fig.keep='last'}
+rm(list = c("col", "nsamples", "den", "i", "rownames")) #clean workspace
+
+mds <- plotMDS(protein_counts_log) #calculate PCA parameters
+
+#plot PC1 and PC2
+toplot <- data.frame(Dim1 = mds$x, Dim2 = mds$y, Strain = colnames(protein_counts_log))
+toplot$Strain <- factor(toplot$Strain,
+                         levels = c("ST6512", "OKYL029", "JFYL007", "JFYL014", "JFYL018"))
+
+mds$var.explained <- round(mds$var.explained*100, 0)
+ggplot(toplot, aes(Dim1, Dim2, colour = Strain)) + geom_point() +
+    scale_color_brewer(palette = "Dark2") +
+   xlab(paste0("PC1: ",mds$var.explained[1],"% variance")) +
+   ylab(paste0("PC2: ",mds$var.explained[2],"% variance")) +
+   geom_text(aes(label = Strain), position = position_nudge(x = 0.2), show.legend = FALSE) + 
+   theme_bw()
+
+```
+
+# Extract DE proteins
+
+```{r}
+rm(list = c("mds", "toplot")) #clean workspace
+
+#create design matrix
+strain = as.factor(colnames(protein_counts_log))
+design <- model.matrix(~ 0 + strain)
+colnames(design) <- gsub("strain", "", colnames(design))
+
+#define which contrasts we want to analyze. 
+contrast <- c("ST6512-OKYL029",
+              "JFYL018-OKYL029",
+              "JFYL018-JFYL007",
+              "JFYL007-OKYL029",
+              "JFYL014-OKYL029",
+              "JFYL014-JFYL007",
+              "JFYL014-JFYL018")
+
+contrast_matrix <- makeContrasts(contrasts = contrast,
+                                 levels = design)
+
+fit <- lmFit(protein_counts_log, design)
+fit <- contrasts.fit(fit, contrasts = contrast_matrix)
+fit <- eBayes(fit)
+
+#correct with psm
+psm.count.table = data.frame(
+  count = rawdata$`# PSMs`, 
+  row.names =  rawdata$Accession)
+
+fit$count = psm.count.table[rownames(fit$coefficients), "count"]
+
+fit = spectraCounteBayes(fit)
+
+#overview of how many proteins are differentially expressed
+summary(decideTests(fit, method = "separate", adjust.method = "BH", lfc = 0.5))
+
+#save all the comparisons in a list
+comp_list <- list()
+
+for (i in 1:ncol(contrast_matrix)){
+  name = colnames(contrast_matrix)[i]
+  tmp = topTable(fit, coef = i, n = Inf) 
+  tmp$GeneName = rownames(tmp)
+
+  comp_list[[name]] <- tmp
+}
+
+```
+
+## Export comparisons
+
+```{r, warning=FALSE}
+if (!dir.exists("../results/Comparison_Output")){
+  dir.create("../results/Comparison_Output/")}
+setwd("../results/Comparison_Output")
+
+save(comp_list, file = "Comparison_Output.RData")
+
+for (i in 1:length(comp_list)){
+   filename = paste0(names(comp_list[i]), ".csv")
+   tmp_data = comp_list[[i]]
+  write.csv2(tmp_data, filename, row.names = F)
+}
+
+```
+
+## Export DE genes for ST6512-OKYL29 comparison for motif finding
+
+```{r, warning=FALSE}
+if (!dir.exists("../results/motif_finding")){dir.create("../results/motif_finding/")}
+
+#Import protein to gene names
+Uniprot <- read.csv("../data/Uniprot_Yali.txt", 
+                    sep = "\t") %>%
+  select(c("Entry", "Gene.names"))
+
+tmp <- comp_list$`ST6512-OKYL029` %>%
+  filter(adj.P.Val < 0.05) %>%
+  filter(logFC < -0.5 | logFC > 0.5) %>%
+  rownames_to_column("Protein_Accession") %>%
+  merge(Uniprot,
+        by.x = "Protein_Accession",
+        by.y = "Entry") %>%
+  mutate(Gene.names = str_remove(Gene.names, '.*(?=YALI)'))
+
+write.csv2(tmp$Gene.names, "../results/motif_finding//ST6512vsOKYL029_DEP.txt", sep = "\t", col.names = F, row.names = F)
+
+```
+
+# Volcano plot 
+
+```{r, fig.height=6, fig.width=8}
+rm(list = c("contrast_matrix", "design", "tmp", "contrast", "name", 
+            "strain", "psm.count.table", "tmp_data", "filename", "Uniprot")) #clean workspace
+
+for (i in 1:length(comp_list)) {
+        plot <- EnhancedVolcano(comp_list[[i]],
+                        lab = NA,
+                        x = "logFC",
+                        y = "adj.P.Val",
+                        pCutoff = 0.05,
+                        FCcutoff = 1,
+                        title = paste0(names(comp_list[i])),
+                        subtitle = NULL,
+                        legendLabels = c("NS", 
+                                         expression(Log[2] ~ FC), 
+                                         "adj-p-val", 
+                                         expression(p - value ~ and ~ log[2] ~ FC)))
+  print(plot)
+}
+
+```
+
+# Gene set analysis
+
+## Create gene set collection
+
+```{r}
+rm("plot")
+
+gene_sets <- read.csv2("../data/mapGOFP.csv", sep = ",") %>% #import the gene set collection
+  separate(col = Accession, into = c("Accession", "gene.sets", "Level", "Term"), sep = ",") #separate into columns
+gene_sets$Level <- as.factor(gene_sets$Level) #convert to levels
+
+gene_sets$gene.sets <- sub(".", "", gene_sets$gene.sets) #remove the " at the start
+gene_sets$Level <- sub(".", "", gene_sets$Level) #remove the " at the start
+gene_sets$Term <- sub(".$", "", gene_sets$Term) #remove the " at the end
+go_peptides <- unique(gene_sets$Accession)
+
+#We have three levels of analysis, and we want to perform a GSA for each
+#We need to split the GSA by level
+
+gene_sets <- list(geneSetBP = loadGSC(gene_sets %>%
+                                      filter(Level %in% "P") %>%
+                                      select(c("Accession", "Term")),
+                                      type = "data.frame"),
+                  geneSetMF = loadGSC(gene_sets %>%
+                                      filter(Level %in% "F") %>%
+                                      select(c("Accession", "Term")),
+                                      type = "data.frame"))
+
+```
+
+## Check how many of the identified peptides are in the gene sets
+
+```{r}
+identified_peptides <- as.vector(rawdata$Accession)
+
+plot(euler(list(peptides_from_proteomics = as.vector(rawdata$Accession),
+                      peptides_in_GO_terms = go_peptides)),
+     quantities = T)
+
+```
+
+## GSA using mean
+
+```{r}
+rm(list= c("go_peptides", "identified_peptides"))
+
+#Load the GSEA results and avoid running code below
+#load(file = "../results/GSA/gsa.RData")
+
+#create directories where to save output of GSA
+if (!dir.exists("../results/GSA/")){dir.create("../results/GSA/")}
+
+mean_GSA_results <- list() #Create list to store results of the consGSA function
+
+for (i in 1:length(names(comp_list))) {
+  
+  mean_GSA_results[[i]] <- list(
+    BP = runGSA(comp_list[[i]] %>% select("adj.P.Val"),
+                 comp_list[[i]] %>% select("logFC"),
+                 gsc=gene_sets$geneSetBP, 
+                 geneSetStat = "mean", 
+                 gsSizeLim=c(3,1000),
+                 nPerm=1000,
+                 verbose = F),
+    MF = runGSA(comp_list[[i]] %>% select("adj.P.Val"),
+                 comp_list[[i]] %>% select("logFC"),
+                 gsc=gene_sets$geneSetMF, 
+                 geneSetStat = "mean", 
+                 gsSizeLim=c(3,1000), 
+                 nPerm=1000,
+                 verbose = F)
+    )
+    
+   names(mean_GSA_results)[i] <- names(comp_list)[i] #assign names to each element of the list
+}
+
+save(mean_GSA_results, file = "../results/GSA/gsa_mean.RData")
+
+
+```
+
+# Check protein function
+
+## Check function of DEG
+
+```{r}
+#import uniprot function and tidy it
+uniprot_yali <- read.delim2("../data/Uniprot_Yali.txt") %>% #import all the yali entries from uniprot
+  select(c("Protein.names", "Entry")) %>% # only select relevant columns 
+  filter(!str_detect(Protein.names, "^YALI")) #remove gene names mistakenly annotated in "Entry"
+
+#get gene function for all the DE genes (minus the ones with uncharacterized function)
+g_function <- map(comp_list, ~ filter(.x, adj.P.Val < 0.05)) %>%
+    map(~ rownames_to_column(., var = "gene")) %>%
+    map(~ select(., c("gene", "logFC", "P.Value", "adj.P.Val"))) %>%
+    map_df(data.frame, .id = "comparison") %>%
+    merge(uniprot_yali, by.x = "gene", by.y = "Entry")
+g_function$comparison <- as.factor(g_function$comparison)
+
+#move results in a list
+gene_function <- list()
+for (i in 1:length(levels(g_function$comparison))) {
+  name = levels(g_function$comparison)[i]
+  tmp <- g_function %>% filter(comparison %in% name)
+  tmp <- tmp[-2]
+  gene_function[[name]] <- tmp
+}
+```
+
+And save them as csv in the results folder
+
+```{r, warning=FALSE}
+if (!dir.exists("../results/Protein_Function/")){dir.create("../results/Protein_Function/")}
+setwd("../results/Protein_Function")
+
+for (i in 1:length(gene_function)){
+   filename = paste0(names(gene_function[i]), ".csv")
+   tmp_data = gene_function[[i]]
+  write.csv2(tmp_data, filename)
+  }
+
+#rm("uniprot_yali", "tmp", "g_function")
+
+```
+
