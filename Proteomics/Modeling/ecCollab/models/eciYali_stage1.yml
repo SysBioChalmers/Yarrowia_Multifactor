@@ -3,7 +3,7 @@
 - metaData:
     id: "blankID"
     name: "blankName"
-    date: "2024-04-12"
+    date: "2024-05-13"
     geckoLight: "false"
 - metabolites:
     - !!omap
@@ -46996,7 +46996,7 @@
           - m458: 1
       - lower_bound: 0
       - upper_bound: 1000
-      - gene_reaction_rule: "YALI0B23188g"
+      - gene_reaction_rule: "YALI0B16192g"
       - subsystem:
           - "Fructose and mannose metabolism"
     - !!omap
@@ -47010,7 +47010,7 @@
           - m458: -1
       - lower_bound: 0
       - upper_bound: 1000
-      - gene_reaction_rule: "YALI0B23188g"
+      - gene_reaction_rule: "YALI0B16192g"
       - subsystem:
           - "Fructose and mannose metabolism"
     - !!omap
@@ -47026,7 +47026,7 @@
           - m69: -1
       - lower_bound: 0
       - upper_bound: 1000
-      - gene_reaction_rule: "YALI0B16192g"
+      - gene_reaction_rule: "YALI0E34793g and YALI0D24431g"
       - subsystem:
           - "Citrate cycle (TCA cycle)"
     - !!omap
@@ -47039,7 +47039,7 @@
           - m214: -1
       - lower_bound: 0
       - upper_bound: 1000
-      - gene_reaction_rule: "YALI0E34793g and YALI0D24431g"
+      - gene_reaction_rule: "YALI0A20350g"
       - subsystem:
           - "Glycerolipid metabolism"
     - !!omap
@@ -69822,23 +69822,23 @@
     - id: "iNL2002"
     - kcat: 0
     - enzymes: !!omap
-        - Q6CDK7: 1
+        - Q6CEE9: 1
   - !!omap
     - id: "iNL2002_REV"
     - kcat: 0
     - enzymes: !!omap
-        - Q6CDK7: 1
+        - Q6CEE9: 1
   - !!omap
     - id: "iNL2008"
     - kcat: 0
     - enzymes: !!omap
-        - Q6CEE9: 1
+        - Q6C3H5: 1
+        - Q6C7Y1: 1
   - !!omap
     - id: "iNL2010"
     - kcat: 0
     - enzymes: !!omap
-        - Q6C3H5: 1
-        - Q6C7Y1: 1
+        - F2Z685: 1
   - !!omap
     - id: "iNL2011"
     - kcat: 0

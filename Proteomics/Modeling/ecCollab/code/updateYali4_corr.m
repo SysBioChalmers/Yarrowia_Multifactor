@@ -224,6 +224,10 @@ model = changeGeneAssoc(model,'336u_1','YALI0E32769g or YALI0D07986g'); % GPR fo
 model = changeGeneAssoc(model,'yli0053','YALI0C14806g');
 model = changeGeneAssoc(model,'2117','YALI0C05258g or YALI0E20977g'); % Both proteins catalyse this reactions (https://doi.org/10.1111/1751-7915.13745)
 model = changeGeneAssoc(model,'2119','YALI0C05258g or YALI0E20977g'); % Both proteins catalyse this reactions (https://doi.org/10.1111/1751-7915.13745)
+model = changeGeneAssoc(model,'iNL2002','YALI0B16192g'); % Mannitol dehydrogenase correct GPR (https://doi.org/10.1016/j.bbalip.2015.04.007)
+model = changeGeneAssoc(model,'iNL2008','YALI0E34793g and YALI0D24431g'); % ATP-citrate lyase correct GPR(https://doi.org/10.1016/j.bbalip.2015.04.007)
+model = changeGeneAssoc(model,'iNL2010','YALI0A20350g'); % Trybutiryn hydrolysis by lipase (https://doi.org/10.1016/j.bbalip.2006.12.006)
+
 
 % Ethanol dehydrogenases
 % The reverse rxn (acetaldehyde to ethanol is not as ubiquitous as the

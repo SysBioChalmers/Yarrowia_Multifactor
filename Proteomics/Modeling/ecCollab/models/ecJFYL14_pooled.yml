@@ -4,7 +4,7 @@
     id: "ecJFYL14_pooled"
     name: "blankName"
     version: ""
-    date: "2024-04-12"
+    date: "2024-05-13"
     defaultLB: "-1000"
     defaultUB: "1000"
     geckoLight: "false"
@@ -14421,7 +14421,7 @@
           - m342: 1
           - m971: -1
           - m972: 1
-          - prot_Q6CCS5: -1.28993024503667
+          - prot_Q6CCS5: -1.27920877779867
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0C06930g"
@@ -14435,7 +14435,7 @@
           - m215: 1
           - m972: 1
           - m973: -1
-          - prot_Q6CCS5: -1.28993024503667
+          - prot_Q6CCS5: -1.27920877779867
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0C06930g"
@@ -19565,7 +19565,7 @@
           - m35: 1
           - m649: 1
           - m867: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -19839,7 +19839,7 @@
           - m35: 1
           - m460: -1
           - m464: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -19938,7 +19938,7 @@
           - m58: 1
           - m803: 1
           - m969: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -19954,7 +19954,7 @@
           - m32: -1
           - m35: 1
           - m532: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -20694,7 +20694,7 @@
           - m26: 1
           - m28: -1
           - m44: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -20719,7 +20719,7 @@
           - m1175: -1
           - m626: 1
           - m627: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -20744,7 +20744,7 @@
           - m199: -1
           - m32: 1
           - m82: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -20972,7 +20972,7 @@
           - m32: 2
           - m353: 1
           - m359: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 0
       - subsystem:
@@ -21013,7 +21013,7 @@
           - m129: -1
           - m366: 1
           - m4: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -21103,7 +21103,7 @@
           - m450: 1
           - m889: 1
           - m95: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -21844,7 +21844,7 @@
           - m143: 1
           - m460: 1
           - m464: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -21923,7 +21923,7 @@
           - m69: 1
           - m901: 1
           - m902: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -21973,7 +21973,7 @@
           - m282: -1
           - m32: -1
           - m484: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -22477,7 +22477,7 @@
           - m46: -1
           - m563: 1
           - m928: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -22568,7 +22568,7 @@
           - m143: 1
           - m455: -1
           - m535: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -22872,7 +22872,7 @@
           - m143: 1
           - m593: -1
           - m93: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -23268,7 +23268,7 @@
           - m143: 1
           - m148: -1
           - m91: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -23759,7 +23759,7 @@
           - m32: 1
           - m552: -1
           - m924: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -23772,7 +23772,7 @@
           - m32: -1
           - m552: 1
           - m924: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -25038,7 +25038,7 @@
           - m35: 1
           - m465: 1
           - m466: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -25052,7 +25052,7 @@
           - m35: 1
           - m466: 1
           - m841: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -25334,7 +25334,7 @@
           - m28: -1
           - m46: -1
           - m475: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -25422,7 +25422,7 @@
           - m302: 1
           - m32: -1
           - m38: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -25569,7 +25569,7 @@
           - m143: 1
           - m918: -1
           - m921: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -25583,7 +25583,7 @@
           - m143: 1
           - m919: -1
           - m920: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -25596,7 +25596,7 @@
           - m35: 1
           - m919: 1
           - m920: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -25650,7 +25650,7 @@
           - m35: 1
           - m37: -1
           - m929: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -25663,7 +25663,7 @@
           - m35: -1
           - m451: 1
           - m888: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -25676,7 +25676,7 @@
           - m35: 1
           - m451: -1
           - m888: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -25919,7 +25919,7 @@
           - m68: -1
           - m69: 1
           - m898: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -26098,7 +26098,7 @@
           - m35: 1
           - m974: 1
           - m977: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -26112,7 +26112,7 @@
           - m642: 1
           - m649: 1
           - m974: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -26152,7 +26152,7 @@
           - m143: 1
           - m975: 1
           - m977: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -26186,7 +26186,7 @@
           - m643: 1
           - m82: 1
           - m889: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -26207,7 +26207,7 @@
           - m643: 1
           - m82: 1
           - m938: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -26240,7 +26240,7 @@
           - m143: 1
           - m505: 1
           - m982: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -27265,7 +27265,7 @@
           - m176: -1
           - m178: 1
           - m28: -1
-          - prot_Q6BZY3: -0.537629921103361
+          - prot_Q6BZY3: -0.53316132165199
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0F29975g"
@@ -27280,7 +27280,7 @@
           - m176: -1
           - m178: 1
           - m28: -1
-          - prot_Q6BZY3: -0.537629921103361
+          - prot_Q6BZY3: -0.53316132165199
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0F29975g"
@@ -27295,7 +27295,7 @@
           - m176: -1
           - m178: 1
           - m28: -1
-          - prot_Q6BZY3: -0.537629921103361
+          - prot_Q6BZY3: -0.53316132165199
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0F29975g"
@@ -27308,7 +27308,7 @@
           - m1415: -1
           - m1418: 1
           - m26: 1
-          - prot_Q6CGI2: -0.693137780957491
+          - prot_Q6CGI2: -0.687376652370462
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0A19096g"
@@ -27321,7 +27321,7 @@
           - m1415: 1
           - m1418: -1
           - m26: -1
-          - prot_Q6CGI2: -0.693137780957491
+          - prot_Q6CGI2: -0.687376652370462
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0A19096g"
@@ -27334,7 +27334,7 @@
           - m1416: -1
           - m1419: 1
           - m26: 1
-          - prot_Q6CGI2: -0.693137780957491
+          - prot_Q6CGI2: -0.687376652370462
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0A19096g"
@@ -27347,7 +27347,7 @@
           - m1416: 1
           - m1419: -1
           - m26: -1
-          - prot_Q6CGI2: -0.693137780957491
+          - prot_Q6CGI2: -0.687376652370462
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0A19096g"
@@ -27419,7 +27419,7 @@
           - m1417: -1
           - m1420: 1
           - m26: 1
-          - prot_Q6CGI2: -0.693137780957491
+          - prot_Q6CGI2: -0.687376652370462
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0A19096g"
@@ -27432,7 +27432,7 @@
           - m1417: 1
           - m1420: -1
           - m26: -1
-          - prot_Q6CGI2: -0.693137780957491
+          - prot_Q6CGI2: -0.687376652370462
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0A19096g"
@@ -30052,7 +30052,7 @@
           - m28: 3
           - m46: 1
           - m58: -1
-          - prot_B5FVB8: -0.299827103082335
+          - prot_B5FVB8: -0.297335040837008
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0B21527g"
@@ -30987,7 +30987,7 @@
           - m1648: 1
           - m233: 1
           - m567: -1
-          - prot_Q6C336: -0.921262346231046
+          - prot_Q6C336: -0.913605122826352
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0F02937g"
@@ -31418,7 +31418,7 @@
           - m50: -1
           - m51: 1
           - m74: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -31914,7 +31914,7 @@
           - m790: -1
           - m791: 1
           - m792: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -33776,7 +33776,7 @@
           - m1599: 1
           - m1681: 1
           - m1684: -1
-          - prot_Q6C1Z2: -0.765337148989447
+          - prot_Q6C1Z2: -0.7589759234887
       - lower_bound: 0
       - upper_bound: 1000
       - gene_reaction_rule: "YALI0F12177g"
@@ -34470,7 +34470,7 @@
           - m1622: 1
           - m1687: 1
           - m1688: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -34483,7 +34483,7 @@
           - m1622: -1
           - m1687: -1
           - m1688: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -34525,7 +34525,7 @@
           - m1685: 1
           - m1686: -1
           - m18: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -34538,7 +34538,7 @@
           - m1685: -1
           - m1686: 1
           - m18: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -39309,7 +39309,7 @@
           - m108: -1
           - m109: -0.5
           - m110: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -39381,7 +39381,7 @@
           - m28: -1
           - m44: 1
           - m63: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -39840,7 +39840,7 @@
           - m491: -1
           - m513: -1
           - m548: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -39880,7 +39880,7 @@
           - m32: -1
           - m38: 1
           - m550: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -40026,7 +40026,7 @@
           - m32: -1
           - m38: 1
           - m50: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -40578,7 +40578,7 @@
           - m580: -1
           - m68: 1
           - m69: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -43634,7 +43634,7 @@
           - m319: -1
           - m32: -1
           - m38: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -43647,7 +43647,7 @@
           - m319: 1
           - m32: 1
           - m38: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -43946,7 +43946,7 @@
           - m32: -1
           - m7: 1
           - m766: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -44011,7 +44011,7 @@
           - m26: -1
           - m28: 1
           - m73: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -44240,7 +44240,7 @@
           - m790: -1
           - m791: 1
           - m792: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -46415,7 +46415,7 @@
           - m149: 1
           - m82: 1
           - m852: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -47983,7 +47983,7 @@
           - m172: 1
           - m69: 1
           - m82: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -49228,7 +49228,7 @@
           - m446: 1
           - m68: -1
           - m69: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -50107,7 +50107,7 @@
           - m34: -1
           - m35: 1
           - m579: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -50121,10 +50121,10 @@
           - m40: 1
           - m41: -1
           - m458: 1
-          - prot_Q6CDK7: -3.46038405129779
+          - prot_Q6CEE9: -0.461301542187595
       - lower_bound: 0
       - upper_bound: 1000
-      - gene_reaction_rule: "YALI0B23188g"
+      - gene_reaction_rule: "YALI0B16192g"
       - subsystem:
           - "Fructose and mannose metabolism"
     - !!omap
@@ -50136,10 +50136,10 @@
           - m40: -1
           - m41: 1
           - m458: -1
-          - prot_Q6CDK7: -1.77309984445726
+          - prot_Q6CEE9: -0.122082745541071
       - lower_bound: 0
       - upper_bound: 1000
-      - gene_reaction_rule: "YALI0B23188g"
+      - gene_reaction_rule: "YALI0B16192g"
       - subsystem:
           - "Fructose and mannose metabolism"
     - !!omap
@@ -50153,10 +50153,11 @@
           - m435: -1
           - m68: 1
           - m69: -1
-          - prot_Q6CEE9: -0.111548644167514
+          - prot_Q6C3H5: -0.338139350842118
+          - prot_Q6C7Y1: -0.256109520780322
       - lower_bound: 0
       - upper_bound: 1000
-      - gene_reaction_rule: "YALI0B16192g"
+      - gene_reaction_rule: "YALI0E34793g and YALI0D24431g"
       - subsystem:
           - "Citrate cycle (TCA cycle)"
     - !!omap
@@ -50167,11 +50168,10 @@
           - m1805: 1
           - m1807: -1
           - m214: -1
-          - prot_Q6C3H5: -0.13699147612002
-          - prot_Q6C7Y1: -0.103758468846381
+          - prot_F2Z685: -0.00235806600507731
       - lower_bound: 0
       - upper_bound: 1000
-      - gene_reaction_rule: "YALI0E34793g and YALI0D24431g"
+      - gene_reaction_rule: "YALI0A20350g"
       - subsystem:
           - "Glycerolipid metabolism"
     - !!omap
@@ -50242,7 +50242,7 @@
           - m35: -1
           - m824: 1
           - m888: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -50256,7 +50256,7 @@
           - m35: 1
           - m824: -1
           - m888: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -53041,7 +53041,7 @@
       - metabolites: !!omap
           - m1819: 1
           - m1820: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -53052,7 +53052,7 @@
       - metabolites: !!omap
           - m1819: -1
           - m1820: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -53066,7 +53066,7 @@
           - m1821: 1
           - m264: 1
           - m32: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -53079,7 +53079,7 @@
           - m141: 1
           - m143: -1
           - m1827: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -53092,7 +53092,7 @@
           - m141: -1
           - m143: 1
           - m1827: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -53106,7 +53106,7 @@
           - m123: -1
           - m1825: 1
           - m1827: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -53120,7 +53120,7 @@
           - m123: 1
           - m1825: -1
           - m1827: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -53154,7 +53154,7 @@
           - m122: 1
           - m123: -1
           - m1823: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -53168,7 +53168,7 @@
           - m122: -1
           - m123: 1
           - m1823: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -53203,7 +53203,7 @@
           - m44: 1
           - m73: -1
           - m84: -1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -53298,7 +53298,7 @@
           - m1812: 1
           - m648: -1
           - m71: 1
-          - prot_standard: -0.83332339672887
+          - prot_standard: -0.826397092356162
       - lower_bound: 0
       - upper_bound: 1000
       - subsystem:
@@ -65362,13 +65362,13 @@
         - Q6C4Q7: 1
   - !!omap
     - id: "1032"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - Q6CCS5: 1
   - !!omap
     - id: "1033"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - Q6CCS5: 1
@@ -67186,12 +67186,12 @@
         - Q6C7P9: 1
   - !!omap
     - id: "208"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
   - !!omap
     - id: "208_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
   - !!omap
@@ -67453,43 +67453,43 @@
         - Q6C926: 1
   - !!omap
     - id: "2145"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - Q6BZY3: 1
   - !!omap
     - id: "2146"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - Q6BZY3: 1
   - !!omap
     - id: "2147"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - Q6BZY3: 1
   - !!omap
     - id: "2148"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - Q6CGI2: 1
   - !!omap
     - id: "2148_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - Q6CGI2: 1
   - !!omap
     - id: "2149"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - Q6CGI2: 1
   - !!omap
     - id: "2149_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - Q6CGI2: 1
@@ -67525,13 +67525,13 @@
         - Q6C9F1: 1
   - !!omap
     - id: "2150"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - Q6CGI2: 1
   - !!omap
     - id: "2150_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - Q6CGI2: 1
@@ -68653,12 +68653,12 @@
         - F2Z6I5: 1
   - !!omap
     - id: "226_EXP_1"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
   - !!omap
     - id: "226_EXP_2"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - B5FVB8: 1
@@ -69148,7 +69148,7 @@
         - Q6C8J1: 1
   - !!omap
     - id: "2462g"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - Q6C336: 1
@@ -70486,7 +70486,7 @@
         - Q6CA28: 1
   - !!omap
     - id: "3208g"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - Q6C1Z2: 1
@@ -70830,12 +70830,12 @@
         - Q6C296: 1
   - !!omap
     - id: "335"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
   - !!omap
     - id: "335_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
   - !!omap
@@ -71443,12 +71443,12 @@
         - Q6C9Q0: 1
   - !!omap
     - id: "438"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
   - !!omap
     - id: "439"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
   - !!omap
@@ -76787,33 +76787,33 @@
         - Q6CC38: 1
   - !!omap
     - id: "iNL2002"
-    - kcat: 4.8865
-    - source: "DLKcat"
-    - eccodes: "4.1.1.21"
-    - enzymes: !!omap
-        - Q6CDK7: 1
-  - !!omap
-    - id: "iNL2002_REV"
-    - kcat: 9.5365
-    - source: "DLKcat"
-    - eccodes: "4.1.1.21"
-    - enzymes: !!omap
-        - Q6CDK7: 1
-  - !!omap
-    - id: "iNL2008"
-    - kcat: 74.788
+    - kcat: 18.0847
     - source: "DLKcat"
     - eccodes: "1.1.1.138"
     - enzymes: !!omap
         - Q6CEE9: 1
   - !!omap
-    - id: "iNL2010"
-    - kcat: 144.861
+    - id: "iNL2002_REV"
+    - kcat: 68.3348
+    - source: "DLKcat"
+    - eccodes: "1.1.1.138"
+    - enzymes: !!omap
+        - Q6CEE9: 1
+  - !!omap
+    - id: "iNL2008"
+    - kcat: 58.688
     - source: "DLKcat"
     - eccodes: "2.3.3.8"
     - enzymes: !!omap
         - Q6C3H5: 1
         - Q6C7Y1: 1
+  - !!omap
+    - id: "iNL2010"
+    - kcat: 4333
+    - source: "brenda"
+    - eccodes: "3.1.1.3"
+    - enzymes: !!omap
+        - F2Z685: 1
   - !!omap
     - id: "iNL2011"
     - kcat: 3.4168
@@ -77812,7 +77812,7 @@
         - Q6C9S7: 1
   - !!omap
     - id: "yli0048"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
   - !!omap
@@ -77859,469 +77859,469 @@
         - Q6CF43: 1
   - !!omap
     - id: "1603"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1618"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1623"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1624"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1664_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1665_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1667_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1682"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1685"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1690"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1734"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1739"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1744"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1790"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1797"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1821"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1850"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1887"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1887_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1974"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1975"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "1997"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "200"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2025"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2026"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2027"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2030"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2031"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2031_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2050"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2064"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2065"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2069"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2070"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2071"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2074"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "26"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "2812g"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "3332g"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "3332g_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "3340g"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "3340g_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "43"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "44"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "461"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "465"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "475"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "500"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "679"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "679_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "696"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "70"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "710"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "821"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "94"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "992"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "iNL010_xxx"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "iYL0443"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "iYL0443_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "xPOOL_AC_EM_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "xPOOL_AC_LP_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "xPOOL_AC_MM_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "xPOOL_FA_EM_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "xPOOL_FA_EN_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "xPOOL_FA_LP_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "xPOOL_FA_MI_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "xPOOL_FA_MM_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "yli0037"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "yli0037_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "yli0038"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "yli0039"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "yli0039_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "yli0040"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "yli0040_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "yli0042"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "yli0042_REV"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "yli0044"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1
   - !!omap
     - id: "yli0050"
-    - kcat: 13.9775
+    - kcat: 14.09465
     - source: "standard"
     - enzymes: !!omap
         - standard: 1

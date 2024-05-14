@@ -8,10 +8,10 @@
             <rdf:Bag/>
           </dcterms:creator>
           <dcterms:created rdf:parseType="Resource">
-            <dcterms:W3CDTF>2024-04-12T12:51:52Z</dcterms:W3CDTF>
+            <dcterms:W3CDTF>2024-05-13T16:30:03Z</dcterms:W3CDTF>
           </dcterms:created>
           <dcterms:modified rdf:parseType="Resource">
-            <dcterms:W3CDTF>2024-04-12T12:51:52Z</dcterms:W3CDTF>
+            <dcterms:W3CDTF>2024-05-13T16:30:03Z</dcterms:W3CDTF>
           </dcterms:modified>
         </rdf:Description>
       </rdf:RDF>
@@ -3197,7 +3197,7 @@
         <listOfReactants>
           <speciesReference species="M_m214" stoichiometry="2" constant="true"/>
           <speciesReference species="M_m971" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6CCS5" stoichiometry="1.28993024503667" constant="true"/>
+          <speciesReference species="M_prot_Q6CCS5" stoichiometry="1.27920877779867" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m215" stoichiometry="2" constant="true"/>
@@ -3212,7 +3212,7 @@
         <listOfReactants>
           <speciesReference species="M_m214" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m973" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6CCS5" stoichiometry="1.28993024503667" constant="true"/>
+          <speciesReference species="M_prot_Q6CCS5" stoichiometry="1.27920877779867" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m215" stoichiometry="1" constant="true"/>
@@ -7862,7 +7862,7 @@
         <listOfReactants>
           <speciesReference species="M_m10" stoichiometry="2" constant="true"/>
           <speciesReference species="M_m867" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1147" stoichiometry="1" constant="true"/>
@@ -8103,7 +8103,7 @@
         <listOfReactants>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m460" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m35" stoichiometry="1" constant="true"/>
@@ -8191,7 +8191,7 @@
         <listOfReactants>
           <speciesReference species="M_m46" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m969" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m197" stoichiometry="1" constant="true"/>
@@ -8204,7 +8204,7 @@
           <speciesReference species="M_m141" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m159" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -8816,7 +8816,7 @@
         <listOfReactants>
           <speciesReference species="M_m196" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m28" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m26" stoichiometry="1" constant="true"/>
@@ -8837,7 +8837,7 @@
         <listOfReactants>
           <speciesReference species="M_m1175" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m627" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1174" stoichiometry="1" constant="true"/>
@@ -8858,7 +8858,7 @@
         <listOfReactants>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m199" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
@@ -9036,7 +9036,7 @@
           <speciesReference species="M_m109" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m256" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m359" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -9069,7 +9069,7 @@
       <reaction metaid="R_1685" sboTerm="SBO:0000176" id="R_1685" name="chorismate pyruvate lyase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
         <listOfReactants>
           <speciesReference species="M_m129" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m366" stoichiometry="1" constant="true"/>
@@ -9141,7 +9141,7 @@
         <listOfReactants>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m95" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m450" stoichiometry="1" constant="true"/>
@@ -9746,7 +9746,7 @@
         <listOfReactants>
           <speciesReference species="M_m141" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m464" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -9813,7 +9813,7 @@
         <listOfReactants>
           <speciesReference species="M_m68" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m902" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -9857,7 +9857,7 @@
         <listOfReactants>
           <speciesReference species="M_m282" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -10252,7 +10252,7 @@
           <speciesReference species="M_m28" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m46" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m928" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m204" stoichiometry="1" constant="true"/>
@@ -10318,7 +10318,7 @@
         <listOfReactants>
           <speciesReference species="M_m141" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m455" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -10540,7 +10540,7 @@
         <listOfReactants>
           <speciesReference species="M_m141" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m593" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -10852,7 +10852,7 @@
         <listOfReactants>
           <speciesReference species="M_m141" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m148" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -11225,7 +11225,7 @@
       <reaction metaid="R_1887" sboTerm="SBO:0000176" id="R_1887" name="L-glutamate 5-semialdehyde dehydratase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
         <listOfReactants>
           <speciesReference species="M_m552" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -11238,7 +11238,7 @@
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m924" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m552" stoichiometry="1" constant="true"/>
@@ -12264,7 +12264,7 @@
         <listOfReactants>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m466" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -12276,7 +12276,7 @@
         <listOfReactants>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m841" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -12493,7 +12493,7 @@
           <speciesReference species="M_m1350" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m28" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m46" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m204" stoichiometry="1" constant="true"/>
@@ -12576,7 +12576,7 @@
           <speciesReference species="M_m109" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m300" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m301" stoichiometry="1" constant="true"/>
@@ -12697,7 +12697,7 @@
         <listOfReactants>
           <speciesReference species="M_m141" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m918" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -12709,7 +12709,7 @@
         <listOfReactants>
           <speciesReference species="M_m141" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m919" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -12721,7 +12721,7 @@
         <listOfReactants>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m920" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m35" stoichiometry="1" constant="true"/>
@@ -12772,7 +12772,7 @@
         <listOfReactants>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m37" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m35" stoichiometry="1" constant="true"/>
@@ -12783,7 +12783,7 @@
         <listOfReactants>
           <speciesReference species="M_m150" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m35" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m451" stoichiometry="1" constant="true"/>
@@ -12794,7 +12794,7 @@
         <listOfReactants>
           <speciesReference species="M_m451" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m888" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m150" stoichiometry="1" constant="true"/>
@@ -12984,7 +12984,7 @@
         <listOfReactants>
           <speciesReference species="M_m467" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m68" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -13114,7 +13114,7 @@
         <listOfReactants>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m977" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m35" stoichiometry="1" constant="true"/>
@@ -13125,7 +13125,7 @@
         <listOfReactants>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m974" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -13152,7 +13152,7 @@
         <listOfReactants>
           <speciesReference species="M_m141" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m977" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m143" stoichiometry="1" constant="true"/>
@@ -13179,7 +13179,7 @@
           <speciesReference species="M_m443" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m444" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m889" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m133" stoichiometry="1" constant="true"/>
@@ -13198,7 +13198,7 @@
           <speciesReference species="M_m443" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m444" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m938" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m133" stoichiometry="1" constant="true"/>
@@ -13227,7 +13227,7 @@
         <listOfReactants>
           <speciesReference species="M_m141" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m982" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -14154,7 +14154,7 @@
           <speciesReference species="M_m1410" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m176" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m28" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6BZY3" stoichiometry="0.537629921103361" constant="true"/>
+          <speciesReference species="M_prot_Q6BZY3" stoichiometry="0.53316132165199" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1415" stoichiometry="1" constant="true"/>
@@ -14169,7 +14169,7 @@
           <speciesReference species="M_m1412" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m176" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m28" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6BZY3" stoichiometry="0.537629921103361" constant="true"/>
+          <speciesReference species="M_prot_Q6BZY3" stoichiometry="0.53316132165199" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1416" stoichiometry="1" constant="true"/>
@@ -14184,7 +14184,7 @@
           <speciesReference species="M_m1414" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m176" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m28" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6BZY3" stoichiometry="0.537629921103361" constant="true"/>
+          <speciesReference species="M_prot_Q6BZY3" stoichiometry="0.53316132165199" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1417" stoichiometry="1" constant="true"/>
@@ -14197,7 +14197,7 @@
       <reaction metaid="R_2148" sboTerm="SBO:0000176" id="R_2148" name="3-hydroxyacyl-thioester dehydratase (trans-but-2-enoyl-ACP)" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
         <listOfReactants>
           <speciesReference species="M_m1415" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6CGI2" stoichiometry="0.693137780957491" constant="true"/>
+          <speciesReference species="M_prot_Q6CGI2" stoichiometry="0.687376652370462" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1418" stoichiometry="1" constant="true"/>
@@ -14211,7 +14211,7 @@
         <listOfReactants>
           <speciesReference species="M_m1418" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m26" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6CGI2" stoichiometry="0.693137780957491" constant="true"/>
+          <speciesReference species="M_prot_Q6CGI2" stoichiometry="0.687376652370462" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1415" stoichiometry="1" constant="true"/>
@@ -14223,7 +14223,7 @@
       <reaction metaid="R_2149" sboTerm="SBO:0000176" id="R_2149" name="3-hydroxyacyl-thioester dehydratase (trans-hex-2-enoyl-ACP)" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
         <listOfReactants>
           <speciesReference species="M_m1416" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6CGI2" stoichiometry="0.693137780957491" constant="true"/>
+          <speciesReference species="M_prot_Q6CGI2" stoichiometry="0.687376652370462" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1419" stoichiometry="1" constant="true"/>
@@ -14237,7 +14237,7 @@
         <listOfReactants>
           <speciesReference species="M_m1419" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m26" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6CGI2" stoichiometry="0.693137780957491" constant="true"/>
+          <speciesReference species="M_prot_Q6CGI2" stoichiometry="0.687376652370462" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1416" stoichiometry="1" constant="true"/>
@@ -14308,7 +14308,7 @@
       <reaction metaid="R_2150" sboTerm="SBO:0000176" id="R_2150" name="3-hydroxyacyl-thioester dehydratase (trans-oct-2-enoyl-ACP)" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
         <listOfReactants>
           <speciesReference species="M_m1417" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6CGI2" stoichiometry="0.693137780957491" constant="true"/>
+          <speciesReference species="M_prot_Q6CGI2" stoichiometry="0.687376652370462" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1420" stoichiometry="1" constant="true"/>
@@ -14322,7 +14322,7 @@
         <listOfReactants>
           <speciesReference species="M_m1420" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m26" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6CGI2" stoichiometry="0.693137780957491" constant="true"/>
+          <speciesReference species="M_prot_Q6CGI2" stoichiometry="0.687376652370462" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1417" stoichiometry="1" constant="true"/>
@@ -16891,7 +16891,7 @@
           <speciesReference species="M_m10" stoichiometry="4" constant="true"/>
           <speciesReference species="M_m197" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m58" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_B5FVB8" stoichiometry="0.299827103082335" constant="true"/>
+          <speciesReference species="M_prot_B5FVB8" stoichiometry="0.297335040837008" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m26" stoichiometry="1" constant="true"/>
@@ -17827,7 +17827,7 @@
         <listOfReactants>
           <speciesReference species="M_m1647" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m567" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6C336" stoichiometry="0.921262346231046" constant="true"/>
+          <speciesReference species="M_prot_Q6C336" stoichiometry="0.913605122826352" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1648" stoichiometry="1" constant="true"/>
@@ -18264,7 +18264,7 @@
         <listOfReactants>
           <speciesReference species="M_m33" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m50" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m51" stoichiometry="1" constant="true"/>
@@ -18758,7 +18758,7 @@
         <listOfReactants>
           <speciesReference species="M_m789" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m790" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m791" stoichiometry="1" constant="true"/>
@@ -20621,7 +20621,7 @@
         <listOfReactants>
           <speciesReference species="M_m1447" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m1684" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6C1Z2" stoichiometry="0.765337148989447" constant="true"/>
+          <speciesReference species="M_prot_Q6C1Z2" stoichiometry="0.7589759234887" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1599" stoichiometry="1" constant="true"/>
@@ -21318,7 +21318,7 @@
         <listOfReactants>
           <speciesReference species="M_m1621" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m1688" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1622" stoichiometry="1" constant="true"/>
@@ -21329,7 +21329,7 @@
         <listOfReactants>
           <speciesReference species="M_m1622" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m1687" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1621" stoichiometry="1" constant="true"/>
@@ -21369,7 +21369,7 @@
         <listOfReactants>
           <speciesReference species="M_m16" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m1686" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1685" stoichiometry="1" constant="true"/>
@@ -21380,7 +21380,7 @@
         <listOfReactants>
           <speciesReference species="M_m1685" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m18" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m16" stoichiometry="1" constant="true"/>
@@ -25438,7 +25438,7 @@
         <listOfReactants>
           <speciesReference species="M_m108" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m109" stoichiometry="0.5" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m110" stoichiometry="1" constant="true"/>
@@ -25535,7 +25535,7 @@
         <listOfReactants>
           <speciesReference species="M_m111" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m28" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m44" stoichiometry="1" constant="true"/>
@@ -25992,7 +25992,7 @@
         <listOfReactants>
           <speciesReference species="M_m491" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m513" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m203" stoichiometry="1" constant="true"/>
@@ -26030,7 +26030,7 @@
         <listOfReactants>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m550" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m166" stoichiometry="1" constant="true"/>
@@ -26174,7 +26174,7 @@
         <listOfReactants>
           <speciesReference species="M_m130" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m38" stoichiometry="1" constant="true"/>
@@ -26730,7 +26730,7 @@
         <listOfReactants>
           <speciesReference species="M_m580" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m69" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m272" stoichiometry="1" constant="true"/>
@@ -29849,7 +29849,7 @@
         <listOfReactants>
           <speciesReference species="M_m319" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m267" stoichiometry="1" constant="true"/>
@@ -29860,7 +29860,7 @@
         <listOfReactants>
           <speciesReference species="M_m267" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m38" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m319" stoichiometry="1" constant="true"/>
@@ -30156,7 +30156,7 @@
           <speciesReference species="M_m122" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m766" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="2" constant="true"/>
@@ -30219,7 +30219,7 @@
         <listOfReactants>
           <speciesReference species="M_m137" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m26" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m138" stoichiometry="1" constant="true"/>
@@ -30447,7 +30447,7 @@
         <listOfReactants>
           <speciesReference species="M_m789" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m790" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m791" stoichiometry="1" constant="true"/>
@@ -32638,7 +32638,7 @@
         <listOfReactants>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m852" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m149" stoichiometry="1" constant="true"/>
@@ -34225,7 +34225,7 @@
         <listOfReactants>
           <speciesReference species="M_m114" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m171" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="4" constant="true"/>
@@ -35497,7 +35497,7 @@
         <listOfReactants>
           <speciesReference species="M_m441" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m68" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m446" stoichiometry="1" constant="true"/>
@@ -36374,7 +36374,7 @@
           <speciesReference species="M_m141" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m34" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m579" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m143" stoichiometry="1" constant="true"/>
@@ -36386,7 +36386,7 @@
         <listOfReactants>
           <speciesReference species="M_m1804" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m41" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6CDK7" stoichiometry="3.46038405129779" constant="true"/>
+          <speciesReference species="M_prot_Q6CEE9" stoichiometry="0.461301542187595" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -36394,7 +36394,7 @@
           <speciesReference species="M_m458" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="YALI0B23188g"/>
+          <fbc:geneProductRef fbc:geneProduct="YALI0B16192g"/>
         </fbc:geneProductAssociation>
       </reaction>
       <reaction metaid="R_iNL2002_REV" sboTerm="SBO:0000176" id="R_iNL2002_REV" name="mannitol dehydrogenase (reversible)" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
@@ -36402,14 +36402,14 @@
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m40" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m458" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6CDK7" stoichiometry="1.77309984445726" constant="true"/>
+          <speciesReference species="M_prot_Q6CEE9" stoichiometry="0.122082745541071" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1804" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m41" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="YALI0B23188g"/>
+          <fbc:geneProductRef fbc:geneProduct="YALI0B16192g"/>
         </fbc:geneProductAssociation>
       </reaction>
       <reaction metaid="R_iNL2008" sboTerm="SBO:0000176" id="R_iNL2008" name="ATP-citrate lyase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
@@ -36417,7 +36417,8 @@
           <speciesReference species="M_m141" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m435" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m69" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6CEE9" stoichiometry="0.111548644167514" constant="true"/>
+          <speciesReference species="M_prot_Q6C3H5" stoichiometry="0.338139350842118" constant="true"/>
+          <speciesReference species="M_prot_Q6C7Y1" stoichiometry="0.256109520780322" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m143" stoichiometry="1" constant="true"/>
@@ -36426,25 +36427,24 @@
           <speciesReference species="M_m68" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="YALI0B16192g"/>
+          <fbc:and>
+            <fbc:geneProductRef fbc:geneProduct="YALI0E34793g"/>
+            <fbc:geneProductRef fbc:geneProduct="YALI0D24431g"/>
+          </fbc:and>
         </fbc:geneProductAssociation>
       </reaction>
       <reaction metaid="R_iNL2010" sboTerm="SBO:0000176" id="R_iNL2010" name="extracellular tributyrin hydrolysis" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
         <listOfReactants>
           <speciesReference species="M_m1807" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m214" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_Q6C3H5" stoichiometry="0.13699147612002" constant="true"/>
-          <speciesReference species="M_prot_Q6C7Y1" stoichiometry="0.103758468846381" constant="true"/>
+          <speciesReference species="M_prot_F2Z685" stoichiometry="0.00235806600507731" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1459" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m1805" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
-          <fbc:and>
-            <fbc:geneProductRef fbc:geneProduct="YALI0E34793g"/>
-            <fbc:geneProductRef fbc:geneProduct="YALI0D24431g"/>
-          </fbc:and>
+          <fbc:geneProductRef fbc:geneProduct="YALI0A20350g"/>
         </fbc:geneProductAssociation>
       </reaction>
       <reaction metaid="R_iNL2011" sboTerm="SBO:0000176" id="R_iNL2011" name="extracellular dibutyrin hydrolysis" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
@@ -36513,7 +36513,7 @@
         <listOfReactants>
           <speciesReference species="M_m1720" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m35" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -36526,7 +36526,7 @@
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m824" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m888" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1720" stoichiometry="1" constant="true"/>
@@ -39220,7 +39220,7 @@
       <reaction metaid="R_yli0037" sboTerm="SBO:0000176" id="R_yli0037" name="maleylacetoacetate isomerase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
         <listOfReactants>
           <speciesReference species="M_m1820" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1819" stoichiometry="1" constant="true"/>
@@ -39229,7 +39229,7 @@
       <reaction metaid="R_yli0037_REV" sboTerm="SBO:0000176" id="R_yli0037_REV" name="maleylacetoacetate isomerase (reversible)" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
         <listOfReactants>
           <speciesReference species="M_m1819" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1820" stoichiometry="1" constant="true"/>
@@ -39239,7 +39239,7 @@
         <listOfReactants>
           <speciesReference species="M_m1819" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m32" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -39251,7 +39251,7 @@
         <listOfReactants>
           <speciesReference species="M_m106" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m143" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m141" stoichiometry="1" constant="true"/>
@@ -39262,7 +39262,7 @@
         <listOfReactants>
           <speciesReference species="M_m141" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m1827" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m106" stoichiometry="1" constant="true"/>
@@ -39274,7 +39274,7 @@
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m123" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m1827" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m122" stoichiometry="1" constant="true"/>
@@ -39285,7 +39285,7 @@
         <listOfReactants>
           <speciesReference species="M_m122" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m1825" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -39314,7 +39314,7 @@
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m1015" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m123" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m122" stoichiometry="1" constant="true"/>
@@ -39325,7 +39325,7 @@
         <listOfReactants>
           <speciesReference species="M_m122" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m1823" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m10" stoichiometry="1" constant="true"/>
@@ -39354,7 +39354,7 @@
           <speciesReference species="M_m27" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m73" stoichiometry="1" constant="true"/>
           <speciesReference species="M_m84" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1828" stoichiometry="1" constant="true"/>
@@ -39463,7 +39463,7 @@
       <reaction metaid="R_yli0050" sboTerm="SBO:0000176" id="R_yli0050" name="hydroxymethylglutaryl-CoA lyase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
         <listOfReactants>
           <speciesReference species="M_m648" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_prot_standard" stoichiometry="0.83332339672887" constant="true"/>
+          <speciesReference species="M_prot_standard" stoichiometry="0.826397092356162" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_m1812" stoichiometry="1" constant="true"/>

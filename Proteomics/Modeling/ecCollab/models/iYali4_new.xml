@@ -8,10 +8,10 @@
             <rdf:Bag/>
           </dcterms:creator>
           <dcterms:created rdf:parseType="Resource">
-            <dcterms:W3CDTF>2024-04-12T11:18:01Z</dcterms:W3CDTF>
+            <dcterms:W3CDTF>2024-05-13T16:25:54Z</dcterms:W3CDTF>
           </dcterms:created>
           <dcterms:modified rdf:parseType="Resource">
-            <dcterms:W3CDTF>2024-04-12T11:18:01Z</dcterms:W3CDTF>
+            <dcterms:W3CDTF>2024-05-13T16:25:54Z</dcterms:W3CDTF>
           </dcterms:modified>
         </rdf:Description>
       </rdf:RDF>
@@ -25024,7 +25024,7 @@
           <speciesReference species="M_m458" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="YALI0B23188g"/>
+          <fbc:geneProductRef fbc:geneProduct="YALI0B16192g"/>
         </fbc:geneProductAssociation>
       </reaction>
       <reaction metaid="R_iNL2008" sboTerm="SBO:0000176" id="R_iNL2008" name="ATP-citrate lyase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB3N1000">
@@ -25040,7 +25040,10 @@
           <speciesReference species="M_m328" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="YALI0B16192g"/>
+          <fbc:and>
+            <fbc:geneProductRef fbc:geneProduct="YALI0E34793g"/>
+            <fbc:geneProductRef fbc:geneProduct="YALI0D24431g"/>
+          </fbc:and>
         </fbc:geneProductAssociation>
       </reaction>
       <reaction metaid="R_iNL2010" sboTerm="SBO:0000176" id="R_iNL2010" name="extracellular tributyrin hydrolysis" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB3N1000">
@@ -25053,10 +25056,7 @@
           <speciesReference species="M_m1805" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
-          <fbc:and>
-            <fbc:geneProductRef fbc:geneProduct="YALI0E34793g"/>
-            <fbc:geneProductRef fbc:geneProduct="YALI0D24431g"/>
-          </fbc:and>
+          <fbc:geneProductRef fbc:geneProduct="YALI0A20350g"/>
         </fbc:geneProductAssociation>
       </reaction>
       <reaction metaid="R_iNL2011" sboTerm="SBO:0000176" id="R_iNL2011" name="extracellular dibutyrin hydrolysis" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB3N1000">
