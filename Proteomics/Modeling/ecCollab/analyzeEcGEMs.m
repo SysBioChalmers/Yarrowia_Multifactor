@@ -1,140 +1,276 @@
-adapterLocation = fullfile(findGECKOroot,'ecCollab','ecCollabAdapter.m');
+% Define adapter location and set default model adapter
+adapterLocation = fullfile(findGECKOroot, 'ecCollab', 'ecCollabAdapter.m');
 ModelAdapter = ModelAdapterManager.setDefault(adapterLocation);
 params = ModelAdapter.getParameters();
 fluxData = loadFluxData();
 model = loadConventionalGEM();
-allSolutions = struct();  % Initialize allSolutions as a structure
+allSolutions = struct();
+nSamples = 5000;
 
+% Loop through each condition
 for i = 1:length(fluxData.conds)
+    modelName = ['ec', fluxData.conds{i}];
+    fprintf('Working on: %s \n', modelName);
 
-    modelName = ['ec',fluxData.conds{i}];
-    fprintf('Working on: %s \n', modelName)
-
-    fileName = [modelName,'_prot.yml'];
-
-    % Load model: already constrained with 10% variance around chemostat fluxes
-    ecModel = loadEcModel(fileName);
-
-    % Set bounds for biomass too
+    % Load and constrain the model
+    ecModel = loadEcModel([modelName, '_prot.yml']);
     sol = solveLP(ecModel);
-    ecModel = setParam(ecModel,'var', 'xBIOMASS', -sol.f, 10);
-
-    % Minimize all protein usage
-    % All draw from pool
-    usageRxnsIdx = startsWith(ecModel.rxns,'usage_prot_');
-    protPoolIdx = find(ismember(ecModel.mets,'prot_pool'));
-    ecModel.S(protPoolIdx, usageRxnsIdx) = 1;
-
-    % Reset pool to all enzymes
-    ecModel = setProtPoolSize(ecModel,fluxData.Ptot(i));
-
-    % Minimize total enzyme usage
-    ecModel = setParam(ecModel,'obj','prot_pool_exchange',1);
-    sol = solveLP(ecModel);
-    ecModel = setParam(ecModel,'var', 'prot_pool_exchange', -sol.f, 10);
-
-    % Get good reactions
-    [~, goodRxns] = randomSampling(ecModel,1,true,true,true);
-
-    % Run random sampling
-    solutions = randomSampling(ecModel,5000,true,true,true,goodRxns);
-
-    % Get index of C-source rxn
-    idx = getIndexes(ecModel,params.c_source,'rxns');
-
-    % Compute absolute value of the element in the specified row
-    abs_value = abs(solutions(idx, :));
+    ecModel = setParam(ecModel, 'var', 'xBIOMASS', -sol.f, 10);
     
-    % Divide each column by the absolute value
-    solutionsNorm = solutions ./ abs_value;
+    % Set protein pool
+    usageRxnsIdx = startsWith(ecModel.rxns, 'usage_prot_');
+    protPoolIdx = find(ismember(ecModel.mets, 'prot_pool'));
+    ecModel.S(protPoolIdx, usageRxnsIdx) = 1;
+    ecModel = setProtPoolSize(ecModel, fluxData.Ptot(i));
+    ecModel = setParam(ecModel, 'obj', 'prot_pool_exchange', 1);
+    sol = solveLP(ecModel);
+    ecModel = setParam(ecModel, 'var', 'prot_pool_exchange', -sol.f, 10);
 
-    % Store solutions in a field named after the model name
+    % Perform random sampling
+    [~, goodRxns] = randomSampling(ecModel, 1, true, true, true);
+    solutions = randomSampling(ecModel, nSamples, true, true, true, goodRxns);
+    fluxes = mean(full(solutions), 2);
+    usageData.(modelName) = enzymeUsage(ecModel, fluxes);
+
+    % Normalize solutions
+    idx = getIndexes(ecModel, params.c_source, 'rxns');
+    solutionsNorm = solutions ./ abs(solutions(idx, :));
+
+    % Store solutions and statistics
     allSolutions.(modelName) = solutionsNorm;
-    allSol4Plot.(modelName) = mapRxnsToConv(ecModel,model,solutionsNorm);
+    allSol4Plot.(modelName) = mapRxnsToConv(ecModel, model, solutionsNorm);
+    mean_Fluxes.(modelName) = mean(full(allSol4Plot.(modelName)), 2);
+    standardDev.(modelName) = std(full(allSol4Plot.(modelName)), 0, 2);
 
     % Data treatment
-    fluxMean = full(mean(solutionsNorm,2));
-    fluxSD = full(std(solutionsNorm,0,2));
+    fluxMean = full(mean(solutionsNorm, 2));
+    fluxSD = full(std(solutionsNorm, 0, 2));
     logVec = abs(fluxMean) > abs(fluxSD);
-    fluxMeanSD = logVec.*fluxMean;
+    fluxMeanSD = logVec .* fluxMean;
 
     % Export data
-    fluxesForEscher(ecModel.rxns,fluxMean,[modelName,'_prot_FBA_SD.json']);
-    fluxesForEscher(model.rxns,full(mean(mapRxnsToConv(ecModel,model,solutionsNorm),2)),[modelName,'_FBA_SD.json']);
+    fluxesForEscher(ecModel.rxns, fluxMean, [modelName, '_prot_FBA_SD.json']);
+    fluxesForEscher(model.rxns, full(mean(mapRxnsToConv(ecModel, model, solutionsNorm), 2)), [modelName, '_FBA_SD.json']);
 end
 
-%%
-% Calculate means of the fluxes for each reaction across all conditions
-mean_fluxes.ecST6512 = mean(full(allSol4Plot.ecST6512), 2);
-mean_fluxes.ecOKYL029 = mean(full(allSol4Plot.ecOKYL029), 2);
-mean_fluxes.ecJFYL07 = mean(full(allSol4Plot.ecJFYL07), 2);
-mean_fluxes.ecJFYL14 = mean(full(allSol4Plot.ecJFYL14), 2);
-mean_fluxes.ecJFYL18 = mean(full(allSol4Plot.ecJFYL18), 2);
+% Output to TSV
+outputFileName = 'Supplementary_Table_fluxes_data.tsv';
+outputFilePath = 'output'; % You can set this to the desired directory path
+modelAdapter = ModelAdapterManager.getDefault(); % Assuming you have already set the default adapter
 
-% Calculate stddevs for all conditions
-standardDev.ecST6512 = std(full(allSol4Plot.ecST6512), 0, 2);
-standardDev.ecOKYL029 = std(full(allSol4Plot.ecOKYL029), 0, 2);
-standardDev.ecJFYL07 = std(full(allSol4Plot.ecJFYL07), 0, 2);
-standardDev.ecJFYL14 = std(full(allSol4Plot.ecJFYL14), 0, 2);
-standardDev.ecJFYL18 = std(full(allSol4Plot.ecJFYL18), 0, 2);
+writeTSV(outputFileName, model.rxnNames, mean_Fluxes, standardDev, fluxData.conds, outputFilePath, modelAdapter);
 
-% Calculate fold changes (or differences in means)
-fold_changes = mean_fluxes.ecJFYL18 ./ mean_fluxes.ecJFYL07;
+% Define pairs of models to compare
+modelPairs = {
+    'ecOKYL029', 'ecST6512';
+    'ecJFYL07', 'ecOKYL029';
+    'ecJFYL14', 'ecJFYL07';
+    'ecJFYL18', 'ecJFYL07';
+};
 
-% Perform two-sample t-test to compute p-values
-[~, p_values] = ttest2(full(allSol4Plot.ecJFYL18), full(allSol4Plot.ecJFYL07), 'Dim', 2);
+% Calculate fold changes, p-values, and adjusted p-values
+results = computeStatistics(modelPairs, mean_Fluxes, allSol4Plot, model);
 
-% Adjust p-values using Benjamini and Hochberg method
-adjusted_p_values = mafdr(p_values,'BHFDR',true);
+% Filter, sort, and update results
+results = filterAndSortResults(results, standardDev, modelPairs, mean_Fluxes, model);
 
-fluxCutOff = 0.00001;
+% Analysis and output
+analyzeResults(results, modelPairs, 'SupTable_foldChangeAnalysis.tsv', outputFilePath, modelAdapter);
 
-fold_changes = fold_changes.*(abs(mean_fluxes.ecJFYL18) > fluxCutOff).*(abs(mean_fluxes.ecJFYL18) > fluxCutOff);
+%% Heatmap with Reduced Font Size in Cells
+% Define specific reactions and their corresponding names
+specificReactions = {'958', '714', '713', '300', '302', '280', '658', '216', '471', '217', '1889'}; % Reactions IDs
+specificReactionNames = {'PC', 'MDHc', 'MDHm','CSm', 'ACONTa', 'ACONTb', ...
+                         'ICDHx', 'ASPTAc', 'GLUDy', 'ASPTAm', 'EX_Glu'}; % Names for the reactions
+numReactions = length(specificReactions);
 
-% Plot volcano plot
-figure;
-scatter(fold_changes, adjusted_p_values, 'ko'); % Plot p-values
-set(gca, 'XScale', 'log'); % Set x-axis to log scale
-set(gca, 'YScale', 'log'); % Set y-axis to log scale
-set(gca, 'YDir', 'reverse'); % Reverse the y-axis direction
-hold on;
+% Get the model names from the mean_Fluxes struct
+modelNames = fieldnames(mean_Fluxes);
+numModels = length(modelNames);
 
-% Highlight significant points (if desired)
-alpha = 0.001; % significance level
-significant_points = adjusted_p_values < alpha;
-scatter(fold_changes(significant_points), adjusted_p_values(significant_points), 'r*'); % Highlight significant points
+% Initialize the matrix to store flux values
+specificFluxMatrix = nan(numReactions, numModels);
 
-% Customize plot
-xlabel('Fold Change');
-ylabel('Adjusted p-value');
-title('Volcano Plot of Flux Differences');
-legend('All points', 'Significant points (adjusted p < 0.01)', 'Location', 'best');
-grid on;
-%%
-% TO-DO
-% - Get 10 biggest fold changes (p < 0.01)
-% - Get 10 smalles fold changes (p < 0.01)
-%   - Match them with model.rxnNames
-% - Get 0, Inf and negative flux changes 
-%   - match them with model.rxnNames
+% Loop through each specific reaction and fetch the flux values from mean_Fluxes
+for i = 1:numReactions
+    reaction = specificReactions{i};
+    
+    for j = 1:numModels
+        modelName = modelNames{j};
+        
+        % Find the index of the specific reaction in the model
+        rxnIndex = find(strcmp(model.rxns, reaction));
+        
+        if ~isempty(rxnIndex)
+            % Store the mean flux value for the specific reaction and model
+            specificFluxMatrix(i, j) = abs(mean_Fluxes.(modelName)(rxnIndex));
+        else
+            warning('Reaction %s not found in the model.', reaction);
+        end
+    end
+end
 
-% Find indices of significant fold changes
-significant_fold_changes = find(adjusted_p_values < 0.001);
-% Get the corresponding fold changes
-significant_fold_changes_values = fold_changes(significant_fold_changes);
-% Sort fold changes in descending order to get the biggest ones
-[sorted_fold_changes, sorted_indices] = sort(significant_fold_changes_values, 'descend');
-% Select the 10 biggest fold changes
-top_10_biggest_fold_changes = sorted_fold_changes(1:min(10, length(sorted_indices)));
-% Get the names of the reactions corresponding to the top 10 biggest fold changes
-top_10_biggest_fold_changes_names = model.rxns(significant_fold_changes(sorted_indices));
+% Create the heatmap
+h = heatmap(modelNames, specificReactionNames, specificFluxMatrix); % Using the custom names for reactions
 
-pValues_sorted = adjusted_p_values(significant_fold_changes(sorted_indices));
+% Customize the heatmap
+h.Title = 'Specific Metabolic Fluxes Heatmap with Reduced Font Size';
+h.XLabel = 'Models';
+h.YLabel = 'Specific Reactions';
+h.Colormap = parula;  % You can choose other colormaps like jet, hot, cool, etc.
+h.ColorbarVisible = 'on';
 
-% Sort fold changes in ascending order to get the smallest ones
-[sorted_fold_changes, sorted_indices] = sort(significant_fold_changes_values, 'ascend');
-% Select the 10 smallest fold changes
-top_10_smallest_fold_changes = sorted_fold_changes(1:min(10, length(sorted_indices)));
-% Get the names of the reactions corresponding to the top 10 smallest fold changes
-top_10_smallest_fold_changes_names = model.rxnNames(sorted_indices);
+% Adjust color scaling if needed
+clim([min(specificFluxMatrix(:)), max(specificFluxMatrix(:))]);  % Set the color axis scaling
 
+% Reduce font size of heatmap labels
+h.YDisplayLabels = specificReactionNames;
+h.YDisplayLabels = specificReactionNames;
+h.FontSize = 10; % Set font size
+
+% Display the heatmap
+disp('Heatmap with reduced font size in cells generated successfully.');
+
+
+%% Functions
+% Function to write TSV file
+function writeTSV(fileName, rxnNames, mean_Fluxes, standardDev, conds, filePath, modelAdapter)
+    if nargin < 7 || isempty(modelAdapter)
+        modelAdapter = ModelAdapterManager.getDefault();
+        if isempty(modelAdapter)
+            error('Either send in a modelAdapter or set the default model adapter in the ModelAdapterManager.')
+        end
+    end
+    params = modelAdapter.getParameters();
+
+    if nargin < 6 || isempty(filePath)
+        filePath = fullfile(params.path, 'output');
+    end
+
+    % Ensure the directory exists, create it if needed
+    if ~exist(filePath, 'dir')
+        mkdir(filePath);
+    end
+
+    % Full file path including directory
+    fullFilePath = fullfile(filePath, fileName);
+
+    % Open the file for writing
+    fileID = fopen(fullFilePath, 'w');
+    if fileID > 0
+        fieldNames = fieldnames(mean_Fluxes);
+        fprintf(fileID, 'model.rxnNames');
+        for i = 1:length(fieldNames)
+            fprintf(fileID, '\t%s_avg\t%s_std', fieldNames{i}, fieldNames{i});
+        end
+        fprintf(fileID, '\n');
+        for j = 1:length(rxnNames)
+            fprintf(fileID, '%s', rxnNames{j});
+            for i = 1:length(conds)
+                modelName = ['ec', conds{i}];
+                fprintf(fileID, '\t%.8f\t%.8f', mean_Fluxes.(modelName)(j), standardDev.(modelName)(j));
+            end
+            fprintf(fileID, '\n');
+        end
+        fclose(fileID);
+        disp(['TSV file created: ', fullFilePath]);
+    else
+        error('Unable to open the file for writing.');
+    end
+end
+
+% Function to compute statistics (fold changes, p-values, adjusted p-values)
+function results = computeStatistics(modelPairs, mean_Fluxes, allSol4Plot, model)
+    results = struct();
+    for k = 1:size(modelPairs, 1)
+        model1 = modelPairs{k, 1};
+        model2 = modelPairs{k, 2};
+        pairName = [model1, '_vs_', model2];
+        fold_changes = mean_Fluxes.(model1) ./ mean_Fluxes.(model2);
+        [~, p_vals] = ttest2(full(allSol4Plot.(model1)), full(allSol4Plot.(model2)), 'Dim', 2);
+        adj_p_vals = mafdr(p_vals, 'BHFDR', true);
+        results.(pairName) = struct('rxns', {model.rxns}, 'rxnNames', {model.rxnNames}, ...
+                                    'fold_changes', fold_changes, 'p_values', p_vals, ...
+                                    'adjusted_p_values', adj_p_vals);
+    end
+end
+
+% Function to filter, sort, and update results
+function results = filterAndSortResults(results, standardDev, modelPairs, mean_Fluxes, model)
+    pValCutoff = 0.001;
+    xchangeRxnsIDs = getExchangeRxns(model);
+    transpRxnsIDs = model.rxns(getTransportRxns(model));
+    for k = 1:size(modelPairs, 1)
+        model1 = modelPairs{k, 1};
+        model2 = modelPairs{k, 2};
+        pairName = [model1, '_vs_', model2];
+        data = results.(pairName);
+        fold_changes = data.fold_changes;
+        adj_p_values = data.adjusted_p_values;
+        flux_sd_model1 = standardDev.(model1);
+        avg_flux_model1 = mean_Fluxes.(model1);
+
+        % Filter fold changes
+        fold_changes(adj_p_values > pValCutoff | flux_sd_model1 > avg_flux_model1) = NaN;
+        isExchangeTransport = ismember(data.rxns, [xchangeRxnsIDs; transpRxnsIDs]);
+        isPseudoRxn = contains(data.rxnNames, 'pseudoreaction');
+        filtered_idx = ~isnan(fold_changes) & ~isExchangeTransport & ~isPseudoRxn;
+
+        % Update filtered results
+        filtered_results = structfun(@(field) field(filtered_idx), data, 'UniformOutput', false);
+        [~, sort_idx] = sort(filtered_results.fold_changes, 'descend');
+        results.(pairName) = structfun(@(field) field(sort_idx), filtered_results, 'UniformOutput', false);
+    end
+end
+
+% Function to analyze results and output to a file
+function analyzeResults(results, modelPairs, fileName, filePath, modelAdapter)
+    if nargin < 5 || isempty(modelAdapter)
+        modelAdapter = ModelAdapterManager.getDefault();
+        if isempty(modelAdapter)
+            error('Either send in a modelAdapter or set the default model adapter in the ModelAdapterManager.')
+        end
+    end
+    params = modelAdapter.getParameters();
+
+    if nargin < 4 || isempty(filePath)
+        filePath = fullfile(params.path, 'output');
+    end
+
+    % Ensure the directory exists, create it if needed
+    if ~exist(filePath, 'dir')
+        mkdir(filePath);
+    end
+
+    % Full file path including directory
+    fullFilePath = fullfile(filePath, fileName);
+
+    header_row = 'Pair\tNum Increases\tAvg Increase\tMedian Increase\tNum Decreases\tAvg Decrease\tMedian Decrease\tNum Rev Changes\tTotal Sig Changes\n';
+    fid = fopen(fullFilePath, 'w');  % Open in write mode
+    if fid > 0
+        fprintf(fid, header_row);
+        for k = 1:size(modelPairs, 1)
+            pairName = [modelPairs{k, 1}, '_vs_', modelPairs{k, 2}];
+            data = results.(pairName);
+            fold_changes = data.fold_changes;
+            num_increases = sum(fold_changes > 1 & ~isinf(fold_changes));
+            num_decreases = sum(fold_changes > 0 & fold_changes <= 1 & ~isinf(fold_changes));
+            num_reversible_changes = sum(fold_changes < 0 & ~isinf(fold_changes));
+            fold_changes_finite = fold_changes(~isinf(fold_changes));
+            avg_increase = nanmean(fold_changes_finite(fold_changes_finite > 1));
+            median_increase = nanmedian(fold_changes_finite(fold_changes_finite > 1));
+            avg_decrease = nanmean(fold_changes_finite(fold_changes_finite > 0 & fold_changes_finite <= 1));
+            median_decrease = nanmedian(fold_changes_finite(fold_changes_finite > 0 & fold_changes_finite <= 1));
+            num_significant_changes = length(fold_changes);
+            output_string = sprintf('%s\t%d\t%.4f\t%.4f\t%d\t%.4f\t%.4f\t%d\t%d\n', ...
+                                    pairName, num_increases, avg_increase, median_increase, ...
+                                    num_decreases, avg_decrease, median_decrease, ...
+                                    num_reversible_changes, num_significant_changes);
+            fprintf(fid, output_string);
+        end
+        fclose(fid);
+        disp(['TSV file created: ', fullFilePath]);
+    else
+        error('Unable to open the file for writing.');
+    end
+end

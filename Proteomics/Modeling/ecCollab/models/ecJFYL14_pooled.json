@@ -7587,6 +7587,16 @@
 }
 },
 {
+"id":"m1840",
+"name":"succinate",
+"compartment":"pe",
+"charge":0,
+"formula":"C4H6O4",
+"annotation":{
+"sbo":"SBO:0000247"
+}
+},
+{
 "id":"m185",
 "name":"3-oxohexacosanoyl-CoA",
 "compartment":"pe",
@@ -24516,7 +24526,7 @@
 }
 },
 {
-"id":"m1840",
+"id":"m1841",
 "name":"itaconate",
 "compartment":"c",
 "charge":0,
@@ -24526,7 +24536,7 @@
 }
 },
 {
-"id":"m1841",
+"id":"m1842",
 "name":"itaconate",
 "compartment":"e",
 "charge":0,
@@ -24547,10 +24557,10 @@
 ],
 "reactions":[
 {
-"id":"EX_m1841",
-"name":"EX_m1841",
+"id":"EX_m1842",
+"name":"EX_m1842",
 "metabolites":{
-"m1841":-1
+"m1842":-1
 },
 "lower_bound":-1000.0,
 "upper_bound":1000.0,
@@ -25271,7 +25281,7 @@
 "m342":1.0,
 "m971":-1.0,
 "m972":1.0,
-"prot_Q6CCS5":-1.29456112008616
+"prot_Q6CCS5":-1.27920877779867
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -25288,7 +25298,7 @@
 "m215":1.0,
 "m972":1.0,
 "m973":-1.0,
-"prot_Q6CCS5":-1.29456112008616
+"prot_Q6CCS5":-1.27920877779867
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -32298,7 +32308,7 @@
 "m35":1.0,
 "m649":1.0,
 "m867":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -32683,7 +32693,7 @@
 "m35":1.0,
 "m460":-1.0,
 "m464":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -32817,7 +32827,7 @@
 "m58":1.0,
 "m803":1.0,
 "m969":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -32837,7 +32847,7 @@
 "m32":-1.0,
 "m35":1.0,
 "m532":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -33890,7 +33900,7 @@
 "m26":1.0,
 "m28":-1.0,
 "m44":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -33925,7 +33935,7 @@
 "m1175":-1.0,
 "m626":1.0,
 "m627":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -33960,7 +33970,7 @@
 "m199":-1.0,
 "m32":1.0,
 "m82":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -34298,7 +34308,7 @@
 "m32":2.0,
 "m353":1.0,
 "m359":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":0.0,
@@ -34358,7 +34368,7 @@
 "m129":-1.0,
 "m366":1.0,
 "m4":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -34487,7 +34497,7 @@
 "m450":1.0,
 "m889":1.0,
 "m95":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -35551,7 +35561,7 @@
 "m143":1.0,
 "m460":1.0,
 "m464":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -35663,7 +35673,7 @@
 "m69":1.0,
 "m901":1.0,
 "m902":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -35731,7 +35741,7 @@
 "m282":-1.0,
 "m32":-1.0,
 "m484":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -36483,7 +36493,7 @@
 "m46":-1.0,
 "m563":1.0,
 "m928":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -36619,7 +36629,7 @@
 "m143":1.0,
 "m455":-1.0,
 "m535":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -37077,7 +37087,7 @@
 "m143":1.0,
 "m593":-1.0,
 "m93":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -37666,7 +37676,7 @@
 "m143":1.0,
 "m148":-1.0,
 "m91":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -38398,7 +38408,7 @@
 "m32":1.0,
 "m552":-1.0,
 "m924":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -38416,7 +38426,7 @@
 "m32":-1.0,
 "m552":1.0,
 "m924":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -40257,7 +40267,7 @@
 "m35":1.0,
 "m465":1.0,
 "m466":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -40275,7 +40285,7 @@
 "m35":1.0,
 "m466":1.0,
 "m841":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -40695,7 +40705,7 @@
 "m28":-1.0,
 "m46":-1.0,
 "m475":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -40814,7 +40824,7 @@
 "m302":1.0,
 "m32":-1.0,
 "m38":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -41023,7 +41033,7 @@
 "m143":1.0,
 "m918":-1.0,
 "m921":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -41041,7 +41051,7 @@
 "m143":1.0,
 "m919":-1.0,
 "m920":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -41058,7 +41068,7 @@
 "m35":1.0,
 "m919":1.0,
 "m920":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -41129,7 +41139,7 @@
 "m35":1.0,
 "m37":-1.0,
 "m929":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -41146,7 +41156,7 @@
 "m35":-1.0,
 "m451":1.0,
 "m888":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -41163,7 +41173,7 @@
 "m35":1.0,
 "m451":-1.0,
 "m888":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -41517,7 +41527,7 @@
 "m68":-1.0,
 "m69":1.0,
 "m898":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -41784,7 +41794,7 @@
 "m35":1.0,
 "m974":1.0,
 "m977":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -41803,7 +41813,7 @@
 "m642":1.0,
 "m649":1.0,
 "m974":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -41863,7 +41873,7 @@
 "m143":1.0,
 "m975":1.0,
 "m977":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -41905,7 +41915,7 @@
 "m643":1.0,
 "m82":1.0,
 "m889":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -41930,7 +41940,7 @@
 "m643":1.0,
 "m82":1.0,
 "m938":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -41977,7 +41987,7 @@
 "m143":1.0,
 "m505":1.0,
 "m982":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -43385,7 +43395,7 @@
 "m176":-1.0,
 "m178":1.0,
 "m28":-1.0,
-"prot_Q6BZY3":-0.539560023135683
+"prot_Q6BZY3":-0.53316132165199
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -43404,7 +43414,7 @@
 "m176":-1.0,
 "m178":1.0,
 "m28":-1.0,
-"prot_Q6BZY3":-0.539560023135683
+"prot_Q6BZY3":-0.53316132165199
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -43423,7 +43433,7 @@
 "m176":-1.0,
 "m178":1.0,
 "m28":-1.0,
-"prot_Q6BZY3":-0.539560023135683
+"prot_Q6BZY3":-0.53316132165199
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -43440,7 +43450,7 @@
 "m1415":-1.0,
 "m1418":1.0,
 "m26":1.0,
-"prot_Q6CGI2":-0.695626159277209
+"prot_Q6CGI2":-0.687376652370462
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -43457,7 +43467,7 @@
 "m1415":1.0,
 "m1418":-1.0,
 "m26":-1.0,
-"prot_Q6CGI2":-0.695626159277209
+"prot_Q6CGI2":-0.687376652370462
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -43474,7 +43484,7 @@
 "m1416":-1.0,
 "m1419":1.0,
 "m26":1.0,
-"prot_Q6CGI2":-0.695626159277209
+"prot_Q6CGI2":-0.687376652370462
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -43491,7 +43501,7 @@
 "m1416":1.0,
 "m1419":-1.0,
 "m26":-1.0,
-"prot_Q6CGI2":-0.695626159277209
+"prot_Q6CGI2":-0.687376652370462
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -43583,7 +43593,7 @@
 "m1417":-1.0,
 "m1420":1.0,
 "m26":1.0,
-"prot_Q6CGI2":-0.695626159277209
+"prot_Q6CGI2":-0.687376652370462
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -43600,7 +43610,7 @@
 "m1417":1.0,
 "m1420":-1.0,
 "m26":-1.0,
-"prot_Q6CGI2":-0.695626159277209
+"prot_Q6CGI2":-0.687376652370462
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -47004,7 +47014,7 @@
 "m28":3.0,
 "m46":1.0,
 "m58":-1.0,
-"prot_B5FVB8":-0.300903488302519
+"prot_B5FVB8":-0.297335040837008
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -47856,7 +47866,7 @@
 "prot_Q6C9P6":-0.0763747142574293
 },
 "lower_bound":0.0,
-"upper_bound":1000.0,
+"upper_bound":0.0,
 "gene_reaction_rule":"YALI0D09361g",
 "annotation":{
 "sbo":"SBO:0000176"
@@ -47872,39 +47882,7 @@
 "prot_Q6C5V2":-0.0488509034011633
 },
 "lower_bound":0.0,
-"upper_bound":1000.0,
-"gene_reaction_rule":"YALI0E14949g",
-"annotation":{
-"sbo":"SBO:0000176"
-}
-},
-{
-"id":"2305_REV_EXP_1",
-"name":"cis-aconitate(3-) to isocitrate (reversible)",
-"metabolites":{
-"m32":1.0,
-"m436":1.0,
-"m738":-1.0,
-"prot_Q6C9P6":-2.90655777906558
-},
-"lower_bound":0.0,
-"upper_bound":1000.0,
-"gene_reaction_rule":"YALI0D09361g",
-"annotation":{
-"sbo":"SBO:0000176"
-}
-},
-{
-"id":"2305_REV_EXP_2",
-"name":"cis-aconitate(3-) to isocitrate (reversible)",
-"metabolites":{
-"m32":1.0,
-"m436":1.0,
-"m738":-1.0,
-"prot_Q6C5V2":-2.05502331032537
-},
-"lower_bound":0.0,
-"upper_bound":1000.0,
+"upper_bound":0.0,
 "gene_reaction_rule":"YALI0E14949g",
 "annotation":{
 "sbo":"SBO:0000176"
@@ -48229,7 +48207,7 @@
 "m1648":1.0,
 "m233":1.0,
 "m567":-1.0,
-"prot_Q6C336":-0.92456969624444
+"prot_Q6C336":-0.913605122826352
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -48775,7 +48753,7 @@
 "m50":-1.0,
 "m51":1.0,
 "m74":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -49408,7 +49386,7 @@
 "m790":-1.0,
 "m791":1.0,
 "m792":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -50499,7 +50477,7 @@
 "prot_Q6C9P6":-1.03539091396677
 },
 "lower_bound":0.0,
-"upper_bound":1000.0,
+"upper_bound":0.0,
 "gene_reaction_rule":"YALI0D09361g",
 "subsystem":"Citrate cycle (TCA cycle)",
 "annotation":{
@@ -50597,23 +50575,6 @@
 "upper_bound":1000.0,
 "gene_reaction_rule":"YALI0E22462g",
 "subsystem":"Glycerophospholipid metabolism",
-"annotation":{
-"sbo":"SBO:0000176"
-}
-},
-{
-"id":"303_REV",
-"name":"citrate to cis-aconitate(3-), cytoplasmic (reversible)",
-"metabolites":{
-"m32":-1.0,
-"m435":1.0,
-"m436":-1.0,
-"prot_Q6C9P6":-0.0763747142574293
-},
-"lower_bound":0.0,
-"upper_bound":1000.0,
-"gene_reaction_rule":"YALI0D09361g",
-"subsystem":"Citrate cycle (TCA cycle)",
 "annotation":{
 "sbo":"SBO:0000176"
 }
@@ -51800,7 +51761,7 @@
 "m1599":1.0,
 "m1681":1.0,
 "m1684":-1.0,
-"prot_Q6C1Z2":-0.768084724465985
+"prot_Q6C1Z2":-0.7589759234887
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -52675,7 +52636,7 @@
 "m1622":1.0,
 "m1687":1.0,
 "m1688":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -52692,7 +52653,7 @@
 "m1622":-1.0,
 "m1687":-1.0,
 "m1688":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -52746,7 +52707,7 @@
 "m1685":1.0,
 "m1686":-1.0,
 "m18":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -52763,7 +52724,7 @@
 "m1685":-1.0,
 "m1686":1.0,
 "m18":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -59649,7 +59610,7 @@
 "m108":-1.0,
 "m109":-0.5,
 "m110":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -59742,7 +59703,7 @@
 "m28":-1.0,
 "m44":1.0,
 "m63":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -60330,7 +60291,7 @@
 "m491":-1.0,
 "m513":-1.0,
 "m548":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -60383,7 +60344,7 @@
 "m32":-1.0,
 "m38":1.0,
 "m550":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -60570,7 +60531,7 @@
 "m32":-1.0,
 "m38":1.0,
 "m50":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -61271,7 +61232,7 @@
 "m580":-1.0,
 "m68":1.0,
 "m69":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -64727,34 +64688,17 @@
 }
 },
 {
-"id":"662_EXP_1",
+"id":"662",
 "name":"isocitrate lyase",
 "metabolites":{
-"m271":1.0,
-"m541":1.0,
-"m738":-1.0,
+"m1840":1.0,
+"m739":-1.0,
+"m800":1.0,
 "prot_P41555":-1.43222607653676
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
 "gene_reaction_rule":"YALI0C16885g",
-"subsystem":"Glyoxylate and dicarboxylate metabolism",
-"annotation":{
-"sbo":"SBO:0000176"
-}
-},
-{
-"id":"662_EXP_2",
-"name":"isocitrate lyase",
-"metabolites":{
-"m271":1.0,
-"m541":1.0,
-"m738":-1.0,
-"prot_Q6BZP5":-2.54136858375525
-},
-"lower_bound":0.0,
-"upper_bound":1000.0,
-"gene_reaction_rule":"YALI0F31999g",
 "subsystem":"Glyoxylate and dicarboxylate metabolism",
 "annotation":{
 "sbo":"SBO:0000176"
@@ -65185,7 +65129,7 @@
 "m319":-1.0,
 "m32":-1.0,
 "m38":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -65202,7 +65146,7 @@
 "m319":1.0,
 "m32":1.0,
 "m38":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -65585,7 +65529,7 @@
 "m32":-1.0,
 "m7":1.0,
 "m766":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -65671,7 +65615,7 @@
 "m26":-1.0,
 "m28":1.0,
 "m73":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -65969,7 +65913,7 @@
 "m790":-1.0,
 "m791":1.0,
 "m792":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -68727,7 +68671,7 @@
 "m149":1.0,
 "m82":1.0,
 "m852":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -70723,7 +70667,7 @@
 "m172":1.0,
 "m69":1.0,
 "m82":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -72296,7 +72240,7 @@
 "m446":1.0,
 "m68":-1.0,
 "m69":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -72624,6 +72568,19 @@
 "lower_bound":0.0,
 "upper_bound":1000.0,
 "gene_reaction_rule":"YALI0D17402g",
+"annotation":{
+"sbo":"SBO:0000176"
+}
+},
+{
+"id":"EXC_OUT_m1640",
+"name":"triglyceride_ActiveX VT_ERROR: exchange (OUT)",
+"metabolites":{
+"m1640":-1.0
+},
+"lower_bound":0.0,
+"upper_bound":1000.0,
+"gene_reaction_rule":"",
 "annotation":{
 "sbo":"SBO:0000176"
 }
@@ -73405,7 +73362,7 @@
 "m34":-1.0,
 "m35":1.0,
 "m579":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -73424,11 +73381,11 @@
 "m40":1.0,
 "m41":-1.0,
 "m458":1.0,
-"prot_Q6CDK7":-3.46038405129779
+"prot_Q6CEE9":-0.461301542187595
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
-"gene_reaction_rule":"YALI0B23188g",
+"gene_reaction_rule":"YALI0B16192g",
 "subsystem":"Fructose and mannose metabolism",
 "annotation":{
 "sbo":"SBO:0000176"
@@ -73443,11 +73400,11 @@
 "m40":-1.0,
 "m41":1.0,
 "m458":-1.0,
-"prot_Q6CDK7":-1.77309984445726
+"prot_Q6CEE9":-0.122082745541071
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
-"gene_reaction_rule":"YALI0B23188g",
+"gene_reaction_rule":"YALI0B16192g",
 "subsystem":"Fructose and mannose metabolism",
 "annotation":{
 "sbo":"SBO:0000176"
@@ -73464,11 +73421,12 @@
 "m435":-1.0,
 "m68":1.0,
 "m69":-1.0,
-"prot_Q6CEE9":-0.111548644167514
+"prot_Q6C3H5":-0.338139350842118,
+"prot_Q6C7Y1":-0.256109520780322
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
-"gene_reaction_rule":"YALI0B16192g",
+"gene_reaction_rule":"YALI0E34793g and YALI0D24431g",
 "subsystem":"Citrate cycle (TCA cycle)",
 "annotation":{
 "sbo":"SBO:0000176"
@@ -73482,12 +73440,11 @@
 "m1805":1.0,
 "m1807":-1.0,
 "m214":-1.0,
-"prot_Q6C3H5":-0.13699147612002,
-"prot_Q6C7Y1":-0.103758468846381
+"prot_F2Z685":-0.00235806600507731
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
-"gene_reaction_rule":"YALI0E34793g and YALI0D24431g",
+"gene_reaction_rule":"YALI0A20350g",
 "subsystem":"Glycerolipid metabolism",
 "annotation":{
 "sbo":"SBO:0000176"
@@ -73577,7 +73534,7 @@
 "m35":-1.0,
 "m824":1.0,
 "m888":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -73596,7 +73553,7 @@
 "m35":1.0,
 "m824":-1.0,
 "m888":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -74498,6 +74455,36 @@
 "upper_bound":1000.0,
 "gene_reaction_rule":"YALI0E31009g",
 "subsystem":"Pyrimidine metabolism",
+"annotation":{
+"sbo":"SBO:0000176"
+}
+},
+{
+"id":"tr_0001",
+"name":"succinate transport, peroxisome-cytoplasm",
+"metabolites":{
+"m1840":-1.0,
+"m541":1.0
+},
+"lower_bound":0.0,
+"upper_bound":1000.0,
+"gene_reaction_rule":"",
+"subsystem":"Transport between pe and c",
+"annotation":{
+"sbo":"SBO:0000176"
+}
+},
+{
+"id":"tr_0001_REV",
+"name":"succinate transport, peroxisome-cytoplasm (reversible)",
+"metabolites":{
+"m1840":1.0,
+"m541":-1.0
+},
+"lower_bound":0.0,
+"upper_bound":1000.0,
+"gene_reaction_rule":"",
+"subsystem":"Transport between pe and c",
 "annotation":{
 "sbo":"SBO:0000176"
 }
@@ -77140,7 +77127,7 @@
 "metabolites":{
 "m1819":1.0,
 "m1820":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -77156,7 +77143,7 @@
 "metabolites":{
 "m1819":-1.0,
 "m1820":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -77175,7 +77162,7 @@
 "m1821":1.0,
 "m264":1.0,
 "m32":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -77193,7 +77180,7 @@
 "m141":1.0,
 "m143":-1.0,
 "m1827":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -77211,7 +77198,7 @@
 "m141":-1.0,
 "m143":1.0,
 "m1827":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -77230,7 +77217,7 @@
 "m123":-1.0,
 "m1825":1.0,
 "m1827":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -77249,7 +77236,7 @@
 "m123":1.0,
 "m1825":-1.0,
 "m1827":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -77298,7 +77285,7 @@
 "m122":1.0,
 "m123":-1.0,
 "m1823":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -77317,7 +77304,7 @@
 "m122":-1.0,
 "m123":1.0,
 "m1823":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -77367,7 +77354,7 @@
 "m44":1.0,
 "m73":-1.0,
 "m84":-1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -77487,7 +77474,7 @@
 "m1812":1.0,
 "m648":-1.0,
 "m71":1.0,
-"prot_standard":-0.836315044177187
+"prot_standard":-0.826397092356162
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -90155,8 +90142,8 @@
 "id":"ITACNce",
 "name":"itaconate transport",
 "metabolites":{
-"m1840":-1.0,
-"m1841":1.0
+"m1841":-1.0,
+"m1842":1.0
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -90169,7 +90156,7 @@
 "id":"EX_ITACN_OUT",
 "name":"itaconate exchange",
 "metabolites":{
-"m1841":-1.0
+"m1842":-1.0
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
@@ -90183,7 +90170,7 @@
 "name":"cis-aconitate decarboxylase",
 "metabolites":{
 "m10":-1.0,
-"m1840":1.0,
+"m1841":1.0,
 "m436":-1.0,
 "m82":1.0,
 "prot_B3IUN8":-0.408918728778533

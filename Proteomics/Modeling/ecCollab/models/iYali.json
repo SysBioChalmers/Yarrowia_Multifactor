@@ -19930,8 +19930,8 @@
 "m384":1.0,
 "m385":1.0
 },
-"lower_bound":-1000.0,
-"upper_bound":1000.0,
+"lower_bound":0.0,
+"upper_bound":0.0,
 "gene_reaction_rule":"YALI0E14443g",
 "subsystem":"Glycerophospholipid metabolism",
 "annotation":{
@@ -25932,7 +25932,7 @@
 },
 {
 "id":"718",
-"name":"malic enzyme (NADP)",
+"name":"malic enzyme (NAD)",
 "metabolites":{
 "m27":-1.0,
 "m30":1.0,
@@ -46219,7 +46219,7 @@
 "m570":-1.0,
 "m573":1.0
 },
-"lower_bound":-1000.0,
+"lower_bound":0.0,
 "upper_bound":1000.0,
 "gene_reaction_rule":"YALI0E32769g or YALI0D07986g",
 "subsystem":"Glycerolipid metabolism",
@@ -46237,7 +46237,7 @@
 "m567":-1.0
 },
 "lower_bound":0.0,
-"upper_bound":0.0,
+"upper_bound":1000.0,
 "gene_reaction_rule":"YALI0E32769g or YALI0D07986g",
 "subsystem":"Glycerolipid metabolism",
 "annotation":{
@@ -46288,7 +46288,7 @@
 "m1704":1.0
 },
 "lower_bound":0.0,
-"upper_bound":0.0,
+"upper_bound":1000.0,
 "gene_reaction_rule":"YALI0B14531g",
 "subsystem":"Glycerolipid metabolism",
 "annotation":{
@@ -48373,24 +48373,6 @@
 }
 },
 {
-"id":"iYL0336",
-"name":"acyldihydroxyacetonephosphate reductase",
-"metabolites":{
-"m1249":-1.0,
-"m1609":-1.0,
-"m1610":1.0,
-"m572":-1.0,
-"m577":1.0
-},
-"lower_bound":-1000.0,
-"upper_bound":1000.0,
-"gene_reaction_rule":"",
-"subsystem":"Glycerophospholipid metabolism",
-"annotation":{
-"sbo":"SBO:0000176"
-}
-},
-{
 "id":"iYL0443",
 "name":"purine-nucleoside phosphorylase (nicotinate)",
 "metabolites":{
@@ -49888,6 +49870,23 @@
 "lower_bound":0.0,
 "upper_bound":1000.0,
 "gene_reaction_rule":"",
+"annotation":{
+"sbo":"SBO:0000176"
+}
+},
+{
+"id":"719",
+"name":"malic enzyme (NADP)",
+"metabolites":{
+"m176":1.0,
+"m178":-1.0,
+"m44":1.0,
+"m538":-1.0,
+"m6":1.0
+},
+"lower_bound":0.0,
+"upper_bound":1000.0,
+"gene_reaction_rule":"YALI0E18634g",
 "annotation":{
 "sbo":"SBO:0000176"
 }

@@ -48022,7 +48022,7 @@
 },
 "lower_bound":-1000.0,
 "upper_bound":1000.0,
-"gene_reaction_rule":"YALI0B23188g",
+"gene_reaction_rule":"YALI0B16192g",
 "subsystem":"Fructose and mannose metabolism",
 "annotation":{
 "sbo":"SBO:0000176"
@@ -48042,7 +48042,7 @@
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
-"gene_reaction_rule":"YALI0B16192g",
+"gene_reaction_rule":"YALI0E34793g and YALI0D24431g",
 "subsystem":"Citrate cycle (TCA cycle)",
 "annotation":{
 "sbo":"SBO:0000176"
@@ -48059,7 +48059,7 @@
 },
 "lower_bound":0.0,
 "upper_bound":1000.0,
-"gene_reaction_rule":"YALI0E34793g and YALI0D24431g",
+"gene_reaction_rule":"YALI0A20350g",
 "subsystem":"Glycerolipid metabolism",
 "annotation":{
 "sbo":"SBO:0000176"

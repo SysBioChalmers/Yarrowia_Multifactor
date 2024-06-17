@@ -42,7 +42,7 @@ end
 params = modelAdapter.getParameters();
 
 if nargin < 4 || isempty(filePath)
-    filePath = fullfile(params.path, 'output');
+    filePath = fullfile(params.path, 'output\Escher_fluxes');
 end
 
 if nargin < 3 || isempty(fileName)

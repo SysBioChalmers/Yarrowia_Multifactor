@@ -1,6 +1,3 @@
-%% TO-DO:
-% Combine the flexProt variables of each model and save them
-
 verbose = false;
 saveModels = true;
 
@@ -10,7 +7,7 @@ ModelAdapter = ModelAdapterManager.setDefault(adapterLocation);
 params = ModelAdapter.getParameters();
 
 % Load pooled model
-ecModel = loadEcModel('eciYali.yml');
+ecModel = loadEcModel('eciYali2.yml');
 
 fluxData = loadFluxData();
 fluxDataIT = loadFluxData(fullfile(params.path,'data','fluxData_itaconate.tsv'));
@@ -211,5 +208,6 @@ for i = 1:length(fluxData.conds)
     % Save proteome model
     if saveModels == true
         saveEcModel(ecModel_new,[ecModel_new.id,'.yml']);
+        saveEcModel(ecModel_new,[ecModel_new.id,'.xml']);
     end
 end

@@ -7,7 +7,7 @@ params = ModelAdapter.getParameters();
 % STEP 2 Load conventional iYali
 model = loadConventionalGEM();
 
-DLKcat = true;
+DLKcat = false;
 
 % STEP 3-4 Prepare ecModel - I generated a custom uniprot.tsv file where I
 % got the KEGG crossref and exchanged it for the gene_oln
@@ -105,5 +105,5 @@ struct2table(tunedKcats)
 saveEcModel(ecModel,'eciYali_stage3.yml');
 
 % This functional ecModel will also be kept in the GECKO GitHub.
-saveEcModel(ecModel,'eciYali.yml');
-saveEcModel(ecModel,'eciYali.xml');
+saveEcModel(ecModel,'eciYali2.yml');
+saveEcModel(ecModel,'eciYali2.xml');
